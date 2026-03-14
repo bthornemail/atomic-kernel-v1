@@ -6,6 +6,7 @@ Depends on: `README.md`, `docs/INDEX.md`
 Purpose: provide a human-friendly starting path into Atomic Kernel.
 
 - `what-is-atomic-kernel.md`
+- `who-is-this-for.md`
 - `quick-start.md`
 - `why-determinism.md`
 - `architecture-overview.md`

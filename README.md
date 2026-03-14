@@ -5,50 +5,64 @@ Depends on: `kernel/coq/AtomicKernel.v`, `conformance/run-tests.sh`, `scripts/at
 
 Purpose: document the current enforced contract and usage boundaries for this layer.
 
+Atomic Kernel is a deterministic replay substrate for systems that cannot tolerate state drift. The same canonical input yields the same transition, identity, and replay witness across environments, so peers can recompute and verify instead of trusting runtime coincidence.
 
-Atomic Kernel is a deterministic replay substrate with a release-normalized Python API (`atomic_kernel.*`).
+## What It Is
+- A stable constitutional base layer with a release-normalized API: `atomic_kernel.*`.
+- A deterministic kernel law with conformance tests, gates, and replay-hash locks.
+- A split authority model where projection layers stay non-authoritative.
 
-Start here:
-- quick start: `docs/guide/quick-start.md`
-- concept overview: `docs/guide/what-is-atomic-kernel.md`
-- architecture overview: `docs/guide/architecture-overview.md`
+## Why It Exists
+- Eliminate cross-machine state drift.
+- Make identity derivable from canonical forms.
+- Enforce fail-closed validation for malformed or forged artifacts.
+- Keep XML/Aztec useful for projection without authority backflow.
 
-## What Is Guaranteed
-- Deterministic transition/replay for supported widths (`16,32,64,128,256`).
-- Fail-closed validation for Wave27H/27I/27J/27K gate surfaces.
-- Replay-hash lock enforcement for canonical reports.
-- Append-only SID/OID/CLOCK occurrence semantics (Wave27I).
+## Who It Is For
+- Deterministic distributed runtimes.
+- Verifiable artifact/replay pipelines.
+- Identity-safe coordination and audit-sensitive systems.
 
-## What Is Not Claimed
-- No claim that projection/transport layers define authority.
-- No claim beyond current proofs/tests/gates in this repository.
-- Wave27K lane16 is implemented and validated but remains draft extension scope.
+Not a good fit for ordinary CRUD apps that do not need deterministic replay guarantees.
 
-## Public API (Stable v0.1.0)
-```python
-import atomic_kernel as ak
-
-x1 = ak.delta(16, 0x0001)
-orbit = ak.replay(16, 0x0001, 8)
-
-sid = ak.compute_typed_sid("living_xml", "0011100")
-clock1 = ak.advance_clock({"frame": 0, "tick": 1, "control": 0})
-oid = ak.compute_oid(clock1, sid, None)
-
-header = ak.closure_fixpoint(0x1C)
-p = ak.phase(0x1C)
-```
-
-## Release Ritual
+## 60-Second Quick Start
 ```bash
 cd /home/main/devops/atomic-kernel
-./conformance/run-tests.sh
-./scripts/atomic-kernel-gate.sh
 ./scripts/release-gate.sh
 ```
 
-## Authority Boundary
-Canonical truth is kernel/runtime + fixture corpora + replay-hash locks. All projection/propagation surfaces are derived and non-authoritative.
+## Architecture (Authority Ladder)
+```text
+Kernel Law (normative)
+  -> Encoded Runtime (extension)
+  -> Distributed Identity (extension)
+  -> Extensions and Adoption (extension/advisory)
+  -> Propagation Surfaces (projection only)
+```
+
+## Public API (Stable v0.1.0)
+External consumers should import only:
+
+```python
+import atomic_kernel as ak
+
+orbit = ak.replay(16, 0x0001, 8)
+sid = ak.compute_typed_sid("living_xml", "0011100")
+clock1 = ak.advance_clock({"frame": 0, "tick": 1, "control": 0})
+oid = ak.compute_oid(clock1, sid, None)
+```
+
+## Go Next
+- Human docs: `docs/guide/README.md`
+- Authority and status: `docs/STATUS.md`
+- Change discipline: `docs/KERNEL_CHANGE_POLICY.md`
+- Formal specs: `docs/INDEX.md`
+- Scan/verify/render flow: `docs/guide/scan-demo.md`
+
+## Release Ritual
+- `./conformance/run-tests.sh`
+- `./scripts/atomic-kernel-gate.sh`
+- `./scripts/release-gate.sh`
 
 ## Boundary
 This layer is derived from canonical artifacts and does not redefine kernel law.

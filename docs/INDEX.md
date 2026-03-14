@@ -7,9 +7,11 @@ Purpose: provide the authoritative index of current ABI contracts and status bou
 
 - [Guide Index](guide/README.md)
 - [What Is Atomic Kernel](guide/what-is-atomic-kernel.md)
+- [Who Is This For](guide/who-is-this-for.md)
 - [Quick Start](guide/quick-start.md)
 - [Architecture Overview (Human)](guide/architecture-overview.md)
 - [STATUS.md](STATUS.md)
+- [KERNEL_CHANGE_POLICY.md](KERNEL_CHANGE_POLICY.md)
 - [WAVE27H_LIVING_XML_ABI.md](WAVE27H_LIVING_XML_ABI.md)
 - [WAVE27I_IDENTITY_AND_OCCURRENCE_ABI.md](WAVE27I_IDENTITY_AND_OCCURRENCE_ABI.md)
 - [WAVE27J_SEED_ALGEBRA_ABI.md](WAVE27J_SEED_ALGEBRA_ABI.md)
