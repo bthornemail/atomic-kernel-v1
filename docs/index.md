@@ -35,6 +35,7 @@ Used downstream in `metaverse-kit` through the stable `atomic_kernel.*` API boun
 - [Abstract Syntax Graph Schema](ABSTRACT_SYNTAX_GRAPH_SCHEMA.md)
 - [Pattern Instance Schema](PATTERN_INSTANCE_SCHEMA.md)
 - [Regular Path Expression Language](REGULAR_PATH_EXPRESSION_LANGUAGE.md)
+- [State Machine Framework](STATE_MACHINE_FRAMEWORK.md)
 - [UML Projection Contract](UML_PROJECTION_CONTRACT.md)
 
 ## Core Rule

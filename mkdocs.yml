@@ -29,6 +29,7 @@ nav:
       - Abstract Syntax Graph Schema (Draft): ABSTRACT_SYNTAX_GRAPH_SCHEMA.md
       - Pattern Instance Schema (Draft): PATTERN_INSTANCE_SCHEMA.md
       - Regular Path Expression Language (Draft): REGULAR_PATH_EXPRESSION_LANGUAGE.md
+      - State Machine Framework (Draft): STATE_MACHINE_FRAMEWORK.md
       - UML Projection Contract (Draft): UML_PROJECTION_CONTRACT.md
       - Wave27H Living XML ABI: WAVE27H_LIVING_XML_ABI.md
       - Wave27I Identity and Occurrence ABI: WAVE27I_IDENTITY_AND_OCCURRENCE_ABI.md
