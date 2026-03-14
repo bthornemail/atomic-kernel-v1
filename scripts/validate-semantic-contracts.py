@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail-closed validator for state-machine and pattern-instance v0 contracts."""
+"""Fail-closed validator for semantic contract v0 schemas and fixtures."""
 
 from __future__ import annotations
 
@@ -42,10 +42,32 @@ PATTERN_KEYS = {
     "alternates",
 }
 
+DIAGRAM_KEYS = {
+    "v",
+    "authority",
+    "view_id",
+    "view_type",
+    "source_frame_hash",
+    "elements",
+    "relations",
+    "layout",
+    "annotations",
+}
+
+DIAG_ELEMENT_KEYS = {"id", "kind", "ref_kind", "ref_id", "label"}
+DIAG_REL_KEYS = {"id", "kind", "from", "to", "ref_kind", "ref_id"}
+DIAG_ANNOT_KEYS = {"kind", "target", "text"}
+
 PATTERN_TYPES = {"Adapter", "Facade", "Strategy", "Observer", "Builder"}
 EXT_TYPES = {"int", "float", "string", "bool", "json"}
 STATE_KINDS = {"simple", "composite", "final"}
 MACHINE_KINDS = {"behavioral", "protocol"}
+DIAG_VIEW_TYPES = {"class", "component", "state"}
+DIAG_ELEMENT_KINDS = {"class", "interface", "component", "state", "region", "note", "pattern_overlay"}
+DIAG_ELEMENT_REF_KINDS = {"node", "state", "region", "pattern", "none"}
+DIAG_REL_KINDS = {"association", "dependency", "composition", "transition", "implements", "extends"}
+DIAG_REL_REF_KINDS = {"edge", "transition", "none"}
+DIAG_ANNOT_KINDS = {"info", "warning", "pattern"}
 
 
 def fail(msg: str) -> None:
@@ -222,6 +244,91 @@ def validate_pattern_instance(data: dict) -> None:
         fail("pattern-instance.source_frame_hash must be 64 lower-hex chars")
 
 
+def validate_diagram_view(data: dict) -> None:
+    require_keys(data, DIAGRAM_KEYS, DIAGRAM_KEYS, "diagram-view")
+
+    if data["v"] != "ak.diagram_view.v0":
+        fail("diagram-view.v must be ak.diagram_view.v0")
+    if data["authority"] != "advisory":
+        fail("diagram-view.authority must be advisory")
+    require_str(data["view_id"], "diagram-view.view_id")
+    if data["view_type"] not in DIAG_VIEW_TYPES:
+        fail("diagram-view.view_type invalid")
+    source_hash = require_str(data["source_frame_hash"], "diagram-view.source_frame_hash")
+    if not HEX64_RE.fullmatch(source_hash):
+        fail("diagram-view.source_frame_hash must be 64 lower-hex chars")
+
+    elements = data["elements"]
+    if not isinstance(elements, list) or not elements:
+        fail("diagram-view.elements must be non-empty list")
+    element_ids: set[str] = set()
+    for i, el in enumerate(elements):
+        if not isinstance(el, dict):
+            fail(f"diagram-view.elements[{i}] must be object")
+        require_keys(el, DIAG_ELEMENT_KEYS, DIAG_ELEMENT_KEYS, f"diagram-view.elements[{i}]")
+        eid = require_str(el["id"], f"diagram-view.elements[{i}].id")
+        if eid in element_ids:
+            fail(f"diagram-view.elements[{i}]: duplicate id {eid}")
+        element_ids.add(eid)
+        if el["kind"] not in DIAG_ELEMENT_KINDS:
+            fail(f"diagram-view.elements[{i}].kind invalid")
+        if el["ref_kind"] not in DIAG_ELEMENT_REF_KINDS:
+            fail(f"diagram-view.elements[{i}].ref_kind invalid")
+        require_str(el["ref_id"], f"diagram-view.elements[{i}].ref_id")
+        require_str(el["label"], f"diagram-view.elements[{i}].label")
+
+    relations = data["relations"]
+    if not isinstance(relations, list):
+        fail("diagram-view.relations must be list")
+    rel_ids: set[str] = set()
+    for i, rel in enumerate(relations):
+        if not isinstance(rel, dict):
+            fail(f"diagram-view.relations[{i}] must be object")
+        require_keys(rel, DIAG_REL_KEYS, DIAG_REL_KEYS, f"diagram-view.relations[{i}]")
+        rid = require_str(rel["id"], f"diagram-view.relations[{i}].id")
+        if rid in rel_ids:
+            fail(f"diagram-view.relations[{i}]: duplicate id {rid}")
+        rel_ids.add(rid)
+        if rel["kind"] not in DIAG_REL_KINDS:
+            fail(f"diagram-view.relations[{i}].kind invalid")
+        frm = require_str(rel["from"], f"diagram-view.relations[{i}].from")
+        to = require_str(rel["to"], f"diagram-view.relations[{i}].to")
+        if frm not in element_ids or to not in element_ids:
+            fail(f"diagram-view.relations[{i}] references missing element id")
+        if rel["ref_kind"] not in DIAG_REL_REF_KINDS:
+            fail(f"diagram-view.relations[{i}].ref_kind invalid")
+        require_str(rel["ref_id"], f"diagram-view.relations[{i}].ref_id")
+
+    layout = data["layout"]
+    if not isinstance(layout, dict):
+        fail("diagram-view.layout must be object")
+    for eid, box in layout.items():
+        if eid not in element_ids:
+            fail("diagram-view.layout references missing element id")
+        if not isinstance(box, dict):
+            fail(f"diagram-view.layout[{eid}] must be object")
+        require_keys(box, {"x", "y", "w", "h"}, {"x", "y", "w", "h"}, f"diagram-view.layout[{eid}]")
+        for key in ("x", "y", "w", "h"):
+            if not isinstance(box[key], int):
+                fail(f"diagram-view.layout[{eid}].{key} must be int")
+        if box["w"] < 1 or box["h"] < 1:
+            fail(f"diagram-view.layout[{eid}] dimensions must be >= 1")
+
+    annotations = data["annotations"]
+    if not isinstance(annotations, list):
+        fail("diagram-view.annotations must be list")
+    for i, ann in enumerate(annotations):
+        if not isinstance(ann, dict):
+            fail(f"diagram-view.annotations[{i}] must be object")
+        require_keys(ann, DIAG_ANNOT_KEYS, DIAG_ANNOT_KEYS, f"diagram-view.annotations[{i}]")
+        if ann["kind"] not in DIAG_ANNOT_KINDS:
+            fail(f"diagram-view.annotations[{i}].kind invalid")
+        target = require_str(ann["target"], f"diagram-view.annotations[{i}].target")
+        if target not in element_ids:
+            fail(f"diagram-view.annotations[{i}] target references missing element id")
+        require_str(ann["text"], f"diagram-view.annotations[{i}].text")
+
+
 def load_json(path: Path) -> dict:
     try:
         obj = json.loads(path.read_text(encoding="utf-8"))
@@ -233,7 +340,12 @@ def load_json(path: Path) -> dict:
 
 
 def validate_fixture_dir(kind: str, accept_dir: Path, reject_dir: Path) -> None:
-    validator = validate_state_machine if kind == "state-machine" else validate_pattern_instance
+    if kind == "state-machine":
+        validator = validate_state_machine
+    elif kind == "pattern-instance":
+        validator = validate_pattern_instance
+    else:
+        validator = validate_diagram_view
 
     accept_files = sorted(accept_dir.glob("*.json"))
     reject_files = sorted(reject_dir.glob("*.json"))
@@ -258,7 +370,12 @@ def validate_fixture_dir(kind: str, accept_dir: Path, reject_dir: Path) -> None:
 def validate_schemas_present() -> None:
     sm = ROOT / "runtime" / "atomic_kernel" / "schemas" / "state-machine.v0.schema.json"
     pi = ROOT / "runtime" / "atomic_kernel" / "schemas" / "pattern-instance.v0.schema.json"
-    for p, expected_id in [(sm, "ak.state_machine.v0"), (pi, "ak.pattern.instance.v0")]:
+    dv = ROOT / "runtime" / "atomic_kernel" / "schemas" / "diagram-view.v0.schema.json"
+    for p, expected_id in [
+        (sm, "ak.state_machine.v0"),
+        (pi, "ak.pattern.instance.v0"),
+        (dv, "ak.diagram_view.v0"),
+    ]:
         data = load_json(p)
         if data.get("$id") != expected_id:
             fail(f"schema {p} has wrong $id")
@@ -266,13 +383,13 @@ def validate_schemas_present() -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--kind", choices=["state-machine", "pattern-instance", "all"], default="all")
+    parser.add_argument("--kind", choices=["state-machine", "pattern-instance", "diagram-view", "all"], default="all")
     args = parser.parse_args()
 
     validate_schemas_present()
 
     fixtures_root = ROOT / "runtime" / "atomic_kernel" / "fixtures"
-    kinds = [args.kind] if args.kind != "all" else ["state-machine", "pattern-instance"]
+    kinds = [args.kind] if args.kind != "all" else ["state-machine", "pattern-instance", "diagram-view"]
 
     for kind in kinds:
         validate_fixture_dir(

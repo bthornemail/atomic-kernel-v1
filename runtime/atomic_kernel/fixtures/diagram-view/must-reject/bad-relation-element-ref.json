@@ -1,0 +1,17 @@
+{
+  "v": "ak.diagram_view.v0",
+  "authority": "advisory",
+  "view_id": "diagram.bad.rel",
+  "view_type": "class",
+  "source_frame_hash": "8888888888888888888888888888888888888888888888888888888888888888",
+  "elements": [
+    {"id": "el_class", "kind": "class", "ref_kind": "node", "ref_id": "n_class", "label": "UserService"}
+  ],
+  "relations": [
+    {"id": "rel_bad", "kind": "dependency", "from": "el_class", "to": "el_missing", "ref_kind": "edge", "ref_id": "e_dep"}
+  ],
+  "layout": {
+    "el_class": {"x": 20, "y": 30, "w": 100, "h": 80}
+  },
+  "annotations": []
+}

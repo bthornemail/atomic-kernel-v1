@@ -1,0 +1,21 @@
+{
+  "v": "ak.diagram_view.v0",
+  "authority": "advisory",
+  "view_id": "diagram.class.basic",
+  "view_type": "class",
+  "source_frame_hash": "6666666666666666666666666666666666666666666666666666666666666666",
+  "elements": [
+    {"id": "el_class", "kind": "class", "ref_kind": "node", "ref_id": "n_class", "label": "UserService"},
+    {"id": "el_iface", "kind": "interface", "ref_kind": "node", "ref_id": "n_iface", "label": "IUserRepo"}
+  ],
+  "relations": [
+    {"id": "rel_impl", "kind": "implements", "from": "el_class", "to": "el_iface", "ref_kind": "edge", "ref_id": "e_impl"}
+  ],
+  "layout": {
+    "el_class": {"x": 40, "y": 60, "w": 180, "h": 90},
+    "el_iface": {"x": 280, "y": 60, "w": 180, "h": 90}
+  },
+  "annotations": [
+    {"kind": "info", "target": "el_class", "text": "Derived from ASG"}
+  ]
+}

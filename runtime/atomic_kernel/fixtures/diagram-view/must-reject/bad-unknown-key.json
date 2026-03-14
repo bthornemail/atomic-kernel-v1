@@ -1,0 +1,16 @@
+{
+  "v": "ak.diagram_view.v0",
+  "authority": "advisory",
+  "view_id": "diagram.bad.key",
+  "view_type": "class",
+  "source_frame_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "elements": [
+    {"id": "el", "kind": "class", "ref_kind": "node", "ref_id": "n", "label": "X"}
+  ],
+  "relations": [],
+  "layout": {
+    "el": {"x": 1, "y": 1, "w": 20, "h": 20}
+  },
+  "annotations": [],
+  "extra": true
+}

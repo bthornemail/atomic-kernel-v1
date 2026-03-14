@@ -1,0 +1,15 @@
+{
+  "v": "ak.diagram_view.v0",
+  "authority": "advisory",
+  "view_id": "diagram.bad.layout",
+  "view_type": "component",
+  "source_frame_hash": "9999999999999999999999999999999999999999999999999999999999999999",
+  "elements": [
+    {"id": "c1", "kind": "component", "ref_kind": "node", "ref_id": "n_c1", "label": "Gateway"}
+  ],
+  "relations": [],
+  "layout": {
+    "unknown": {"x": 0, "y": 0, "w": 10, "h": 10}
+  },
+  "annotations": []
+}

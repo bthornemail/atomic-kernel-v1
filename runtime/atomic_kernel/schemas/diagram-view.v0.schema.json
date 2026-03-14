@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ak.diagram_view.v0",
+  "title": "Atomic Kernel Diagram View v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "v",
+    "authority",
+    "view_id",
+    "view_type",
+    "source_frame_hash",
+    "elements",
+    "relations",
+    "layout",
+    "annotations"
+  ],
+  "properties": {
+    "v": {"const": "ak.diagram_view.v0"},
+    "authority": {"const": "advisory"},
+    "view_id": {"type": "string", "minLength": 1},
+    "view_type": {"enum": ["class", "component", "state"]},
+    "source_frame_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "elements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "kind", "ref_kind", "ref_id", "label"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "kind": {
+            "enum": [
+              "class",
+              "interface",
+              "component",
+              "state",
+              "region",
+              "note",
+              "pattern_overlay"
+            ]
+          },
+          "ref_kind": {"enum": ["node", "state", "region", "pattern", "none"]},
+          "ref_id": {"type": "string", "minLength": 1},
+          "label": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "kind", "from", "to", "ref_kind", "ref_id"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "kind": {
+            "enum": [
+              "association",
+              "dependency",
+              "composition",
+              "transition",
+              "implements",
+              "extends"
+            ]
+          },
+          "from": {"type": "string", "minLength": 1},
+          "to": {"type": "string", "minLength": 1},
+          "ref_kind": {"enum": ["edge", "transition", "none"]},
+          "ref_id": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "layout": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["x", "y", "w", "h"],
+        "properties": {
+          "x": {"type": "integer"},
+          "y": {"type": "integer"},
+          "w": {"type": "integer", "minimum": 1},
+          "h": {"type": "integer", "minimum": 1}
+        }
+      }
+    },
+    "annotations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "target", "text"],
+        "properties": {
+          "kind": {"enum": ["info", "warning", "pattern"]},
+          "target": {"type": "string", "minLength": 1},
+          "text": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  }
+}

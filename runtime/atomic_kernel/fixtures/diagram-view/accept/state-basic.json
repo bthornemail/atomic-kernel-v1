@@ -1,0 +1,23 @@
+{
+  "v": "ak.diagram_view.v0",
+  "authority": "advisory",
+  "view_id": "diagram.state.basic",
+  "view_type": "state",
+  "source_frame_hash": "7777777777777777777777777777777777777777777777777777777777777777",
+  "elements": [
+    {"id": "st_idle", "kind": "state", "ref_kind": "state", "ref_id": "s_idle", "label": "Idle"},
+    {"id": "st_active", "kind": "state", "ref_kind": "state", "ref_id": "s_active", "label": "Active"},
+    {"id": "rg_root", "kind": "region", "ref_kind": "region", "ref_id": "r0", "label": "RootRegion"}
+  ],
+  "relations": [
+    {"id": "tr_start", "kind": "transition", "from": "st_idle", "to": "st_active", "ref_kind": "transition", "ref_id": "t_start"}
+  ],
+  "layout": {
+    "st_idle": {"x": 70, "y": 90, "w": 120, "h": 70},
+    "st_active": {"x": 260, "y": 90, "w": 120, "h": 70},
+    "rg_root": {"x": 30, "y": 50, "w": 380, "h": 180}
+  },
+  "annotations": [
+    {"kind": "pattern", "target": "st_active", "text": "RTC step target"}
+  ]
+}
