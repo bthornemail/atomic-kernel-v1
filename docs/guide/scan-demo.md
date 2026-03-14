@@ -42,5 +42,9 @@ Rule: verify first, render second.
 ## Verification badge envelope
 Use `atomic-kernel.doc.badge/1` for small per-document Aztec badges.
 
+## Live Demo
+Use the interactive page:
+`../demo/scan-verify-render.md`
+
 ## Boundary
 Demo guidance is projection-layer design. It is derived from canonical artifacts and cannot upgrade authority.

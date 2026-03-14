@@ -12,6 +12,7 @@ Atomic Kernel is a deterministic replay substrate for systems that need reproduc
 - Adoption decision: [Who Is This For](guide/who-is-this-for.md)
 - First run: [Quick Start](guide/quick-start.md)
 - Product flow: [Scan / Verify / Render](guide/scan-demo.md)
+- Interactive product demo: [Live Demo](demo/scan-verify-render.md)
 - Badge catalog: [Verification Badges](badges/index.md)
 
 ## Formal Contracts

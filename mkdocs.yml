@@ -17,6 +17,7 @@ nav:
       - Architecture Overview: guide/architecture-overview.md
       - Example Workflow: guide/example-workflow.md
       - Scan / Verify / Render: guide/scan-demo.md
+      - Live Demo: demo/scan-verify-render.md
   - Specs:
       - ABI Index: INDEX.md
       - Status Classification: STATUS.md
