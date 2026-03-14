@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "atomic-kernel.experience.manifest/1",
+  "title": "Atomic Kernel Experience Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "authority",
+    "manifest_id",
+    "release",
+    "version",
+    "kernel",
+    "entry_points",
+    "render",
+    "policy"
+  ],
+  "properties": {
+    "schema": { "const": "atomic-kernel.experience.manifest/1" },
+    "authority": { "const": "projection" },
+    "manifest_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9._-]+$"
+    },
+    "release": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "version": { "const": 1 },
+    "kernel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["package", "public_api", "release_artifacts"],
+      "properties": {
+        "package": { "const": "atomic-kernel" },
+        "public_api": { "const": "atomic_kernel.*" },
+        "release_artifacts": {
+          "type": "string",
+          "pattern": "^releases/[0-9]+\\.[0-9]+\\.[0-9]+/ARTIFACTS\\.sha256$"
+        }
+      }
+    },
+    "entry_points": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "quick_start",
+        "architecture",
+        "kernel_publication",
+        "distributed_api",
+        "adoption"
+      ],
+      "properties": {
+        "quick_start": { "type": "string", "minLength": 1 },
+        "architecture": { "type": "string", "minLength": 1 },
+        "kernel_publication": { "type": "string", "minLength": 1 },
+        "distributed_api": { "type": "string", "minLength": 1 },
+        "adoption": { "type": "string", "minLength": 1 }
+      }
+    },
+    "render": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["xml_projection", "clipboard_profile", "aztec_profile"],
+      "properties": {
+        "xml_projection": { "const": "supported" },
+        "clipboard_profile": { "const": "supported" },
+        "aztec_profile": { "const": "supported" }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verify_before_render",
+        "projection_cannot_upgrade_authority",
+        "fork_scope"
+      ],
+      "properties": {
+        "verify_before_render": { "const": true },
+        "projection_cannot_upgrade_authority": { "const": true },
+        "fork_scope": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "prefixItems": [
+            { "const": "extension" },
+            { "const": "projection" }
+          ],
+          "items": false
+        }
+      }
+    }
+  }
+}

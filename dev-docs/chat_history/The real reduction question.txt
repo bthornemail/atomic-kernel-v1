@@ -1,0 +1,8 @@
+The real reduction question
+
+I'm asking for the quotients of the system:
+
+What structure can be removed
+while the same canonical unfold / replay / projection still results?
+
+That means the true foundation is not “all the symbols you currently talk about,” but the smallest set of laws that preserve the same outputs.
