@@ -31,6 +31,7 @@ nav:
       - Regular Path Expression Language (Draft): REGULAR_PATH_EXPRESSION_LANGUAGE.md
       - State Machine Framework (Draft): STATE_MACHINE_FRAMEWORK.md
       - Diagram View Schema (Draft): DIAGRAM_VIEW_SCHEMA.md
+      - Epistemic Assertion Schema (Draft): EPISTEMIC_ASSERTION_SCHEMA.md
       - UML Projection Contract (Draft): UML_PROJECTION_CONTRACT.md
       - Wave27H Living XML ABI: WAVE27H_LIVING_XML_ABI.md
       - Wave27I Identity and Occurrence ABI: WAVE27I_IDENTITY_AND_OCCURRENCE_ABI.md

@@ -1,0 +1,12 @@
+{
+  "v": "ak.epistemic_assertion.v0",
+  "authority": "advisory",
+  "assertion_id": "ea.bad.evidence",
+  "subject_kind": "edge",
+  "subject_id": "e42",
+  "status": "validated",
+  "confidence": 0.99,
+  "evidence_refs": [],
+  "source_frame_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "rationale": "Evidence required"
+}

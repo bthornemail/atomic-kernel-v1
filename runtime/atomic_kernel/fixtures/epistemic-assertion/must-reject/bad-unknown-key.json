@@ -1,0 +1,13 @@
+{
+  "v": "ak.epistemic_assertion.v0",
+  "authority": "advisory",
+  "assertion_id": "ea.bad.extra",
+  "subject_kind": "state",
+  "subject_id": "s_active",
+  "status": "projected",
+  "confidence": 0.5,
+  "evidence_refs": ["diag:st_active"],
+  "source_frame_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "rationale": "Unexpected field",
+  "extra": true
+}

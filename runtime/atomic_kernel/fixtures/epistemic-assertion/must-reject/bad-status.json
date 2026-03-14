@@ -1,0 +1,12 @@
+{
+  "v": "ak.epistemic_assertion.v0",
+  "authority": "advisory",
+  "assertion_id": "ea.bad.status",
+  "subject_kind": "node",
+  "subject_id": "n1",
+  "status": "probable",
+  "confidence": 0.8,
+  "evidence_refs": ["e1"],
+  "source_frame_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "rationale": "Invalid status enum"
+}

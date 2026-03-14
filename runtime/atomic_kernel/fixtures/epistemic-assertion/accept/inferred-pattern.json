@@ -1,0 +1,13 @@
+{
+  "v": "ak.epistemic_assertion.v0",
+  "authority": "advisory",
+  "assertion_id": "ea.inf.pattern.1",
+  "subject_kind": "pattern",
+  "subject_id": "pi_adapter_001",
+  "status": "inferred",
+  "confidence": 0.91,
+  "evidence_refs": ["edge:e_delegates", "edge:e_implements"],
+  "source_frame_hash": "5678567856785678567856785678567856785678567856785678567856785678",
+  "rationale": "Adapter rule matched with delegation and interface mapping evidence.",
+  "constraints": ["adapter-shape-v0", "delegation-present-v0"]
+}

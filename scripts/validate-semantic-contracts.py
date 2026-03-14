@@ -68,6 +68,21 @@ DIAG_ELEMENT_REF_KINDS = {"node", "state", "region", "pattern", "none"}
 DIAG_REL_KINDS = {"association", "dependency", "composition", "transition", "implements", "extends"}
 DIAG_REL_REF_KINDS = {"edge", "transition", "none"}
 DIAG_ANNOT_KINDS = {"info", "warning", "pattern"}
+EPI_KEYS = {
+    "v",
+    "authority",
+    "assertion_id",
+    "subject_kind",
+    "subject_id",
+    "status",
+    "confidence",
+    "evidence_refs",
+    "source_frame_hash",
+    "rationale",
+    "constraints",
+}
+EPI_SUBJECT_KINDS = {"node", "edge", "state", "transition", "pattern", "diagram_element", "diagram_relation"}
+EPI_STATUS = {"observed", "inferred", "validated", "projected", "rejected"}
 
 
 def fail(msg: str) -> None:
@@ -329,6 +344,31 @@ def validate_diagram_view(data: dict) -> None:
         require_str(ann["text"], f"diagram-view.annotations[{i}].text")
 
 
+def validate_epistemic_assertion(data: dict) -> None:
+    require_keys(data, EPI_KEYS, EPI_KEYS - {"constraints"}, "epistemic-assertion")
+
+    if data["v"] != "ak.epistemic_assertion.v0":
+        fail("epistemic-assertion.v must be ak.epistemic_assertion.v0")
+    if data["authority"] != "advisory":
+        fail("epistemic-assertion.authority must be advisory")
+    require_str(data["assertion_id"], "epistemic-assertion.assertion_id")
+    if data["subject_kind"] not in EPI_SUBJECT_KINDS:
+        fail("epistemic-assertion.subject_kind invalid")
+    require_str(data["subject_id"], "epistemic-assertion.subject_id")
+    if data["status"] not in EPI_STATUS:
+        fail("epistemic-assertion.status invalid")
+
+    conf = data["confidence"]
+    if not isinstance(conf, (int, float)) or conf < 0.0 or conf > 1.0:
+        fail("epistemic-assertion.confidence must be in [0.0, 1.0]")
+    require_str_list(data["evidence_refs"], "epistemic-assertion.evidence_refs", min_items=1)
+    source_hash = require_str(data["source_frame_hash"], "epistemic-assertion.source_frame_hash")
+    if not HEX64_RE.fullmatch(source_hash):
+        fail("epistemic-assertion.source_frame_hash must be 64 lower-hex chars")
+    require_str(data["rationale"], "epistemic-assertion.rationale")
+    require_str_list(data.get("constraints", []), "epistemic-assertion.constraints")
+
+
 def load_json(path: Path) -> dict:
     try:
         obj = json.loads(path.read_text(encoding="utf-8"))
@@ -344,8 +384,10 @@ def validate_fixture_dir(kind: str, accept_dir: Path, reject_dir: Path) -> None:
         validator = validate_state_machine
     elif kind == "pattern-instance":
         validator = validate_pattern_instance
-    else:
+    elif kind == "diagram-view":
         validator = validate_diagram_view
+    else:
+        validator = validate_epistemic_assertion
 
     accept_files = sorted(accept_dir.glob("*.json"))
     reject_files = sorted(reject_dir.glob("*.json"))
@@ -371,10 +413,12 @@ def validate_schemas_present() -> None:
     sm = ROOT / "runtime" / "atomic_kernel" / "schemas" / "state-machine.v0.schema.json"
     pi = ROOT / "runtime" / "atomic_kernel" / "schemas" / "pattern-instance.v0.schema.json"
     dv = ROOT / "runtime" / "atomic_kernel" / "schemas" / "diagram-view.v0.schema.json"
+    ea = ROOT / "runtime" / "atomic_kernel" / "schemas" / "epistemic-assertion.v0.schema.json"
     for p, expected_id in [
         (sm, "ak.state_machine.v0"),
         (pi, "ak.pattern.instance.v0"),
         (dv, "ak.diagram_view.v0"),
+        (ea, "ak.epistemic_assertion.v0"),
     ]:
         data = load_json(p)
         if data.get("$id") != expected_id:
@@ -383,13 +427,22 @@ def validate_schemas_present() -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--kind", choices=["state-machine", "pattern-instance", "diagram-view", "all"], default="all")
+    parser.add_argument(
+        "--kind",
+        choices=["state-machine", "pattern-instance", "diagram-view", "epistemic-assertion", "all"],
+        default="all",
+    )
     args = parser.parse_args()
 
     validate_schemas_present()
 
     fixtures_root = ROOT / "runtime" / "atomic_kernel" / "fixtures"
-    kinds = [args.kind] if args.kind != "all" else ["state-machine", "pattern-instance", "diagram-view"]
+    kinds = [args.kind] if args.kind != "all" else [
+        "state-machine",
+        "pattern-instance",
+        "diagram-view",
+        "epistemic-assertion",
+    ]
 
     for kind in kinds:
         validate_fixture_dir(

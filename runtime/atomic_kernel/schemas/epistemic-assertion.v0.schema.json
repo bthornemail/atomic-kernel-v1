@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ak.epistemic_assertion.v0",
+  "title": "Atomic Kernel Epistemic Assertion v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "v",
+    "authority",
+    "assertion_id",
+    "subject_kind",
+    "subject_id",
+    "status",
+    "confidence",
+    "evidence_refs",
+    "source_frame_hash",
+    "rationale"
+  ],
+  "properties": {
+    "v": {"const": "ak.epistemic_assertion.v0"},
+    "authority": {"const": "advisory"},
+    "assertion_id": {"type": "string", "minLength": 1},
+    "subject_kind": {
+      "enum": [
+        "node",
+        "edge",
+        "state",
+        "transition",
+        "pattern",
+        "diagram_element",
+        "diagram_relation"
+      ]
+    },
+    "subject_id": {"type": "string", "minLength": 1},
+    "status": {
+      "enum": ["observed", "inferred", "validated", "projected", "rejected"]
+    },
+    "confidence": {"type": "number", "minimum": 0.0, "maximum": 1.0},
+    "evidence_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "source_frame_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "rationale": {"type": "string", "minLength": 1},
+    "constraints": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    }
+  }
+}

@@ -37,6 +37,7 @@ Used downstream in `metaverse-kit` through the stable `atomic_kernel.*` API boun
 - [Regular Path Expression Language](REGULAR_PATH_EXPRESSION_LANGUAGE.md)
 - [State Machine Framework](STATE_MACHINE_FRAMEWORK.md)
 - [Diagram View Schema](DIAGRAM_VIEW_SCHEMA.md)
+- [Epistemic Assertion Schema](EPISTEMIC_ASSERTION_SCHEMA.md)
 - [UML Projection Contract](UML_PROJECTION_CONTRACT.md)
 
 ## Core Rule

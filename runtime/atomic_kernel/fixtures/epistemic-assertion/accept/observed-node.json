@@ -1,0 +1,13 @@
+{
+  "v": "ak.epistemic_assertion.v0",
+  "authority": "advisory",
+  "assertion_id": "ea.obs.node.1",
+  "subject_kind": "node",
+  "subject_id": "n_user_service",
+  "status": "observed",
+  "confidence": 1.0,
+  "evidence_refs": ["asg:n_user_service"],
+  "source_frame_hash": "1234123412341234123412341234123412341234123412341234123412341234",
+  "rationale": "Direct parse evidence from canonical ASG frame.",
+  "constraints": ["asg-parse-v0"]
+}
