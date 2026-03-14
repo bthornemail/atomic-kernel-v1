@@ -31,6 +31,12 @@ Used downstream in `metaverse-kit` through the stable `atomic_kernel.*` API boun
 - [Contributor Discipline](CONTRIBUTOR_DISCIPLINE.md)
 - [Roadmap](ROADMAP.md)
 
+## Next Schema Stack (Draft)
+- [Abstract Syntax Graph Schema](ABSTRACT_SYNTAX_GRAPH_SCHEMA.md)
+- [Pattern Instance Schema](PATTERN_INSTANCE_SCHEMA.md)
+- [Regular Path Expression Language](REGULAR_PATH_EXPRESSION_LANGUAGE.md)
+- [UML Projection Contract](UML_PROJECTION_CONTRACT.md)
+
 ## Core Rule
 Scan, verify, then render.
 
