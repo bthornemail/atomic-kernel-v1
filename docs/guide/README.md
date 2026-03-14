@@ -5,6 +5,9 @@ Depends on: `README.md`, `docs/INDEX.md`
 
 Purpose: provide a human-friendly starting path into Atomic Kernel.
 
+To browse these pages as a local site:
+`./scripts/docs-site.sh serve`
+
 - `what-is-atomic-kernel.md`
 - `who-is-this-for.md`
 - `quick-start.md`

@@ -59,6 +59,12 @@ oid = ak.compute_oid(clock1, sid, None)
 - Formal specs: `docs/INDEX.md`
 - Scan/verify/render flow: `docs/guide/scan-demo.md`
 
+## Docs Site (Milestone B)
+```bash
+cd /home/main/devops/atomic-kernel
+./scripts/docs-site.sh serve
+```
+
 ## Release Ritual
 - `./conformance/run-tests.sh`
 - `./scripts/atomic-kernel-gate.sh`

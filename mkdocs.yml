@@ -1,0 +1,38 @@
+site_name: Atomic Kernel
+site_description: Deterministic replay kernel for verifiable computation and identity-safe coordination.
+site_url: https://bthornemail.github.io/atomic-kernel/
+repo_url: https://github.com/bthornemail/atomic-kernel
+repo_name: bthornemail/atomic-kernel
+edit_uri: edit/main/
+docs_dir: docs
+
+nav:
+  - Home: index.md
+  - Guide:
+      - Guide Index: guide/README.md
+      - What Is Atomic Kernel: guide/what-is-atomic-kernel.md
+      - Who Is This For: guide/who-is-this-for.md
+      - Quick Start: guide/quick-start.md
+      - Why Determinism Matters: guide/why-determinism.md
+      - Architecture Overview: guide/architecture-overview.md
+      - Example Workflow: guide/example-workflow.md
+      - Scan / Verify / Render: guide/scan-demo.md
+  - Specs:
+      - ABI Index: INDEX.md
+      - Status Classification: STATUS.md
+      - Kernel Change Policy: KERNEL_CHANGE_POLICY.md
+      - Wave27H Living XML ABI: WAVE27H_LIVING_XML_ABI.md
+      - Wave27I Identity and Occurrence ABI: WAVE27I_IDENTITY_AND_OCCURRENCE_ABI.md
+      - Wave27J Seed Algebra ABI: WAVE27J_SEED_ALGEBRA_ABI.md
+      - Wave27K Lane16 ABI (Draft): WAVE27K_LANE16_ABI.md
+
+theme:
+  name: material
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+
+plugins:
+  - search
