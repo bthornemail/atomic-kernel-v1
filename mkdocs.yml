@@ -21,13 +21,25 @@ nav:
       - Live Demo: demo/scan-verify-render.md
   - Specs:
       - ABI Index: INDEX.md
+      - Semantic Contracts Index (Draft): SEMANTIC_CONTRACTS_INDEX.md
       - Status Classification: STATUS.md
       - Kernel Change Policy: KERNEL_CHANGE_POLICY.md
       - Roadmap: ROADMAP.md
+      - Case Study: Sample Analysis: CASE_STUDY_SAMPLE_ANALYSIS.md
+      - Case Study: Real Repo (metaverse-kit/nf): CASE_STUDY_REAL_REPO_METAVERSE_KIT_NF.md
+      - Case Study: Real Repo (tetragrammatron-os): CASE_STUDY_REAL_REPO_TETRAGRAMMATRON_OS.md
+      - Case Study Comparison: CASE_STUDY_COMPARISON.md
+      - Tetragrammatron Architecture Diagram (SVG): diagrams/tetragrammatron-architecture.svg
+      - Tetragrammatron Protocol Diagram (SVG): diagrams/tetragrammatron-protocol.svg
       - Onboarding Checklist: ONBOARDING_CHECKLIST.md
       - Contributor Discipline: CONTRIBUTOR_DISCIPLINE.md
       - Abstract Syntax Graph Schema (Draft): ABSTRACT_SYNTAX_GRAPH_SCHEMA.md
+      - ASG Ingestion Contract (Draft): ASG_INGESTION_CONTRACT.md
+      - MJS ASG Ingestion Contract (Draft): MJS_ASG_INGESTION_CONTRACT.md
       - Pattern Instance Schema (Draft): PATTERN_INSTANCE_SCHEMA.md
+      - Pattern Extraction Contract (Draft): PATTERN_EXTRACTION_CONTRACT.md
+      - Applied Analysis Report Contract (Draft): APPLIED_ANALYSIS_REPORT_CONTRACT.md
+      - Protocol Flow Contract (Draft): PROTOCOL_FLOW_CONTRACT.md
       - Regular Path Expression Language (Draft): REGULAR_PATH_EXPRESSION_LANGUAGE.md
       - State Machine Framework (Draft): STATE_MACHINE_FRAMEWORK.md
       - Diagram View Schema (Draft): DIAGRAM_VIEW_SCHEMA.md
@@ -35,6 +47,8 @@ nav:
       - Topology Edge Schema (Draft): TOPOLOGY_EDGE_SCHEMA.md
       - Ontology Node Schema (Draft): ONTOLOGY_NODE_SCHEMA.md
       - UML Projection Contract (Draft): UML_PROJECTION_CONTRACT.md
+      - RDF Export Mapping (Draft): RDF_EXPORT_MAPPING.md
+      - RDF Query Examples (Draft): RDF_QUERY_EXAMPLES.md
       - Wave27H Living XML ABI: WAVE27H_LIVING_XML_ABI.md
       - Wave27I Identity and Occurrence ABI: WAVE27I_IDENTITY_AND_OCCURRENCE_ABI.md
       - Wave27J Seed Algebra ABI: WAVE27J_SEED_ALGEBRA_ABI.md

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ak.protocol.flow.v0",
+  "title": "Atomic Kernel Protocol Flow v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "v",
+    "authority",
+    "states",
+    "transitions",
+    "state_digest",
+    "transition_digest",
+    "flow_digest"
+  ],
+  "properties": {
+    "v": {"const": "protocol-flow.v0"},
+    "authority": {"const": "advisory"},
+    "states": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "count"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "count": {"type": "integer", "minimum": 0}
+        }
+      }
+    },
+    "transitions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["from", "to", "kind", "count", "evidence_edges"],
+        "properties": {
+          "from": {"type": "string", "minLength": 1},
+          "to": {"type": "string", "minLength": 1},
+          "kind": {"type": "string", "minLength": 1},
+          "count": {"type": "integer", "minimum": 0},
+          "evidence_edges": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1}
+          }
+        }
+      }
+    },
+    "state_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "transition_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "flow_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  }
+}

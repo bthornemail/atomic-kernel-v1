@@ -2,8 +2,12 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 export PYTHONPATH="$ROOT:${PYTHONPATH:-}"
+cd "$ROOT"
 python3 -m unittest \
   atomic_kernel.tests.test_public_api \
+  runtime.atomic_kernel.tests.test_asg \
+  runtime.atomic_kernel.tests.test_pattern_extract \
+  runtime.atomic_kernel.tests.test_repo_analysis \
   runtime.atomic_kernel.tests.test_living_xml \
   runtime.atomic_kernel.tests.test_living_xml_fuzz \
   runtime.atomic_kernel.tests.test_identity_occurrence \
