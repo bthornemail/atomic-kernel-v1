@@ -12,6 +12,7 @@ Atomic Kernel is a deterministic replay substrate for systems that need reproduc
 - Adoption decision: [Who Is This For](guide/who-is-this-for.md)
 - First run: [Quick Start](guide/quick-start.md)
 - Product flow: [Scan / Verify / Render](guide/scan-demo.md)
+- Badge catalog: [Verification Badges](badges/index.md)
 
 ## Formal Contracts
 - [Status Classification](STATUS.md)
@@ -22,6 +23,11 @@ Atomic Kernel is a deterministic replay substrate for systems that need reproduc
 Scan, verify, then render.
 
 Projection surfaces remain advisory and cannot upgrade kernel authority.
+
+## Publish Path
+```bash
+./scripts/docs-publish.sh --release 0.1.0 --no-build
+```
 
 ## Boundary
 This page is a routing surface for documentation. It does not redefine kernel law.

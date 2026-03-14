@@ -25,6 +25,7 @@ nav:
       - Wave27I Identity and Occurrence ABI: WAVE27I_IDENTITY_AND_OCCURRENCE_ABI.md
       - Wave27J Seed Algebra ABI: WAVE27J_SEED_ALGEBRA_ABI.md
       - Wave27K Lane16 ABI (Draft): WAVE27K_LANE16_ABI.md
+  - Verification Badges: badges/index.md
 
 theme:
   name: material

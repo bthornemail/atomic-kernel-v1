@@ -65,6 +65,12 @@ cd /home/main/devops/atomic-kernel
 ./scripts/docs-site.sh serve
 ```
 
+## Docs Publish (Milestone C)
+```bash
+cd /home/main/devops/atomic-kernel
+./scripts/docs-publish.sh --release 0.1.0 --no-build
+```
+
 ## Release Ritual
 - `./conformance/run-tests.sh`
 - `./scripts/atomic-kernel-gate.sh`
