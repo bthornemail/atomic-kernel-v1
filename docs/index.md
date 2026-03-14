@@ -22,6 +22,7 @@ Atomic Kernel is a deterministic replay substrate for systems that need reproduc
 - [ABI Index](INDEX.md)
 - [Onboarding Checklist](ONBOARDING_CHECKLIST.md)
 - [Contributor Discipline](CONTRIBUTOR_DISCIPLINE.md)
+- [Roadmap](ROADMAP.md)
 
 ## Core Rule
 Scan, verify, then render.

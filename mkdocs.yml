@@ -23,6 +23,7 @@ nav:
       - ABI Index: INDEX.md
       - Status Classification: STATUS.md
       - Kernel Change Policy: KERNEL_CHANGE_POLICY.md
+      - Roadmap: ROADMAP.md
       - Onboarding Checklist: ONBOARDING_CHECKLIST.md
       - Contributor Discipline: CONTRIBUTOR_DISCIPLINE.md
       - Wave27H Living XML ABI: WAVE27H_LIVING_XML_ABI.md
