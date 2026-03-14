@@ -12,6 +12,7 @@ To browse these pages as a local site:
 - `who-is-this-for.md`
 - `quick-start.md`
 - `why-determinism.md`
+- `what-makes-atomic-kernel-different.md`
 - `architecture-overview.md`
 - `example-workflow.md`
 - `scan-demo.md`

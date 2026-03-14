@@ -13,7 +13,15 @@ TARGETS=(
 hits=0
 for t in "${TARGETS[@]}"; do
   [[ -d "$t" ]] || continue
-  if rg -n "runtime\.atomic_kernel\.|from runtime\.atomic_kernel|import runtime\.atomic_kernel" -S "$t" >/tmp/atomic-kernel-import-hits.txt 2>/dev/null; then
+  if rg -n \
+    --glob '*.py' \
+    --glob '*.ts' \
+    --glob '*.tsx' \
+    --glob '*.js' \
+    --glob '*.mjs' \
+    --glob '*.cjs' \
+    "runtime\.atomic_kernel\.|from runtime\.atomic_kernel|import runtime\.atomic_kernel" \
+    -S "$t" >/tmp/atomic-kernel-import-hits.txt 2>/dev/null; then
     echo "forbidden internal import surface detected in: $t" >&2
     cat /tmp/atomic-kernel-import-hits.txt >&2
     hits=1

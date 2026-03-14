@@ -12,6 +12,7 @@ nav:
       - Guide Index: guide/README.md
       - What Is Atomic Kernel: guide/what-is-atomic-kernel.md
       - Who Is This For: guide/who-is-this-for.md
+      - What Makes Atomic Kernel Different: guide/what-makes-atomic-kernel-different.md
       - Quick Start: guide/quick-start.md
       - Why Determinism Matters: guide/why-determinism.md
       - Architecture Overview: guide/architecture-overview.md
@@ -22,6 +23,8 @@ nav:
       - ABI Index: INDEX.md
       - Status Classification: STATUS.md
       - Kernel Change Policy: KERNEL_CHANGE_POLICY.md
+      - Onboarding Checklist: ONBOARDING_CHECKLIST.md
+      - Contributor Discipline: CONTRIBUTOR_DISCIPLINE.md
       - Wave27H Living XML ABI: WAVE27H_LIVING_XML_ABI.md
       - Wave27I Identity and Occurrence ABI: WAVE27I_IDENTITY_AND_OCCURRENCE_ABI.md
       - Wave27J Seed Algebra ABI: WAVE27J_SEED_ALGEBRA_ABI.md

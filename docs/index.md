@@ -10,6 +10,7 @@ Atomic Kernel is a deterministic replay substrate for systems that need reproduc
 ## Start Here
 - New reader: [What Is Atomic Kernel](guide/what-is-atomic-kernel.md)
 - Adoption decision: [Who Is This For](guide/who-is-this-for.md)
+- Positioning: [What Makes Atomic Kernel Different](guide/what-makes-atomic-kernel-different.md)
 - First run: [Quick Start](guide/quick-start.md)
 - Product flow: [Scan / Verify / Render](guide/scan-demo.md)
 - Interactive product demo: [Live Demo](demo/scan-verify-render.md)
@@ -19,6 +20,8 @@ Atomic Kernel is a deterministic replay substrate for systems that need reproduc
 - [Status Classification](STATUS.md)
 - [Kernel Change Policy](KERNEL_CHANGE_POLICY.md)
 - [ABI Index](INDEX.md)
+- [Onboarding Checklist](ONBOARDING_CHECKLIST.md)
+- [Contributor Discipline](CONTRIBUTOR_DISCIPLINE.md)
 
 ## Core Rule
 Scan, verify, then render.
