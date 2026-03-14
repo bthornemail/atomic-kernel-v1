@@ -1,6 +1,6 @@
 # Atomic-kernel 0.1.0 release artifacts (sha256)
 7beb58797d0d170bc280f06eb39a109bcbf6fbd2799418bb95756ae314a5ee24  ARCHITECTURE.md
-b7b24d6748515395b28c8cddc0d82a289e9a0f3c621033e5d920b17ae45502f5  README.md
+ec26fa0c458050d39e4443aa3d0c640bb361c635e40b343e8a7f2d5556afe239  README.md
 ea1cf14e77ea36f585582fe1474030cf769fa51aef2744db3c8c703c1cb1a95a  conformance/replay-witness-packs/replay-256.json
 62905b2e4c4b6ed446755c72d3a4c206c5e81b27f5666678d2feb13834ab39b2  docs/INDEX.md
 2cdbdcc182d9673b1dd0130cede9a9c00f4d9ec48427364dd0bb352705ded724  docs/STATUS.md

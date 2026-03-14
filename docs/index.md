@@ -3,9 +3,16 @@ Status: Advisory
 Authority: Extension
 Depends on: `README.md`, `docs/STATUS.md`, `docs/KERNEL_CHANGE_POLICY.md`
 
-Purpose: provide a public documentation front door that routes readers from quick understanding to formal contracts.
+Purpose: provide a public front door from first-time understanding to verified contracts.
 
-Atomic Kernel is a deterministic replay substrate for systems that need reproducibility, verifiability, and identity-safe coordination.
+Atomic Kernel is a deterministic replay substrate for systems that cannot tolerate state drift.
+It matters because identity and replay outcomes can be recomputed and verified, not merely trusted.
+
+## Try It Now
+- **[Try the Scan / Verify / Render demo](demo/scan-verify-render.md)**
+- **[Start with Quick Start](guide/quick-start.md)**
+
+Used downstream in `metaverse-kit` through the stable `atomic_kernel.*` API boundary.
 
 ## Start Here
 - New reader: [What Is Atomic Kernel](guide/what-is-atomic-kernel.md)

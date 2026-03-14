@@ -3,9 +3,10 @@ Status: Normative
 Authority: Kernel
 Depends on: `kernel/coq/AtomicKernel.v`, `conformance/run-tests.sh`, `scripts/atomic-kernel-gate.sh`
 
-Purpose: document the current enforced contract and usage boundaries for this layer.
+Purpose: define the enforced kernel contract and the fastest path to verify it.
 
-Atomic Kernel is a deterministic replay substrate for systems that cannot tolerate state drift. The same canonical input yields the same transition, identity, and replay witness across environments, so peers can recompute and verify instead of trusting runtime coincidence.
+Atomic Kernel is a deterministic replay substrate for systems that cannot tolerate state drift.
+The same canonical input yields the same transition, identity, and witness across environments, so peers can recompute and verify instead of trusting runtime coincidence.
 
 ## What It Is
 - A stable constitutional base layer with a release-normalized API: `atomic_kernel.*`.
@@ -66,6 +67,10 @@ cd /home/main/devops/atomic-kernel
 ```
 
 No local venv required: `docs-site.sh` falls back to Docker when `mkdocs` is not installed.
+
+## Hosted Docs URL
+Set this after GitHub Pages is enabled:
+- `https://bthornemail.github.io/atomic-kernel/`
 
 ## Docs Publish (Milestone C)
 ```bash
