@@ -1,0 +1,12 @@
+{
+  "v": "ak.topology_edge.v0",
+  "authority": "advisory",
+  "edge_id": "te.bad.kind",
+  "kind": "mirrors",
+  "from_kind": "node",
+  "from_id": "n1",
+  "to_kind": "node",
+  "to_id": "n2",
+  "source_frame_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+  "confidence": 0.9
+}

@@ -1,0 +1,10 @@
+{
+  "v": "ak.ontology_node.v0",
+  "authority": "advisory",
+  "node_id": "on.bad.extra",
+  "class": "Edge",
+  "label": "Edge",
+  "properties": {},
+  "source_frame_hash": "7878787878787878787878787878787878787878787878787878787878787878",
+  "extra": true
+}

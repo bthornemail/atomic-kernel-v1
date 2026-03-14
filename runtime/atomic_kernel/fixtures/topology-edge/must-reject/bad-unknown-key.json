@@ -1,0 +1,13 @@
+{
+  "v": "ak.topology_edge.v0",
+  "authority": "advisory",
+  "edge_id": "te.bad.extra",
+  "kind": "equivalent_to",
+  "from_kind": "state",
+  "from_id": "s1",
+  "to_kind": "state",
+  "to_id": "s2",
+  "source_frame_hash": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+  "confidence": 0.8,
+  "extra": true
+}

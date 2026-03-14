@@ -83,6 +83,58 @@ EPI_KEYS = {
 }
 EPI_SUBJECT_KINDS = {"node", "edge", "state", "transition", "pattern", "diagram_element", "diagram_relation"}
 EPI_STATUS = {"observed", "inferred", "validated", "projected", "rejected"}
+TOPO_KEYS = {
+    "v",
+    "authority",
+    "edge_id",
+    "kind",
+    "from_kind",
+    "from_id",
+    "to_kind",
+    "to_id",
+    "source_frame_hash",
+    "confidence",
+    "evidence_refs",
+}
+TOPO_REL_KINDS = {
+    "contains",
+    "refines",
+    "derives_from",
+    "projects_to",
+    "transitions_to",
+    "equivalent_to",
+    "depends_on",
+    "delegates_to",
+    "implements",
+}
+TOPO_OBJ_KINDS = {
+    "graph_frame",
+    "node",
+    "edge",
+    "machine",
+    "region",
+    "state",
+    "transition",
+    "pattern_instance",
+    "diagram_view",
+    "epistemic_assertion",
+    "topology_edge",
+    "ontology_node",
+}
+ONTO_KEYS = {"v", "authority", "node_id", "class", "label", "properties", "source_frame_hash"}
+ONTO_CLASSES = {
+    "GraphFrame",
+    "Node",
+    "Edge",
+    "Machine",
+    "Region",
+    "State",
+    "Transition",
+    "PatternInstance",
+    "DiagramView",
+    "EpistemicAssertion",
+    "TopologyEdge",
+}
 
 
 def fail(msg: str) -> None:
@@ -369,6 +421,47 @@ def validate_epistemic_assertion(data: dict) -> None:
     require_str_list(data.get("constraints", []), "epistemic-assertion.constraints")
 
 
+def validate_topology_edge(data: dict) -> None:
+    require_keys(data, TOPO_KEYS, TOPO_KEYS - {"evidence_refs"}, "topology-edge")
+    if data["v"] != "ak.topology_edge.v0":
+        fail("topology-edge.v must be ak.topology_edge.v0")
+    if data["authority"] != "advisory":
+        fail("topology-edge.authority must be advisory")
+    require_str(data["edge_id"], "topology-edge.edge_id")
+    if data["kind"] not in TOPO_REL_KINDS:
+        fail("topology-edge.kind invalid")
+    if data["from_kind"] not in TOPO_OBJ_KINDS:
+        fail("topology-edge.from_kind invalid")
+    require_str(data["from_id"], "topology-edge.from_id")
+    if data["to_kind"] not in TOPO_OBJ_KINDS:
+        fail("topology-edge.to_kind invalid")
+    require_str(data["to_id"], "topology-edge.to_id")
+    source_hash = require_str(data["source_frame_hash"], "topology-edge.source_frame_hash")
+    if not HEX64_RE.fullmatch(source_hash):
+        fail("topology-edge.source_frame_hash must be 64 lower-hex chars")
+    conf = data["confidence"]
+    if not isinstance(conf, (int, float)) or conf < 0.0 or conf > 1.0:
+        fail("topology-edge.confidence must be in [0.0, 1.0]")
+    require_str_list(data.get("evidence_refs", []), "topology-edge.evidence_refs")
+
+
+def validate_ontology_node(data: dict) -> None:
+    require_keys(data, ONTO_KEYS, ONTO_KEYS, "ontology-node")
+    if data["v"] != "ak.ontology_node.v0":
+        fail("ontology-node.v must be ak.ontology_node.v0")
+    if data["authority"] != "advisory":
+        fail("ontology-node.authority must be advisory")
+    require_str(data["node_id"], "ontology-node.node_id")
+    if data["class"] not in ONTO_CLASSES:
+        fail("ontology-node.class invalid")
+    require_str(data["label"], "ontology-node.label")
+    if not isinstance(data["properties"], dict):
+        fail("ontology-node.properties must be object")
+    source_hash = require_str(data["source_frame_hash"], "ontology-node.source_frame_hash")
+    if not HEX64_RE.fullmatch(source_hash):
+        fail("ontology-node.source_frame_hash must be 64 lower-hex chars")
+
+
 def load_json(path: Path) -> dict:
     try:
         obj = json.loads(path.read_text(encoding="utf-8"))
@@ -386,8 +479,12 @@ def validate_fixture_dir(kind: str, accept_dir: Path, reject_dir: Path) -> None:
         validator = validate_pattern_instance
     elif kind == "diagram-view":
         validator = validate_diagram_view
-    else:
+    elif kind == "epistemic-assertion":
         validator = validate_epistemic_assertion
+    elif kind == "topology-edge":
+        validator = validate_topology_edge
+    else:
+        validator = validate_ontology_node
 
     accept_files = sorted(accept_dir.glob("*.json"))
     reject_files = sorted(reject_dir.glob("*.json"))
@@ -414,11 +511,15 @@ def validate_schemas_present() -> None:
     pi = ROOT / "runtime" / "atomic_kernel" / "schemas" / "pattern-instance.v0.schema.json"
     dv = ROOT / "runtime" / "atomic_kernel" / "schemas" / "diagram-view.v0.schema.json"
     ea = ROOT / "runtime" / "atomic_kernel" / "schemas" / "epistemic-assertion.v0.schema.json"
+    te = ROOT / "runtime" / "atomic_kernel" / "schemas" / "topology-edge.v0.schema.json"
+    on = ROOT / "runtime" / "atomic_kernel" / "schemas" / "ontology-node.v0.schema.json"
     for p, expected_id in [
         (sm, "ak.state_machine.v0"),
         (pi, "ak.pattern.instance.v0"),
         (dv, "ak.diagram_view.v0"),
         (ea, "ak.epistemic_assertion.v0"),
+        (te, "ak.topology_edge.v0"),
+        (on, "ak.ontology_node.v0"),
     ]:
         data = load_json(p)
         if data.get("$id") != expected_id:
@@ -429,7 +530,15 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--kind",
-        choices=["state-machine", "pattern-instance", "diagram-view", "epistemic-assertion", "all"],
+        choices=[
+            "state-machine",
+            "pattern-instance",
+            "diagram-view",
+            "epistemic-assertion",
+            "topology-edge",
+            "ontology-node",
+            "all",
+        ],
         default="all",
     )
     args = parser.parse_args()
@@ -442,6 +551,8 @@ def main() -> int:
         "pattern-instance",
         "diagram-view",
         "epistemic-assertion",
+        "topology-edge",
+        "ontology-node",
     ]
 
     for kind in kinds:

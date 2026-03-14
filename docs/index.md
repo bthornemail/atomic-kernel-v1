@@ -38,6 +38,8 @@ Used downstream in `metaverse-kit` through the stable `atomic_kernel.*` API boun
 - [State Machine Framework](STATE_MACHINE_FRAMEWORK.md)
 - [Diagram View Schema](DIAGRAM_VIEW_SCHEMA.md)
 - [Epistemic Assertion Schema](EPISTEMIC_ASSERTION_SCHEMA.md)
+- [Topology Edge Schema](TOPOLOGY_EDGE_SCHEMA.md)
+- [Ontology Node Schema](ONTOLOGY_NODE_SCHEMA.md)
 - [UML Projection Contract](UML_PROJECTION_CONTRACT.md)
 
 ## Core Rule

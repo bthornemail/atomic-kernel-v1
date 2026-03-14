@@ -1,0 +1,13 @@
+{
+  "v": "ak.topology_edge.v0",
+  "authority": "advisory",
+  "edge_id": "te.projects.1",
+  "kind": "projects_to",
+  "from_kind": "node",
+  "from_id": "n_user_service",
+  "to_kind": "diagram_view",
+  "to_id": "diagram.class.basic",
+  "source_frame_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  "confidence": 0.97,
+  "evidence_refs": ["diagram:class-basic"]
+}

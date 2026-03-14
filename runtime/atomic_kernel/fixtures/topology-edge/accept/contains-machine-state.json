@@ -1,0 +1,13 @@
+{
+  "v": "ak.topology_edge.v0",
+  "authority": "advisory",
+  "edge_id": "te.contains.1",
+  "kind": "contains",
+  "from_kind": "machine",
+  "from_id": "machine.demo.behavior",
+  "to_kind": "state",
+  "to_id": "s_active",
+  "source_frame_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+  "confidence": 1.0,
+  "evidence_refs": ["state-machine:s_active"]
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ak.ontology_node.v0",
+  "title": "Atomic Kernel Ontology Node v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "v",
+    "authority",
+    "node_id",
+    "class",
+    "label",
+    "properties",
+    "source_frame_hash"
+  ],
+  "properties": {
+    "v": {"const": "ak.ontology_node.v0"},
+    "authority": {"const": "advisory"},
+    "node_id": {"type": "string", "minLength": 1},
+    "class": {
+      "enum": [
+        "GraphFrame",
+        "Node",
+        "Edge",
+        "Machine",
+        "Region",
+        "State",
+        "Transition",
+        "PatternInstance",
+        "DiagramView",
+        "EpistemicAssertion",
+        "TopologyEdge"
+      ]
+    },
+    "label": {"type": "string", "minLength": 1},
+    "properties": {"type": "object"},
+    "source_frame_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "v": "ak.ontology_node.v0",
+  "authority": "advisory",
+  "node_id": "on.pattern",
+  "class": "PatternInstance",
+  "label": "PatternInstance",
+  "properties": {
+    "description": "Inferred semantic motif",
+    "confidence_required": true
+  },
+  "source_frame_hash": "3434343434343434343434343434343434343434343434343434343434343434"
+}

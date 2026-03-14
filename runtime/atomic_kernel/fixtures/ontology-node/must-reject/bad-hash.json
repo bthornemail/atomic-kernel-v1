@@ -1,0 +1,9 @@
+{
+  "v": "ak.ontology_node.v0",
+  "authority": "advisory",
+  "node_id": "on.bad.hash",
+  "class": "Node",
+  "label": "Node",
+  "properties": {},
+  "source_frame_hash": "XYZ"
+}

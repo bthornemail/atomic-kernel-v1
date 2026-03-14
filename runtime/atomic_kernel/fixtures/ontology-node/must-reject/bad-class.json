@@ -1,0 +1,9 @@
+{
+  "v": "ak.ontology_node.v0",
+  "authority": "advisory",
+  "node_id": "on.bad",
+  "class": "Widget",
+  "label": "Widget",
+  "properties": {},
+  "source_frame_hash": "5656565656565656565656565656565656565656565656565656565656565656"
+}

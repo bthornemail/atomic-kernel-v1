@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ak.topology_edge.v0",
+  "title": "Atomic Kernel Topology Edge v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "v",
+    "authority",
+    "edge_id",
+    "kind",
+    "from_kind",
+    "from_id",
+    "to_kind",
+    "to_id",
+    "source_frame_hash",
+    "confidence"
+  ],
+  "properties": {
+    "v": {"const": "ak.topology_edge.v0"},
+    "authority": {"const": "advisory"},
+    "edge_id": {"type": "string", "minLength": 1},
+    "kind": {
+      "enum": [
+        "contains",
+        "refines",
+        "derives_from",
+        "projects_to",
+        "transitions_to",
+        "equivalent_to",
+        "depends_on",
+        "delegates_to",
+        "implements"
+      ]
+    },
+    "from_kind": {
+      "enum": [
+        "graph_frame",
+        "node",
+        "edge",
+        "machine",
+        "region",
+        "state",
+        "transition",
+        "pattern_instance",
+        "diagram_view",
+        "epistemic_assertion",
+        "topology_edge",
+        "ontology_node"
+      ]
+    },
+    "from_id": {"type": "string", "minLength": 1},
+    "to_kind": {
+      "enum": [
+        "graph_frame",
+        "node",
+        "edge",
+        "machine",
+        "region",
+        "state",
+        "transition",
+        "pattern_instance",
+        "diagram_view",
+        "epistemic_assertion",
+        "topology_edge",
+        "ontology_node"
+      ]
+    },
+    "to_id": {"type": "string", "minLength": 1},
+    "source_frame_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "confidence": {"type": "number", "minimum": 0.0, "maximum": 1.0},
+    "evidence_refs": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    }
+  }
+}
