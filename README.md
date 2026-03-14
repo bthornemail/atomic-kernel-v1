@@ -65,6 +65,8 @@ cd /home/main/devops/atomic-kernel
 ./scripts/docs-site.sh serve
 ```
 
+No local venv required: `docs-site.sh` falls back to Docker when `mkdocs` is not installed.
+
 ## Docs Publish (Milestone C)
 ```bash
 cd /home/main/devops/atomic-kernel
