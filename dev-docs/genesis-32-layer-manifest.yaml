@@ -1,0 +1,53 @@
+v: atp.dac.v1
+basis:
+  unicode: "17.0"
+  utf_ebcdic: "root-2026-draft"
+artifact:
+  id: "metaverse-genesis-32-layer-001"
+  type: "aztec-payload"
+  hash: "<sha256-of-entire-payload-will-be-filled-after-encoding>"
+  birth_iso8601: "2026-03-13T20:00:00Z"
+  birth_unix: 1760000000
+  wgs84_lat: 34.052235
+  wgs84_lon: -118.243683
+  plus_code: "849VQQQ7+6X"
+  geohash: "9q5b"
+  artifact_uuid_v7: "0192f000-0000-7000-8000-000000000001"
+  spdx_license: "CC0-1.0"
+  lang: "en-US"
+  genesis_pubkey_fingerprint: "ed25519:TODO-replace-with-your-key"
+  klein_frame_hint: 42
+  rid: "sha256:CLBC-bytes-placeholder"
+
+  layers:
+    - 1-8: "Pure algorithms + Unicode-UTF-EBCDIC addendum"
+    - 9-16: "Aztec runtime + universally adopted extension standards"
+    - 17-24: "Sevenfold invariant frame + projection/runtime surfaces"
+    - 25-31: "RID + micro-node + genealogy + receipts"
+    - 32: "Full 32-wave metaverse manifest with Aztec distribution"
+
+  entry_points:
+    full_manifest: "this document itself"
+    living_xml_runtime: "runtime/tetragrammatron/io/living_xml.py"
+    lane16_parallel_gate: "scripts/lane16-gate.sh"
+    closure_spine_smoke: "scripts/closure-spine-smoke.sh"
+    tetragrammatron_gate: "scripts/tetragrammatron-gate.sh"
+    algorithmic_clock_256: "algorithmic_clock.py (width=256)"
+    wave27k_16_lane: "wave27K.lane16.v0"
+    fano_clock: "Fano 7-cycle in LOGOS.xml"
+
+  virtual_surrogate_tags:
+    - "\uDB80\uDC00"
+    - "\uDB80\uDC01"
+    - "\uDB80\uDC02"
+    - "\uDB80\uDC03"
+    - "\uDB80\uDC04"
+    - "\uDB80\uDCFF"
+
+  dimensional_anchor:
+    tangent_type: "geo-temporal-virtual-32-wave"
+    policy: "reversible-only-to-genesis"
+    distribution: "geo-branch-on-scan"
+    rid_layer: "sha256(CLBC_bytes) + nrr.ref.v0"
+
+  manifest_summary: "32-wave metaverse: pure algorithmic clock (layers 1-8) -> Aztec runtime (9-16) -> sevenfold invariants (17-24) -> RID/micro-node/genealogy (25-31) -> full manifest with Aztec distribution (32)"

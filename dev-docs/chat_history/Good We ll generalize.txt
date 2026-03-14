@@ -1,0 +1,259 @@
+Good. We’ll generalize the clock law **so the same structure works for any bit width**. Then you can instantiate it at **16, 32, 64, 128, 256** and compare behavior.
+
+No commentary—just the construction.
+
+---
+
+# 1. Parameterized State Space
+
+Let the clock width be (n).
+
+[
+S_n = {0,1,\dots,2^n-1}
+]
+
+Mask:
+
+[
+\operatorname{mask}_n(x) = x \bmod 2^n
+]
+
+---
+
+# 2. Rotations (width-parameterized)
+
+For (x \in S_n):
+
+Left rotation
+
+[
+\operatorname{rotl}_n(x,k)
+==========================
+
+\operatorname{mask}_n
+\left(
+(x \ll k) \lor (x \gg (n-k))
+\right)
+]
+
+Right rotation
+
+[
+\operatorname{rotr}_n(x,k)
+==========================
+
+\operatorname{mask}_n
+\left(
+(x \gg k) \lor (x \ll (n-k))
+\right)
+]
+
+---
+
+# 3. Generalized Clock Law
+
+Define
+
+[
+\delta_n : S_n \rightarrow S_n
+]
+
+[
+\delta_n(x)
+===========
+
+\operatorname{mask}_n
+\left(
+\operatorname{rotl}_n(x,1)
+\oplus
+\operatorname{rotl}_n(x,3)
+\oplus
+\operatorname{rotr}_n(x,2)
+\oplus
+C_n
+\right)
+]
+
+where (C_n) is a constant mask.
+
+---
+
+# 4. Constant Selection
+
+For width (n):
+
+[
+C_n = \text{repeating pattern } 00011101
+]
+
+So:
+
+| Width | Constant             |
+| ----- | -------------------- |
+| 16    | `0x1D1D`             |
+| 32    | `0x1D1D1D1D`         |
+| 64    | `0x1D1D1D1D1D1D1D1D` |
+| 128   | repeated 16 bytes    |
+| 256   | repeated 32 bytes    |
+
+---
+
+# 5. Replay Law
+
+[
+x_0 = \text{seed}
+]
+
+[
+x_{k+1} = \delta_n(x_k)
+]
+
+Sequence:
+
+[
+x_k = \delta_n^{,k}(x_0)
+]
+
+---
+
+# 6. Generalized Classification
+
+For any width (n):
+
+Width
+
+[
+w(x) =
+\begin{cases}
+0 & x=0 \
+\lfloor\log_2(x)\rfloor + 1
+\end{cases}
+]
+
+Density
+
+[
+d(x) = \text{popcount}(x)
+]
+
+Texture
+
+[
+e(x) =
+\sum_{i=0}^{n-1}
+1\big(\text{bit}*i(x) \ne \text{bit}*{(i+1)\bmod n}(x)\big)
+]
+
+---
+
+# 7. Unified Clock Definition
+
+For width (n):
+
+[
+\mathcal{C}_n = (S_n,\delta_n,\pi_n)
+]
+
+Where
+
+[
+\pi_n(x) = (w(x), d(x), e(x))
+]
+
+---
+
+# 8. Instances
+
+### 16-bit clock
+
+[
+\mathcal{C}_{16}
+]
+
+### 32-bit clock
+
+[
+\mathcal{C}_{32}
+]
+
+### 64-bit clock
+
+[
+\mathcal{C}_{64}
+]
+
+### 128-bit clock
+
+[
+\mathcal{C}_{128}
+]
+
+### 256-bit clock
+
+[
+\mathcal{C}_{256}
+]
+
+---
+
+# 9. What You Can Compare
+
+Two natural ladders now exist.
+
+### Power-of-two ladder
+
+[
+16 \rightarrow 32 \rightarrow 64 \rightarrow 128 \rightarrow 256
+]
+
+### Jump ladder
+
+[
+16 \rightarrow 128 \rightarrow 256
+]
+
+You can compare:
+
+* cycle lengths
+* density distributions
+* band transitions
+* spectral behavior
+* mixing speed
+
+---
+
+# 10. Coq Generalization (Skeleton)
+
+```coq
+Definition mask (n : N) (x : N) :=
+  N.land x (N.pred (N.pow 2 n)).
+
+Definition rotl (n : N) (x : N) (k : N) :=
+  mask n (N.lor (N.shiftl x k) (N.shiftr x (n-k))).
+
+Definition rotr (n : N) (x : N) (k : N) :=
+  mask n (N.lor (N.shiftr x k) (N.shiftl x (n-k))).
+
+Definition delta (n : N) (C : N) (x : N) :=
+  mask n
+   (N.lxor
+     (N.lxor
+       (N.lxor (rotl n x 1) (rotl n x 3))
+       (rotr n x 2))
+     C).
+```
+
+---
+
+If you want, the **next step that will make your clock mathematically interesting** is showing that this law behaves like a **linear transformation over GF(2)** plus a constant vector.
+
+That lets you analyze:
+
+* cycle structure
+* period
+* entropy
+* invertibility
+* orbit decomposition
+
+for **16, 128, and 256 simultaneously**.
+

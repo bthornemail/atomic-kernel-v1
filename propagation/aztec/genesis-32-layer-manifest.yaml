@@ -1,0 +1,14 @@
+v: tetragrammatron.manifest.v1
+artifact:
+  id: tetragrammatron-genesis-32-layer-001
+  type: tetragrammatron-manifest
+  hash: daac9cb64bdad7bc570d80a9b097661b1990590610a3e3500c778acc588ebb25
+basis:
+  unicode: '17.0'
+  utf_ebcdic: root-2026-draft
+layers:
+  1-8: Pure algorithms + Unicode/UTF-EBCDIC
+  9-16: Encoded runtime + lane extension
+  17-25: Distributed API + living XML
+  26-31: Advisory metaverse extension
+  '32': Full manifest

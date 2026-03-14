@@ -1,0 +1,387 @@
+Below is a **clean whitepaper that matches the proven Coq kernel**.
+It **does not overclaim**, and it **treats the Coq file as the normative definition**.
+The prose exists only to explain how to use the law.
+
+---
+
+# A Formally Verified Algorithmic Clock
+
+## A Deterministic Logical Clock for Replay and Synchronization
+
+**Version:** 1.0
+**Reference Implementation:** Coq Proof Artifact
+**Normative Definition:** `AlgorithmicClockKernel.v`
+
+---
+
+# Abstract
+
+This document specifies a deterministic algorithmic clock defined by a pure transition law over a finite 16-bit state space. The clock advances by applying a fixed bitwise transformation to the current state. Because the transformation is deterministic and bounded, any correct implementation produces the same sequence of states for the same seed.
+
+The clock does not measure physical duration. Instead, it defines a canonical logical position obtained by replaying the transition law from an agreed initial state. This property allows independent systems to reproduce identical sequences without communication.
+
+The normative definition of the clock is the Coq proof artifact accompanying this document. That artifact defines the transition law, replay semantics, and classification functions, and proves core properties including boundedness and determinism.
+
+---
+
+# 1. Scope
+
+This specification defines a deterministic algorithmic clock suitable for:
+
+* deterministic replay
+* distributed synchronization
+* reproducible simulation
+* canonical sequencing
+* audit and verification systems
+
+The clock provides a **logical position** rather than a measurement of physical time.
+
+---
+
+# 2. Design Principles
+
+The algorithmic clock is designed around five principles:
+
+### Determinism
+
+The transition law is a pure function.
+
+Given identical input state:
+
+```
+x = y → δ(x) = δ(y)
+```
+
+All conforming implementations produce identical outputs.
+
+### Finite State
+
+The clock operates on a bounded state space:
+
+```
+state ∈ [0, 65535]
+```
+
+All operations preserve this bound.
+
+### Pure Bitwise Law
+
+The transition law uses only:
+
+* rotations
+* shifts
+* XOR
+* masking
+
+No floating-point arithmetic, external state, or conditional branching is required.
+
+### Replayability
+
+Clock progression is defined as repeated application of the transition law:
+
+```
+x₀ = seed
+xₙ₊₁ = δ(xₙ)
+```
+
+### Substrate Independence
+
+The clock can be implemented on any computational platform that supports integer arithmetic.
+
+---
+
+# 3. State Model
+
+The clock state is a 16-bit unsigned integer.
+
+```
+state : N
+0 ≤ state < 65536
+```
+
+Masking ensures that all operations remain within the state space.
+
+---
+
+# 4. Transition Law
+
+The clock transition function is defined as:
+
+```
+δ(x) =
+mask(
+  rotl(x,1) XOR
+  rotl(x,3) XOR
+  rotr(x,2) XOR
+  0x1D1D
+)
+```
+
+Where:
+
+```
+mask(x) = x AND 0xFFFF
+```
+
+and `rotl` / `rotr` represent bit rotations.
+
+This transformation defines the clock's progression.
+
+---
+
+# 5. Replay Semantics
+
+Clock progression is defined by repeated application of the transition law.
+
+Given seed `x₀`:
+
+```
+x₁ = δ(x₀)
+x₂ = δ(x₁)
+...
+xₙ = δ(xₙ₋₁)
+```
+
+The clock sequence is therefore:
+
+```
+[x₀, x₁, x₂, …, xₙ]
+```
+
+Any conforming implementation must produce the same sequence for identical seed and step count.
+
+---
+
+# 6. Clock Readings
+
+The clock reading is defined by classifying the current state into structural features.
+
+Each state is mapped to a **band**:
+
+```
+band = (width, density, texture)
+```
+
+Where:
+
+### Width
+
+Bit-length of the state.
+
+### Density
+
+Number of set bits.
+
+### Texture
+
+Number of transitions between adjacent bits in the 16-bit representation.
+
+These features provide a canonical observable signature of the state.
+
+---
+
+# 7. Verified Properties
+
+The Coq artifact proves the following properties.
+
+### Boundedness
+
+```
+∀ x
+δ(x) < 65536
+```
+
+The state never leaves the 16-bit space.
+
+---
+
+### Determinism
+
+```
+x = y → δ(x) = δ(y)
+```
+
+Clock evolution is deterministic.
+
+---
+
+### Replay Determinism
+
+```
+sequence n x = sequence n x
+```
+
+The replay sequence is uniquely determined by the seed.
+
+---
+
+### Classification Determinism
+
+```
+x = y → classify(x) = classify(y)
+```
+
+The band classification depends only on the state.
+
+---
+
+### Implementation Agreement
+
+If an implementation `f` satisfies:
+
+```
+∀x f(x) = δ(x)
+```
+
+then its replay behavior matches the reference clock.
+
+---
+
+# 8. Conformance
+
+An implementation is conformant if it:
+
+1. Uses the exact transition law defined in Section 4.
+2. Preserves the 16-bit state bound.
+3. Produces the same replay sequence for identical seeds.
+
+Verification can be performed by comparing replay sequences against known seeds.
+
+Example seed:
+
+```
+seed = 0x0001
+```
+
+First states:
+
+```
+x₀ = 0x0001
+x₁ = δ(x₀)
+x₂ = δ(x₁)
+...
+```
+
+---
+
+# 9. Implementation
+
+The normative specification is the Coq proof file:
+
+```
+AlgorithmicClockKernel.v
+```
+
+Reference implementations may be provided in:
+
+* Haskell
+* Python
+* C
+* Rust
+
+However, these implementations are secondary to the Coq artifact.
+
+---
+
+# 10. Applications
+
+The algorithmic clock may be used for:
+
+### Deterministic Replay
+
+Systems can reproduce execution traces exactly by replaying the clock.
+
+---
+
+### Distributed Synchronization
+
+Nodes can compute identical logical positions independently.
+
+---
+
+### Tamper-Evident Logs
+
+Any deviation from the transition law produces an invalid sequence.
+
+---
+
+### Simulation
+
+Simulations can maintain consistent ordering across different machines.
+
+---
+
+# 11. Relationship to Physical Time
+
+The algorithmic clock does not measure duration.
+
+Instead, it defines a logical sequence.
+
+Applications that require physical time must provide an external mapping:
+
+```
+physical event → logical tick
+```
+
+---
+
+# 12. Reference Artifact
+
+The clock is fully defined by the accompanying Coq proof.
+
+Anyone can verify the specification by compiling:
+
+```
+coqc AlgorithmicClockKernel.v
+```
+
+The proof artifact defines the clock law and verifies its core properties.
+
+---
+
+# 13. Conclusion
+
+This specification defines a deterministic algorithmic clock whose behavior is derived entirely from a pure transition law over a bounded state space.
+
+Because the clock law is formally verified and implementation-independent, any conforming system can reproduce the same logical sequence without coordination.
+
+The Coq artifact serves as the authoritative definition of the clock.
+
+---
+
+# Appendix A — Core Transition Law
+
+```
+δ(x) =
+mask(
+  rotl(x,1) XOR
+  rotl(x,3) XOR
+  rotr(x,2) XOR
+  0x1D1D
+)
+```
+
+---
+
+# Appendix B — Reference Replay
+
+```
+sequence(n, seed)
+```
+
+---
+
+# Appendix C — Proof Artifact
+
+The formal proof is provided in:
+
+```
+AlgorithmicClockKernel.v
+```
+
+---
+
+If you'd like, I can also produce the **one piece that makes this extremely powerful**:
+
+A **1-page mathematical specification** that compresses the entire clock into about **12 lines of math**, which makes it much easier for mathematicians and protocol designers to adopt.
+
