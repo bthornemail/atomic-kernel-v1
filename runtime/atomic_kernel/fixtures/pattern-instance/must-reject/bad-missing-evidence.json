@@ -1,0 +1,11 @@
+{
+  "v": "ak.pattern.instance.v0",
+  "authority": "advisory",
+  "pattern_type": "Strategy",
+  "subject_nodes": ["n_context"],
+  "role_bindings": {"context": "n_context"},
+  "evidence_edges": [],
+  "constraints_passed": ["strategy-shape-v0"],
+  "confidence": 0.6,
+  "source_frame_hash": "5555555555555555555555555555555555555555555555555555555555555555"
+}

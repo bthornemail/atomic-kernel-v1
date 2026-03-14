@@ -1,0 +1,19 @@
+{
+  "v": "ak.state_machine.v0",
+  "authority": "advisory",
+  "machine_id": "machine.demo.protocol",
+  "machine_kind": "protocol",
+  "root_region": "r_root",
+  "regions": [
+    {"id": "r_root", "parent_state_id": null, "orthogonal_index": 0}
+  ],
+  "states": [
+    {"id": "s0", "name": "AwaitHandshake", "region_id": "r_root", "state_kind": "simple", "entry_actions": [], "exit_actions": [], "internal_transitions": []},
+    {"id": "s1", "name": "Open", "region_id": "r_root", "state_kind": "simple", "entry_actions": [], "exit_actions": [], "internal_transitions": []}
+  ],
+  "transitions": [
+    {"id": "t_open", "source_state_id": "s0", "target_state_id": "s1", "event": "handshake_ok", "guard": null, "actions": ["accept"], "priority": 0}
+  ],
+  "extended_state_schema": {"session": "string"},
+  "source_frame_hash": "abcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcd"
+}

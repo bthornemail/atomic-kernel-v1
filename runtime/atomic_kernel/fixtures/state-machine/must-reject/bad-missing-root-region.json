@@ -1,0 +1,16 @@
+{
+  "v": "ak.state_machine.v0",
+  "authority": "advisory",
+  "machine_id": "machine.bad",
+  "machine_kind": "behavioral",
+  "root_region": "missing",
+  "regions": [
+    {"id": "r0", "parent_state_id": null, "orthogonal_index": 0}
+  ],
+  "states": [
+    {"id": "s0", "name": "Only", "region_id": "r0", "state_kind": "simple", "entry_actions": [], "exit_actions": [], "internal_transitions": []}
+  ],
+  "transitions": [],
+  "extended_state_schema": {},
+  "source_frame_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

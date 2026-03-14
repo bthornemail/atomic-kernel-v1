@@ -1,0 +1,19 @@
+{
+  "v": "ak.state_machine.v0",
+  "authority": "advisory",
+  "machine_id": "machine.demo.behavior",
+  "machine_kind": "behavioral",
+  "root_region": "r0",
+  "regions": [
+    {"id": "r0", "parent_state_id": null, "orthogonal_index": 0}
+  ],
+  "states": [
+    {"id": "s_idle", "name": "Idle", "region_id": "r0", "state_kind": "simple", "entry_actions": ["log_enter_idle"], "exit_actions": ["log_exit_idle"], "internal_transitions": []},
+    {"id": "s_active", "name": "Active", "region_id": "r0", "state_kind": "simple", "entry_actions": ["log_enter_active"], "exit_actions": [], "internal_transitions": []}
+  ],
+  "transitions": [
+    {"id": "t_start", "source_state_id": "s_idle", "target_state_id": "s_active", "event": "start", "guard": "x>0", "actions": ["emit_started"], "priority": 0}
+  ],
+  "extended_state_schema": {"x": "int", "mode": "string"},
+  "source_frame_hash": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+}

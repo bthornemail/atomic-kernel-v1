@@ -1,0 +1,11 @@
+{
+  "v": "ak.pattern.instance.v0",
+  "authority": "advisory",
+  "pattern_type": "Facade",
+  "subject_nodes": ["n_facade"],
+  "role_bindings": {"facade": "n_facade"},
+  "evidence_edges": ["e_dep"],
+  "constraints_passed": ["facade-shape-v0"],
+  "confidence": 1.4,
+  "source_frame_hash": "3333333333333333333333333333333333333333333333333333333333333333"
+}

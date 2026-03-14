@@ -1,0 +1,16 @@
+{
+  "v": "ak.pattern.instance.v0",
+  "authority": "advisory",
+  "pattern_type": "Adapter",
+  "subject_nodes": ["n_adapter"],
+  "role_bindings": {
+    "adapter": "n_adapter",
+    "target_interface": "n_iface",
+    "adaptee": "n_impl"
+  },
+  "evidence_edges": ["e_delegates", "e_implements"],
+  "constraints_passed": ["adapter-shape-v0", "delegation-present-v0"],
+  "confidence": 0.91,
+  "alternates": ["Facade"],
+  "source_frame_hash": "1111111111111111111111111111111111111111111111111111111111111111"
+}

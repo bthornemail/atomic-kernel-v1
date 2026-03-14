@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ak.pattern.instance.v0",
+  "title": "Atomic Kernel Pattern Instance v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "v",
+    "authority",
+    "pattern_type",
+    "subject_nodes",
+    "role_bindings",
+    "evidence_edges",
+    "constraints_passed",
+    "confidence",
+    "source_frame_hash"
+  ],
+  "properties": {
+    "v": {"const": "ak.pattern.instance.v0"},
+    "authority": {"const": "advisory"},
+    "pattern_type": {
+      "enum": ["Adapter", "Facade", "Strategy", "Observer", "Builder"]
+    },
+    "subject_nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "role_bindings": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {"type": "string", "minLength": 1}
+    },
+    "evidence_edges": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "constraints_passed": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "alternates": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "source_frame_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "v": "ak.pattern.instance.v0",
+  "authority": "advisory",
+  "pattern_type": "Observer",
+  "subject_nodes": ["n_subject", "n_observer"],
+  "role_bindings": {
+    "subject": "n_subject",
+    "observer": "n_observer"
+  },
+  "evidence_edges": ["e_observes", "e_notifies"],
+  "constraints_passed": ["observer-shape-v0"],
+  "confidence": 0.84,
+  "source_frame_hash": "2222222222222222222222222222222222222222222222222222222222222222"
+}

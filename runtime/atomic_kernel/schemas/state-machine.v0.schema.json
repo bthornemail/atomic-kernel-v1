@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ak.state_machine.v0",
+  "title": "Atomic Kernel State Machine v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "v",
+    "authority",
+    "machine_id",
+    "machine_kind",
+    "root_region",
+    "regions",
+    "states",
+    "transitions",
+    "extended_state_schema",
+    "source_frame_hash"
+  ],
+  "properties": {
+    "v": {"const": "ak.state_machine.v0"},
+    "authority": {"const": "advisory"},
+    "machine_id": {"type": "string", "minLength": 1},
+    "machine_kind": {"enum": ["behavioral", "protocol"]},
+    "root_region": {"type": "string", "minLength": 1},
+    "regions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "parent_state_id", "orthogonal_index"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "parent_state_id": {"type": ["string", "null"]},
+          "orthogonal_index": {"type": "integer", "minimum": 0}
+        }
+      }
+    },
+    "states": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "region_id", "state_kind", "entry_actions", "exit_actions", "internal_transitions"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "name": {"type": "string", "minLength": 1},
+          "region_id": {"type": "string", "minLength": 1},
+          "state_kind": {"enum": ["simple", "composite", "final"]},
+          "entry_actions": {"type": "array", "items": {"type": "string"}},
+          "exit_actions": {"type": "array", "items": {"type": "string"}},
+          "internal_transitions": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "transitions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "source_state_id", "target_state_id", "event", "guard", "actions", "priority"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "source_state_id": {"type": "string", "minLength": 1},
+          "target_state_id": {"type": ["string", "null"]},
+          "event": {"type": "string", "minLength": 1},
+          "guard": {"type": ["string", "null"]},
+          "actions": {"type": "array", "items": {"type": "string"}},
+          "priority": {"type": "integer", "minimum": 0}
+        }
+      }
+    },
+    "extended_state_schema": {
+      "type": "object",
+      "additionalProperties": {
+        "enum": ["int", "float", "string", "bool", "json"]
+      }
+    },
+    "source_frame_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}
