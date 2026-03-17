@@ -53,6 +53,15 @@ Forbidden for downstream contracts:
 - `runtime.atomic_kernel.*`
 - Internal fixture/tool paths as API dependencies
 
+## vNext Promotion Rule (Wave27L)
+- vNext algorithmic lane is promoted by explicit policy action in W7.
+- During compat window, hash-based identity outputs are adapter projections.
+- Promotion bar is continuous green across:
+  - replay parity gate,
+  - API compat gate,
+  - Coq parity gate.
+- Authority state is controlled only by `runtime/atomic_kernel/vnext_policy.json` (promote/rollback).
+
 ## Mandatory Statement
 Changes that affect deterministic outputs, public API contracts, canonical fixture semantics, or kernel law are not casual edits.
 

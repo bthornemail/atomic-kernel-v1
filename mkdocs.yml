@@ -25,9 +25,9 @@ nav:
       - Status Classification: STATUS.md
       - Kernel Change Policy: KERNEL_CHANGE_POLICY.md
       - Roadmap: ROADMAP.md
-      - Case Study: Sample Analysis: CASE_STUDY_SAMPLE_ANALYSIS.md
-      - Case Study: Real Repo (metaverse-kit/nf): CASE_STUDY_REAL_REPO_METAVERSE_KIT_NF.md
-      - Case Study: Real Repo (tetragrammatron-os): CASE_STUDY_REAL_REPO_TETRAGRAMMATRON_OS.md
+      - "Case Study: Sample Analysis": CASE_STUDY_SAMPLE_ANALYSIS.md
+      - "Case Study: Real Repo (metaverse-kit/nf)": CASE_STUDY_REAL_REPO_METAVERSE_KIT_NF.md
+      - "Case Study: Real Repo (tetragrammatron-os)": CASE_STUDY_REAL_REPO_TETRAGRAMMATRON_OS.md
       - Case Study Comparison: CASE_STUDY_COMPARISON.md
       - Tetragrammatron Architecture Diagram (SVG): diagrams/tetragrammatron-architecture.svg
       - Tetragrammatron Protocol Diagram (SVG): diagrams/tetragrammatron-protocol.svg
@@ -36,6 +36,11 @@ nav:
       - Abstract Syntax Graph Schema (Draft): ABSTRACT_SYNTAX_GRAPH_SCHEMA.md
       - ASG Ingestion Contract (Draft): ASG_INGESTION_CONTRACT.md
       - MJS ASG Ingestion Contract (Draft): MJS_ASG_INGESTION_CONTRACT.md
+      - Workspace Ingestion Contract (Draft): WORKSPACE_INGESTION_CONTRACT.md
+      - Workspace Replay-Lock Readiness (Draft): WORKSPACE_REPLAY_LOCK_READINESS.md
+      - Project Profile Contract (Draft): PROJECT_PROFILE_CONTRACT.md
+      - Workspace Summary Contract (Draft): WORKSPACE_SUMMARY_CONTRACT.md
+      - Project Analysis Overlay Contract (Draft): PROJECT_ANALYSIS_OVERLAY_CONTRACT.md
       - Pattern Instance Schema (Draft): PATTERN_INSTANCE_SCHEMA.md
       - Pattern Extraction Contract (Draft): PATTERN_EXTRACTION_CONTRACT.md
       - Applied Analysis Report Contract (Draft): APPLIED_ANALYSIS_REPORT_CONTRACT.md
@@ -53,6 +58,12 @@ nav:
       - Wave27I Identity and Occurrence ABI: WAVE27I_IDENTITY_AND_OCCURRENCE_ABI.md
       - Wave27J Seed Algebra ABI: WAVE27J_SEED_ALGEBRA_ABI.md
       - Wave27K Lane16 ABI (Draft): WAVE27K_LANE16_ABI.md
+      - Wave27L vNext Algorithmic ID ABI: WAVE27L_VNEXT_ALGORITHMIC_ID_ABI.md
+      - vNext API Migration Matrix: VNEXT_API_MIGRATION_MATRIX.md
+      - vNext Authority Promotion Decision: VNEXT_AUTHORITY_PROMOTION_DECISION.md
+      - vNext Promotion Readiness Memo (W6): VNEXT_PROMOTION_READINESS_MEMO_W6.md
+      - vNext Migration Notice (W7): VNEXT_MIGRATION_NOTICE_W7.md
+      - W7 Promotion Release Note: W7_PROMOTION_RELEASE_NOTE.md
   - Verification Badges: badges/index.md
 
 theme:

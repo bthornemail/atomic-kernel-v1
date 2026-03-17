@@ -17,11 +17,18 @@ Current normative surfaces:
 - Wave27H living XML validation/gate/hash lock
 - Wave27I SID/OID/CLOCK and occurrence-chain validation
 - Wave27J seed closure + canonical JSON companion validation
+- Wave27L vNext algorithmic identity lane (policy-promoted)
 
 Evidence:
 - `conformance/run-tests.sh`
 - `scripts/atomic-kernel-gate.sh`
 - `golden/**/replay-hash`
+- `runtime/atomic_kernel/vnext.py`
+- `scripts/vnext-replay-parity-gate.sh`
+- `scripts/vnext-api-compat-gate.sh`
+- `scripts/vnext-coq-parity-gate.sh`
+- `docs/WAVE27L_VNEXT_ALGORITHMIC_ID_ABI.md`
+- `runtime/atomic_kernel/vnext_policy.json`
 
 ## Draft
 Definition:

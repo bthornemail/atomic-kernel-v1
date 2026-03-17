@@ -1,0 +1,8 @@
+{
+  "v": "ak.vnext.policy.v0",
+  "authority": "advisory",
+  "vnext_status": "promoted_normative_lane",
+  "promotion_approved": true,
+  "no_authority_change": false,
+  "compat_window": "one_major_cycle"
+}
