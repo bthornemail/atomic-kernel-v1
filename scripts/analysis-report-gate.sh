@@ -24,20 +24,46 @@ TMP_MD="$(mktemp)"
 TMP_JSON_NORM="$(mktemp)"
 TMP_EXPECTED_NORM="$(mktemp)"
 TMP_WRAP_NORM="$(mktemp)"
+TMP_MD_NORM="$(mktemp)"
+TMP_EXPECTED_MD_NORM="$(mktemp)"
+TMP_WRAP_MD_NORM="$(mktemp)"
 TMP_OUT="$(mktemp -d)"
-trap 'rm -f "$TMP_JSON" "$TMP_MD" "$TMP_JSON_NORM" "$TMP_EXPECTED_NORM" "$TMP_WRAP_NORM"; rm -rf "$TMP_OUT"' EXIT
+trap 'rm -f "$TMP_JSON" "$TMP_MD" "$TMP_JSON_NORM" "$TMP_EXPECTED_NORM" "$TMP_WRAP_NORM" "$TMP_MD_NORM" "$TMP_EXPECTED_MD_NORM" "$TMP_WRAP_MD_NORM"; rm -rf "$TMP_OUT"' EXIT
 
 normalize_report_json() {
   local in_file="$1"
   local out_file="$2"
-  python3 - <<PY > "$out_file"
+  IN_FILE="$in_file" OUT_FILE="$out_file" python3 - <<'PY'
 import json
+import os
 from pathlib import Path
-p = Path(r"$in_file")
+p = Path(os.environ["IN_FILE"])
 obj = json.loads(p.read_text(encoding="utf-8"))
 if isinstance(obj, dict) and isinstance(obj.get("target"), dict):
   obj["target"]["path"] = "__TARGET__"
-print(json.dumps(obj, sort_keys=True, separators=(",", ":")))
+Path(os.environ["OUT_FILE"]).write_text(
+  json.dumps(obj, sort_keys=True, separators=(",", ":")),
+  encoding="utf-8",
+)
+PY
+}
+
+normalize_report_md() {
+  local in_file="$1"
+  local out_file="$2"
+  IN_FILE="$in_file" OUT_FILE="$out_file" python3 - <<'PY'
+import os
+from pathlib import Path
+p = Path(os.environ["IN_FILE"])
+text = p.read_text(encoding="utf-8")
+prefix = "- target: `"
+out = []
+for line in text.splitlines():
+  if line.startswith(prefix) and line.endswith("`"):
+    out.append(prefix + "__TARGET__`")
+  else:
+    out.append(line)
+Path(os.environ["OUT_FILE"]).write_text("\\n".join(out) + "\\n", encoding="utf-8")
 PY
 }
 
@@ -51,12 +77,14 @@ normalize_report_json "$TMP_JSON" "$TMP_JSON_NORM"
 normalize_report_json "$EXPECTED_JSON" "$TMP_EXPECTED_NORM"
 
 cmp -s "$TMP_JSON_NORM" "$TMP_EXPECTED_NORM" || { echo "analysis report json mismatch" >&2; exit 1; }
-cmp -s "$TMP_MD" "$EXPECTED_MD" || { echo "analysis report md mismatch" >&2; exit 1; }
+normalize_report_md "$TMP_MD" "$TMP_MD_NORM"
+normalize_report_md "$EXPECTED_MD" "$TMP_EXPECTED_MD_NORM"
+cmp -s "$TMP_MD_NORM" "$TMP_EXPECTED_MD_NORM" || { echo "analysis report md mismatch" >&2; exit 1; }
 
 python3 "$ROOT/scripts/validate-analysis-report.py" --file "$TMP_JSON" >/dev/null
 
 cp "$TMP_JSON_NORM" "$REPORT_JSON"
-cp "$TMP_MD" "$REPORT_MD"
+cp "$TMP_MD_NORM" "$REPORT_MD"
 
 bash "$ROOT/scripts/run-applied-analysis.sh" \
   --target "$TARGET" \
@@ -73,7 +101,8 @@ WRAP_RECEIPT="$TMP_OUT/fixture-sample/receipt.json"
 [[ -f "$WRAP_RECEIPT" ]] || { echo "wrapper missing receipt" >&2; exit 1; }
 normalize_report_json "$WRAP_JSON" "$TMP_WRAP_NORM"
 cmp -s "$TMP_WRAP_NORM" "$TMP_EXPECTED_NORM" || { echo "wrapper report json mismatch" >&2; exit 1; }
-cmp -s "$WRAP_MD" "$EXPECTED_MD" || { echo "wrapper report md mismatch" >&2; exit 1; }
+normalize_report_md "$WRAP_MD" "$TMP_WRAP_MD_NORM"
+cmp -s "$TMP_WRAP_MD_NORM" "$TMP_EXPECTED_MD_NORM" || { echo "wrapper report md mismatch" >&2; exit 1; }
 
 python3 - <<PY >/dev/null
 import json
