@@ -1,0 +1,63 @@
+{
+  "source_frame_hash": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+  "ontology_nodes": [
+    {
+      "node_id": "n_adapter",
+      "class": "Node",
+      "label": "LegacyAdapter",
+      "properties": {
+        "language": "python",
+        "layer": "runtime"
+      },
+      "source_frame_hash": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+    },
+    {
+      "node_id": "n_iface",
+      "class": "Node",
+      "label": "TargetInterface",
+      "properties": {
+        "language": "python",
+        "layer": "runtime"
+      },
+      "source_frame_hash": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+    }
+  ],
+  "topology_edges": [
+    {
+      "edge_id": "te.implements.1",
+      "kind": "implements",
+      "from_id": "n_adapter",
+      "to_id": "n_iface",
+      "confidence": 0.99,
+      "source_frame_hash": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+    }
+  ],
+  "epistemic_assertions": [
+    {
+      "assertion_id": "ea.pattern.adapter.1",
+      "subject_id": "n_adapter",
+      "status": "inferred",
+      "confidence": 0.91,
+      "rationale": "Adapter inference matched delegation + interface evidence.",
+      "evidence_refs": ["edge:e_delegates", "edge:e_implements"],
+      "source_frame_hash": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+    }
+  ],
+  "pattern_instances": [
+    {
+      "pattern_id": "pi.adapter.1",
+      "pattern_type": "Adapter",
+      "subject_nodes": ["n_adapter"],
+      "role_bindings": {
+        "adapter": "n_adapter",
+        "target_interface": "n_iface",
+        "adaptee": "n_legacy"
+      },
+      "evidence_edges": ["e_delegates", "e_implements"],
+      "constraints_passed": ["adapter-shape-v0", "delegation-present-v0"],
+      "confidence": 0.91,
+      "alternates": ["Facade"],
+      "source_frame_hash": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+    }
+  ]
+}

@@ -19,7 +19,18 @@
     "v": {"const": "ak.pattern.instance.v0"},
     "authority": {"const": "advisory"},
     "pattern_type": {
-      "enum": ["Adapter", "Facade", "Strategy", "Observer", "Builder"]
+      "enum": [
+        "Adapter",
+        "Facade",
+        "Strategy",
+        "Observer",
+        "Builder",
+        "BoundarySplit",
+        "ProjectionOnlySurface",
+        "BridgeLayer",
+        "CarrierLayer",
+        "ConformanceSurface"
+      ]
     },
     "subject_nodes": {
       "type": "array",

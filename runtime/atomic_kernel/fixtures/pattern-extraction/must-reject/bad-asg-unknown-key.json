@@ -1,0 +1,15 @@
+{
+  "v": "ak.asg.v0",
+  "authority": "advisory",
+  "language": "python",
+  "namespace": "bad",
+  "nodes": [],
+  "edges": [],
+  "provenance": {
+    "source_path": "x.py",
+    "parser": "python-ast",
+    "parser_version": "v0"
+  },
+  "graph_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "extra": true
+}

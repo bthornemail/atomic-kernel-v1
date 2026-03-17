@@ -1,0 +1,12 @@
+{
+  "v": "ak.rdf_export.v0",
+  "authority": "normative",
+  "export_profile": "core-minimal",
+  "source_frame_hash": "abababababababababababababababababababababababababababababababab",
+  "namespaces": {
+    "ak": "https://atomic-kernel.dev/ns#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#"
+  },
+  "triples": []
+}

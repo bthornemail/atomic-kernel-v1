@@ -1,0 +1,31 @@
+{
+  "v": "ak.asg.v0",
+  "authority": "advisory",
+  "language": "python",
+  "namespace": "demo",
+  "nodes": [
+    {
+      "id": "n:module",
+      "symbol": "cp:Module",
+      "kind": "Module",
+      "attrs": {"name": "x.py"},
+      "source": {"path": "x.py", "line": 1, "column": 0, "end_line": 1, "end_column": 1}
+    }
+  ],
+  "edges": [
+    {
+      "id": "e:bad",
+      "symbol": "cp:Defines",
+      "kind": "Defines",
+      "from": "n:module",
+      "to": "n:missing",
+      "attrs": {}
+    }
+  ],
+  "provenance": {
+    "source_path": "x.py",
+    "parser": "python-ast",
+    "parser_version": "v0"
+  },
+  "graph_hash": "sha256:d82bc6ee2f8e143654876a8fbc5d546facf53ef9c73f0f43ea9d4a5e6a507319"
+}

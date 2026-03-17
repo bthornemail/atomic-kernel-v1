@@ -1,0 +1,22 @@
+{
+  "source_frame_hash": "7777777777777777777777777777777777777777777777777777777777777777",
+  "diagram_views": [
+    {
+      "v": "ak.diagram_view.v0",
+      "authority": "advisory",
+      "view_id": "diagram.bad.rel",
+      "view_type": "class",
+      "source_frame_hash": "7777777777777777777777777777777777777777777777777777777777777777",
+      "elements": [
+        {"id": "a", "kind": "class", "ref_kind": "node", "ref_id": "n_a", "label": "A"}
+      ],
+      "relations": [
+        {"id": "r1", "kind": "dependency", "from": "a", "to": "missing", "ref_kind": "edge", "ref_id": "e1"}
+      ],
+      "layout": {
+        "a": {"x": 0, "y": 0, "w": 100, "h": 60}
+      },
+      "annotations": []
+    }
+  ]
+}

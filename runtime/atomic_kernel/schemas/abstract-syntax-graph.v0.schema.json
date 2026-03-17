@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ak.asg.v0",
+  "title": "Atomic Kernel Abstract Syntax Graph v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["v", "authority", "language", "namespace", "nodes", "edges", "provenance", "graph_hash"],
+  "properties": {
+    "v": {"const": "ak.asg.v0"},
+    "authority": {"const": "advisory"},
+    "language": {"enum": ["python", "typescript", "mjs"]},
+    "namespace": {"type": "string", "minLength": 1},
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "symbol", "kind", "attrs", "source"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "symbol": {"type": "string", "minLength": 1},
+          "kind": {"type": "string", "minLength": 1},
+          "attrs": {"type": "object"},
+          "source": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path", "line", "column", "end_line", "end_column"],
+            "properties": {
+              "path": {"type": "string", "minLength": 1},
+              "line": {"type": "integer", "minimum": 1},
+              "column": {"type": "integer", "minimum": 0},
+              "end_line": {"type": "integer", "minimum": 1},
+              "end_column": {"type": "integer", "minimum": 0}
+            }
+          }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "symbol", "kind", "from", "to", "attrs"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "symbol": {"type": "string", "minLength": 1},
+          "kind": {"type": "string", "minLength": 1},
+          "from": {"type": "string", "minLength": 1},
+          "to": {"type": "string", "minLength": 1},
+          "attrs": {"type": "object"}
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_path", "parser", "parser_version"],
+      "properties": {
+        "source_path": {"type": "string", "minLength": 1},
+        "parser": {"type": "string", "enum": ["python-ast", "typescript-regex", "mjs-acorn-estree"]},
+        "parser_version": {"type": "string", "minLength": 1}
+      }
+    },
+    "graph_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  }
+}

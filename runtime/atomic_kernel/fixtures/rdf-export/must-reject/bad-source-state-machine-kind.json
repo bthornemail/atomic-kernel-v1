@@ -1,0 +1,21 @@
+{
+  "source_frame_hash": "8888888888888888888888888888888888888888888888888888888888888888",
+  "state_machines": [
+    {
+      "v": "ak.state_machine.v0",
+      "authority": "advisory",
+      "machine_id": "machine.bad.2",
+      "machine_kind": "hybrid",
+      "root_region": "r0",
+      "regions": [
+        {"id": "r0", "parent_state_id": null, "orthogonal_index": 0}
+      ],
+      "states": [
+        {"id": "s0", "name": "S0", "region_id": "r0", "state_kind": "simple", "entry_actions": [], "exit_actions": [], "internal_transitions": []}
+      ],
+      "transitions": [],
+      "extended_state_schema": {},
+      "source_frame_hash": "8888888888888888888888888888888888888888888888888888888888888888"
+    }
+  ]
+}

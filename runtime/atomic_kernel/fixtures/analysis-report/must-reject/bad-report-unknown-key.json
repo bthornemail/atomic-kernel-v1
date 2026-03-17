@@ -1,0 +1,12 @@
+{
+  "v": "analysis-report.v0",
+  "authority": "advisory",
+  "target": {"path": "/tmp", "languages": ["python"]},
+  "summary": {"files": 1, "language_counts": {"python": 1}, "asg_nodes": 1, "asg_edges": 0, "patterns": {}},
+  "instances": [],
+  "warnings": [],
+  "inputs_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "evidence_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "outputs_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "extra": true
+}

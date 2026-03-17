@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ak.rdf_export.v0",
+  "title": "Atomic Kernel RDF Export v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["v", "authority", "export_profile", "source_frame_hash", "namespaces", "triples"],
+  "properties": {
+    "v": {"const": "ak.rdf_export.v0"},
+    "authority": {"const": "advisory"},
+    "export_profile": {"const": "core-minimal"},
+    "source_frame_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "namespaces": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ak", "rdf", "rdfs"],
+      "properties": {
+        "ak": {"type": "string", "minLength": 1},
+        "rdf": {"type": "string", "minLength": 1},
+        "rdfs": {"type": "string", "minLength": 1}
+      }
+    },
+    "triples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["s", "p", "o", "o_kind"],
+        "properties": {
+          "s": {"type": "string", "minLength": 1},
+          "p": {"type": "string", "minLength": 1},
+          "o": {"type": "string", "minLength": 1},
+          "o_kind": {"enum": ["iri", "literal"]}
+        }
+      }
+    }
+  }
+}

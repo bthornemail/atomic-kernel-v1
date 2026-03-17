@@ -1,0 +1,46 @@
+{
+  "source_frame_hash": "abababababababababababababababababababababababababababababababab",
+  "ontology_nodes": [
+    {
+      "node_id": "n.payment_service",
+      "class": "Node",
+      "label": "PaymentService",
+      "properties": {
+        "language": "python",
+        "public": true
+      },
+      "source_frame_hash": "abababababababababababababababababababababababababababababababab"
+    },
+    {
+      "node_id": "n.payment_gateway",
+      "class": "Node",
+      "label": "PaymentGateway",
+      "properties": {
+        "language": "python",
+        "public": false
+      },
+      "source_frame_hash": "abababababababababababababababababababababababababababababababab"
+    }
+  ],
+  "topology_edges": [
+    {
+      "edge_id": "te.depends.1",
+      "kind": "depends_on",
+      "from_id": "n.payment_service",
+      "to_id": "n.payment_gateway",
+      "confidence": 1.0,
+      "source_frame_hash": "abababababababababababababababababababababababababababababababab"
+    }
+  ],
+  "epistemic_assertions": [
+    {
+      "assertion_id": "ea.inf.depends.1",
+      "subject_id": "n.payment_service",
+      "status": "inferred",
+      "confidence": 0.95,
+      "rationale": "Import and call graph edges indicate dependency.",
+      "evidence_refs": ["edge:e_imports", "edge:e_calls"],
+      "source_frame_hash": "abababababababababababababababababababababababababababababababab"
+    }
+  ]
+}
