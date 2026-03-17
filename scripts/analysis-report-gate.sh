@@ -21,8 +21,25 @@ GOLDEN_HASH="$ROOT/golden/analysis-report/replay-hash"
 mkdir -p "$(dirname "$REPORT_JSON")"
 TMP_JSON="$(mktemp)"
 TMP_MD="$(mktemp)"
+TMP_JSON_NORM="$(mktemp)"
+TMP_EXPECTED_NORM="$(mktemp)"
+TMP_WRAP_NORM="$(mktemp)"
 TMP_OUT="$(mktemp -d)"
-trap 'rm -f "$TMP_JSON" "$TMP_MD"; rm -rf "$TMP_OUT"' EXIT
+trap 'rm -f "$TMP_JSON" "$TMP_MD" "$TMP_JSON_NORM" "$TMP_EXPECTED_NORM" "$TMP_WRAP_NORM"; rm -rf "$TMP_OUT"' EXIT
+
+normalize_report_json() {
+  local in_file="$1"
+  local out_file="$2"
+  python3 - <<PY > "$out_file"
+import json
+from pathlib import Path
+p = Path(r"$in_file")
+obj = json.loads(p.read_text(encoding="utf-8"))
+if isinstance(obj, dict) and isinstance(obj.get("target"), dict):
+  obj["target"]["path"] = "__TARGET__"
+print(json.dumps(obj, sort_keys=True, separators=(",", ":")))
+PY
+}
 
 python3 "$ROOT/scripts/semantic-analyze.py" \
   --target "$TARGET" \
@@ -30,12 +47,15 @@ python3 "$ROOT/scripts/semantic-analyze.py" \
   --out-md "$TMP_MD" \
   >/dev/null
 
-cmp -s "$TMP_JSON" "$EXPECTED_JSON" || { echo "analysis report json mismatch" >&2; exit 1; }
+normalize_report_json "$TMP_JSON" "$TMP_JSON_NORM"
+normalize_report_json "$EXPECTED_JSON" "$TMP_EXPECTED_NORM"
+
+cmp -s "$TMP_JSON_NORM" "$TMP_EXPECTED_NORM" || { echo "analysis report json mismatch" >&2; exit 1; }
 cmp -s "$TMP_MD" "$EXPECTED_MD" || { echo "analysis report md mismatch" >&2; exit 1; }
 
 python3 "$ROOT/scripts/validate-analysis-report.py" --file "$TMP_JSON" >/dev/null
 
-cp "$TMP_JSON" "$REPORT_JSON"
+cp "$TMP_JSON_NORM" "$REPORT_JSON"
 cp "$TMP_MD" "$REPORT_MD"
 
 bash "$ROOT/scripts/run-applied-analysis.sh" \
@@ -51,7 +71,8 @@ WRAP_RECEIPT="$TMP_OUT/fixture-sample/receipt.json"
 [[ -f "$WRAP_JSON" ]] || { echo "wrapper missing report json" >&2; exit 1; }
 [[ -f "$WRAP_MD" ]] || { echo "wrapper missing report md" >&2; exit 1; }
 [[ -f "$WRAP_RECEIPT" ]] || { echo "wrapper missing receipt" >&2; exit 1; }
-cmp -s "$WRAP_JSON" "$EXPECTED_JSON" || { echo "wrapper report json mismatch" >&2; exit 1; }
+normalize_report_json "$WRAP_JSON" "$TMP_WRAP_NORM"
+cmp -s "$TMP_WRAP_NORM" "$TMP_EXPECTED_NORM" || { echo "wrapper report json mismatch" >&2; exit 1; }
 cmp -s "$WRAP_MD" "$EXPECTED_MD" || { echo "wrapper report md mismatch" >&2; exit 1; }
 
 python3 - <<PY >/dev/null
