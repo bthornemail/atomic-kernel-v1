@@ -23,6 +23,16 @@ class PublicApiTests(unittest.TestCase):
     oid = ak.compute_oid({"frame": 0, "tick": 1, "control": 0}, sid, None)
     self.assertTrue(oid.startswith("sha256:"))
 
+  def test_vnext_algorithmic_identity_surface(self):
+    sid = ak.compute_algorithmic_sid("living_xml", "0011100")
+    self.assertTrue(sid.startswith("math_v2:"))
+    oid = ak.compute_algorithmic_oid({"frame": 0, "tick": 1, "control": 0}, sid, None)
+    self.assertTrue(oid.startswith("math_v2:"))
+    adapter_sha256 = ak.compute_hash_sid_adapter("living_xml", "0011100", "sha256")
+    adapter_sha3 = ak.compute_hash_sid_adapter("living_xml", "0011100", "sha3_256")
+    self.assertTrue(adapter_sha256.startswith("sha256:"))
+    self.assertTrue(adapter_sha3.startswith("sha3_256:"))
+
   def test_seed_surface(self):
     header = ak.closure_fixpoint(0x1C)
     self.assertGreaterEqual(header, 0)
@@ -32,4 +42,3 @@ class PublicApiTests(unittest.TestCase):
 
 if __name__ == "__main__":
   unittest.main()
-
