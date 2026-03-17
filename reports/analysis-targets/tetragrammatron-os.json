@@ -1,0 +1,1 @@
+{"authority":"advisory","commit":"65a0d2cf2b8bf06ed5abd7f96f00dd52b539b7f9","exclude_globs":["**/node_modules/**","**/.git/**","**/dist/**","**/build/**","**/site/**"],"include_globs":["**/*.mjs"],"language_profile":"mjs","repo_path":"/home/main/devops/tetragrammatron-os","v":"analysis-target-manifest.v0"}

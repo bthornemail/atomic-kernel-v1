@@ -1,0 +1,38 @@
+name: ci-gates
+
+on:
+  pull_request:
+  push:
+    branches: ["main"]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Verify TypeScript parser lane
+        run: bash scripts/typescript-parser-gate.sh
+
+      - name: Verify workspace ingest lane
+        run: bash scripts/workspace-ingest-gate.sh
+
+      - name: Verify vNext replay parity lane
+        run: bash scripts/vnext-replay-parity-gate.sh
+
+      - name: Verify vNext API compatibility lane
+        run: bash scripts/vnext-api-compat-gate.sh
+
+      - name: Verify vNext Coq parity lane
+        run: bash scripts/vnext-coq-parity-gate.sh

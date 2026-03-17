@@ -1,0 +1,23 @@
+
+Traceback (most recent call last):
+  File "/home/main/devops/atomic-kernel/runtime/atomic_kernel/repo_analysis.py", line 159, in analyze_repo
+    frame = ingest_typescript_to_asg(source, rel, namespace)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/main/devops/atomic-kernel/runtime/atomic_kernel/asg.py", line 302, in ingest_typescript_to_asg
+    _check_ts_syntax(source)
+  File "/home/main/devops/atomic-kernel/runtime/atomic_kernel/asg.py", line 264, in _check_ts_syntax
+    raise AsgError("typescript syntax invalid: unmatched )")
+runtime.atomic_kernel.asg.AsgError: typescript syntax invalid: unmatched )
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/main/devops/atomic-kernel/scripts/semantic-analyze.py", line 45, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/main/devops/atomic-kernel/scripts/semantic-analyze.py", line 27, in main
+    report = analyze_repo(
+             ^^^^^^^^^^^^^
+  File "/home/main/devops/atomic-kernel/runtime/atomic_kernel/repo_analysis.py", line 181, in analyze_repo
+    raise RepoAnalysisError(f"failed analyzing {rel}: {exc}") from exc
+runtime.atomic_kernel.repo_analysis.RepoAnalysisError: failed analyzing evolutions/document-knowledge-extractor/document-knowledge-extractor.ts: typescript syntax invalid: unmatched )

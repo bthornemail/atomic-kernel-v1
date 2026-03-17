@@ -1,0 +1,28 @@
+
+Traceback (most recent call last):
+  File "/home/main/devops/atomic-kernel/runtime/atomic_kernel/repo_analysis.py", line 149, in analyze_repo
+    frame = ingest_python_to_asg(source, rel, namespace)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/main/devops/atomic-kernel/runtime/atomic_kernel/asg.py", line 110, in ingest_python_to_asg
+    tree = ast.parse(source, filename=source_path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/ast.py", line 52, in parse
+    return compile(source, filename, mode, flags,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "archive/tetragrammatron-os/vendor/esp/idf-v5.4.1/components/bootloader/subproject/components/micro-ecc/micro-ecc/scripts/mult_arm.py", line 6
+    print "Provide the integer size in 32-bit words"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: Missing parentheses in call to 'print'. Did you mean print(...)?
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/main/devops/atomic-kernel/scripts/semantic-analyze.py", line 45, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/main/devops/atomic-kernel/scripts/semantic-analyze.py", line 27, in main
+    report = analyze_repo(
+             ^^^^^^^^^^^^^
+  File "/home/main/devops/atomic-kernel/runtime/atomic_kernel/repo_analysis.py", line 173, in analyze_repo
+    raise RepoAnalysisError(f"failed analyzing {rel}: {exc}") from exc
+runtime.atomic_kernel.repo_analysis.RepoAnalysisError: failed analyzing archive/tetragrammatron-os/vendor/esp/idf-v5.4.1/components/bootloader/subproject/components/micro-ecc/micro-ecc/scripts/mult_arm.py: Missing parentheses in call to 'print'. Did you mean print(...)? (mult_arm.py, line 6)

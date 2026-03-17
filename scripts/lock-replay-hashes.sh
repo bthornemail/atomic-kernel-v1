@@ -24,5 +24,6 @@ write_hash "$ROOT/reports/phase27P-mjs-asg-ingest.json" "$ROOT/golden/mjs-asg-in
 write_hash "$ROOT/reports/phase27N-pattern-extraction.json" "$ROOT/golden/pattern-extraction/replay-hash"
 write_hash "$ROOT/reports/phase27O-analysis-report.json" "$ROOT/golden/analysis-report/replay-hash"
 write_hash "$ROOT/reports/phase27Q-protocol-flow.json" "$ROOT/golden/protocol-flow/replay-hash"
+write_hash "$ROOT/reports/phase27R-vnext-replay-parity.json" "$ROOT/golden/vnext-replay-parity/replay-hash"
 
 echo "ok replay hashes locked"

@@ -1,0 +1,1 @@
+{"authority":"advisory","cases":[{"graph_hash":"sha256:383d1eb3bd093867483d018c753cdb019852625c8f4edb275d73b0d3a055e69a","json_sha":"sha256:39d207b27274e6498a387bb0343d315b159350c57d8073ada330c4554dfade03","name":"basic-mjs"}],"language":"mjs","summary":{"accept":1,"must_reject":1},"v":"phase27P.mjs_asg_ingest_gate.v0"}

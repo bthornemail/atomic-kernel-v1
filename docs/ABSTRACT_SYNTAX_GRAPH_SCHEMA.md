@@ -13,7 +13,7 @@ UML/XML/RDF are projection/search surfaces over this graph.
 ### GraphFrame
 - `v`: schema version string (`ak.asg.v0`)
 - `authority`: `advisory`
-- `language`: source language id (`python`, `typescript`, ...)
+- `language`: source language id (`python`, `typescript`, `mjs`)
 - `namespace`: logical scope (`repo/package/module`)
 - `nodes`: list of `Node`
 - `edges`: list of `Edge`
@@ -42,8 +42,8 @@ UML/XML/RDF are projection/search surfaces over this graph.
 - Same source + same parser version => same `graph_hash`.
 
 ## Minimal node/edge vocab (v0)
-- Node kinds: `Module`, `Namespace`, `Class`, `Interface`, `Function`, `Method`, `Field`, `TypeRef`, `Literal`.
-- Edge kinds: `Defines`, `Imports`, `Calls`, `Implements`, `Extends`, `Constructs`, `Assigns`, `Returns`, `DelegatesTo`, `Observes`.
+- Node kinds include: `Module`, `Namespace`, `Import`, `Export`, `Class`, `Interface`, `Function`, `Method`, `Field`, `Variable`, `Constant`, `ObjectLiteral`, `Call`, `JsonEnvelope`, `SchemaRef`, `GateScriptRef`, `FixtureRef`, `TypeRef`, `Literal`.
+- Edge kinds include: `Defines`, `Imports`, `Exports`, `Calls`, `Implements`, `Extends`, `Constructs`, `Assigns`, `Returns`, `DelegatesTo`, `Observes`, `DependsOn`, `ValidatesAgainst`, `ProjectsTo`, `BridgesTo`, `ImplementsBoundary`, `FramingLayerOf`, `BridgeLayerOf`, `CarrierLayerOf`, `InvokesEabi`, `ConformsToAbi`, `ProjectionOnlyOf`.
 
 ## Boundary
 This is a draft extension contract. It does not redefine kernel transition law.

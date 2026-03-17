@@ -8,6 +8,10 @@ Purpose: define the canonical semantic contract family and shared envelope conve
 Primary ingestion contracts:
 - `ASG_INGESTION_CONTRACT.md` (Python/TypeScript/MJS)
 - `MJS_ASG_INGESTION_CONTRACT.md` (MJS-specific frontend contract)
+- `WORKSPACE_INGESTION_CONTRACT.md` (workspace discovery + orchestration)
+- `PROJECT_PROFILE_CONTRACT.md` (project boundary profiling)
+- `WORKSPACE_SUMMARY_CONTRACT.md` (workspace-level aggregation)
+- `PROJECT_ANALYSIS_OVERLAY_CONTRACT.md` (project-scoped exclusion overlays)
 
 ## Contract Family
 Canonical semantic contracts:

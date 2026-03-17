@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crystal World Viewer</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #0b0f17;
+    color: #dbe7ff;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+  }
+  h1 { margin: 6px 0 0; font-size: 1.2rem; letter-spacing: 0.08em; }
+  .sub { color: #8ea0c4; font-size: 0.75rem; }
+  .panel {
+    width: 100%;
+    max-width: 980px;
+    background: #11182a;
+    border: 1px solid #243451;
+    border-radius: 8px;
+    padding: 10px;
+  }
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  button, input[type="range"], input[type="file"] {
+    font: inherit;
+  }
+  button {
+    background: #1b2942;
+    color: #dbe7ff;
+    border: 1px solid #34517f;
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+  button:hover { background: #22365a; }
+  .kv { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; font-size: 0.8rem; }
+  .kv span b { color: #a8ffd5; }
+  canvas {
+    border: 1px solid #30466f;
+    border-radius: 8px;
+    background: #070b12;
+    width: min(92vw, 900px);
+    height: min(92vw, 900px);
+    image-rendering: pixelated;
+  }
+  .status { font-size: 0.8rem; color: #9cb6e6; }
+</style>
+</head>
+<body>
+  <h1>One Crystal, Many Observers</h1>
+  <div class="sub">deterministic world frame from shared lawful time</div>
+
+  <div class="panel">
+    <div class="row">
+      <button id="btnPlay">Pause</button>
+      <button id="btnStep">Step</button>
+      <button id="btnReset">Reset</button>
+      <button id="btnLoadSample">Load sample world</button>
+      <label>world file <input id="fileWorld" type="file" accept=".json,application/json"></label>
+    </div>
+    <div class="row" style="margin-top:8px;">
+      <label>tick <input id="tickScrub" type="range" min="0" max="4095" value="0" style="width:340px;"></label>
+      <span id="tickLabel">0</span>
+      <label>speed <input id="speed" type="range" min="1" max="120" value="20" style="width:180px;"></label>
+      <span id="speedLabel">20 fps</span>
+    </div>
+    <div class="kv">
+      <span>mode: <b id="mode">live</b></span>
+      <span>observers: <b id="count">16</b></span>
+      <span>tick: <b id="tick">0</b></span>
+      <span>orbit: <b id="orbit">0</b></span>
+      <span>offset: <b id="offset">0</b></span>
+      <span>position: <b id="position">0</b></span>
+    </div>
+    <div class="status" id="status">ready</div>
+  </div>
+
+  <canvas id="world" width="900" height="900"></canvas>
+
+<script>
+// Crystal law (same constants/law as kernel.py)
+const WIDTH = 16;
+const MASK = 0xFFFF;
+const C = 0x1D1D;
+const B = [0, 1, 3, 6, 9, 8, 6, 3];
+const T_LEN = B.length;
+const W = B.reduce((a, b) => a + b, 0);
+const SYMBOLS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()+-=<>?/|~";
+
+function rotl(x, n) { return ((x << n) | (x >>> (WIDTH - n))) & MASK; }
+function rotr(x, n) { return ((x >>> n) | (x << (WIDTH - n))) & MASK; }
+function nextState(x) { return (rotl(x, 1) ^ rotl(x, 3) ^ rotr(x, 2) ^ C) & MASK; }
+function tickState(state, t) { return nextState((state ^ B[t % T_LEN]) & MASK); }
+function positionAt(n) {
+  const full = Math.floor(n / T_LEN);
+  const rem = n % T_LEN;
+  let s = 0;
+  for (let i = 0; i < rem; i++) s += B[i];
+  return full * W + s;
+}
+function readPosition(position) {
+  return { orbit: Math.floor(position / W), offset: position % W };
+}
+function stateAt(seed, n) {
+  let s = seed & MASK;
+  for (let t = 0; t < n; t++) s = tickState(s, t);
+  return s;
+}
+function popcount16(x) {
+  x &= MASK;
+  let c = 0;
+  for (let i = 0; i < 16; i++) if ((x >> i) & 1) c++;
+  return c;
+}
+function colorOf(state) {
+  const r = (state >> 8) & 0xFF;
+  const g = ((state >> 4) & 0x0F) * 17;
+  const b = (state & 0x0F) * 17;
+  return `rgb(${r},${g},${b})`;
+}
+function symbolOf(seed, orbit, phase) {
+  return SYMBOLS[(seed + orbit + phase) % SYMBOLS.length];
+}
+
+function observe(seed, n) {
+  const state = stateAt(seed, n);
+  const position = positionAt(n);
+  const { orbit, offset } = readPosition(position);
+  const phase = n % T_LEN;
+  return {
+    seed,
+    state,
+    position,
+    orbit,
+    offset,
+    phase,
+    x: offset,
+    y: popcount16(state),
+    color: colorOf(state),
+    symbol: symbolOf(seed, orbit, phase),
+  };
+}
+
+function defaultSeeds(count = 16, seedStart = 1, stride = 73) {
+  const out = [];
+  for (let i = 0; i < count; i++) {
+    let s = (seedStart + i * stride) & MASK;
+    if (s === 0) s = 1;
+    out.push(s);
+  }
+  return out;
+}
+
+function worldFrame(n, seeds) {
+  const position = positionAt(n);
+  const { orbit, offset } = readPosition(position);
+  return {
+    t: n,
+    position,
+    orbit,
+    offset,
+    objects: seeds.map((seed, i) => ({ id: `obj-${String(i).padStart(2, '0')}`, ...observe(seed, n) })),
+  };
+}
+
+let seeds = defaultSeeds(16);
+let worldArtifact = null;
+let mode = "live";
+let n = 0;
+let running = true;
+let fps = 20;
+let last = 0;
+
+const canvas = document.getElementById('world');
+const ctx = canvas.getContext('2d');
+const scrub = document.getElementById('tickScrub');
+const statusEl = document.getElementById('status');
+
+function maxTick() {
+  return worldArtifact ? Math.max(0, worldArtifact.steps - 1) : 4095;
+}
+
+function currentFrame() {
+  if (worldArtifact) {
+    const idx = Math.max(0, Math.min(n, worldArtifact.frames.length - 1));
+    return worldArtifact.frames[idx];
+  }
+  return worldFrame(n, seeds);
+}
+
+function drawFrame(frame) {
+  ctx.fillStyle = '#070b12';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // grid
+  ctx.strokeStyle = '#122038';
+  ctx.lineWidth = 1;
+  const gx = 36;
+  const gy = 18;
+  for (let x = 0; x <= gx; x++) {
+    const px = (x / gx) * canvas.width;
+    ctx.beginPath(); ctx.moveTo(px, 0); ctx.lineTo(px, canvas.height); ctx.stroke();
+  }
+  for (let y = 0; y <= gy; y++) {
+    const py = (y / gy) * canvas.height;
+    ctx.beginPath(); ctx.moveTo(0, py); ctx.lineTo(canvas.width, py); ctx.stroke();
+  }
+
+  const cols = W - 1 || 1;
+  const rows = 16;
+  for (const obj of frame.objects) {
+    const x = (obj.x / cols) * (canvas.width - 20) + 10;
+    const y = (obj.y / rows) * (canvas.height - 20) + 10;
+    ctx.fillStyle = obj.color;
+    ctx.beginPath();
+    ctx.arc(x, y, 11, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '12px monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(obj.symbol, x, y + 0.5);
+  }
+
+  document.getElementById('mode').textContent = mode;
+  document.getElementById('count').textContent = String(frame.objects.length);
+  document.getElementById('tick').textContent = String(frame.t);
+  document.getElementById('orbit').textContent = String(frame.orbit);
+  document.getElementById('offset').textContent = String(frame.offset);
+  document.getElementById('position').textContent = String(frame.position);
+  document.getElementById('tickLabel').textContent = String(frame.t);
+}
+
+function setTick(v) {
+  n = Math.max(0, Math.min(v, maxTick()));
+  scrub.value = String(n);
+  drawFrame(currentFrame());
+}
+
+function loop(ts) {
+  requestAnimationFrame(loop);
+  if (!running) return;
+  if (ts - last < 1000 / fps) return;
+  last = ts;
+  if (n >= maxTick()) {
+    running = false;
+    document.getElementById('btnPlay').textContent = 'Play';
+    return;
+  }
+  setTick(n + 1);
+}
+
+function loadWorldObject(obj) {
+  if (!obj || obj.v !== 'clock-world.v0' || !Array.isArray(obj.frames) || !Array.isArray(obj.seeds)) {
+    throw new Error('invalid world artifact');
+  }
+  worldArtifact = obj;
+  seeds = obj.seeds.slice();
+  mode = 'artifact';
+  scrub.max = String(maxTick());
+  setTick(0);
+  statusEl.textContent = `loaded artifact steps=${obj.steps} observers=${obj.observer_count}`;
+}
+
+document.getElementById('btnPlay').addEventListener('click', () => {
+  running = !running;
+  document.getElementById('btnPlay').textContent = running ? 'Pause' : 'Play';
+});
+
+document.getElementById('btnStep').addEventListener('click', () => {
+  running = false;
+  document.getElementById('btnPlay').textContent = 'Play';
+  setTick(Math.min(n + 1, maxTick()));
+});
+
+document.getElementById('btnReset').addEventListener('click', () => {
+  running = false;
+  document.getElementById('btnPlay').textContent = 'Play';
+  setTick(0);
+});
+
+document.getElementById('speed').addEventListener('input', (e) => {
+  fps = parseInt(e.target.value, 10);
+  document.getElementById('speedLabel').textContent = `${fps} fps`;
+});
+
+scrub.addEventListener('input', (e) => {
+  running = false;
+  document.getElementById('btnPlay').textContent = 'Play';
+  setTick(parseInt(e.target.value, 10));
+});
+
+document.getElementById('btnLoadSample').addEventListener('click', async () => {
+  try {
+    const res = await fetch('./replays/world-16-4096.clock-world.v0.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const obj = await res.json();
+    loadWorldObject(obj);
+  } catch (err) {
+    statusEl.textContent = `load failed: ${String(err.message || err)}`;
+  }
+});
+
+document.getElementById('fileWorld').addEventListener('change', (e) => {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      loadWorldObject(JSON.parse(String(reader.result || '{}')));
+    } catch (err) {
+      statusEl.textContent = `parse failed: ${String(err.message || err)}`;
+    }
+  };
+  reader.readAsText(file);
+});
+
+// initial live frame
+setTick(0);
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>

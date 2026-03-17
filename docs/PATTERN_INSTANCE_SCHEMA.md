@@ -12,7 +12,7 @@ Pattern inference is not binary truth by default. Each match must carry explicit
 ### PatternInstance
 - `v`: schema version (`ak.pattern.instance.v0`)
 - `authority`: `advisory`
-- `pattern_type`: one of `Adapter|Facade|Strategy|Observer|Builder|...`
+- `pattern_type`: one of `Adapter|Facade|Strategy|Observer|Builder|BoundarySplit|ProjectionOnlySurface|BridgeLayer|CarrierLayer|ConformanceSurface|...`
 - `subject_nodes`: list of node ids from ASG
 - `role_bindings`: map from semantic role to node id (`adapter`, `target_interface`, ...)
 - `evidence_edges`: list of edge ids from ASG
@@ -33,6 +33,11 @@ Pattern inference is not binary truth by default. Each match must carry explicit
 - Strategy
 - Observer
 - Builder
+- BoundarySplit
+- ProjectionOnlySurface
+- BridgeLayer
+- CarrierLayer
+- ConformanceSurface
 
 ## Boundary
 Pattern instances are derived advisory artifacts and cannot upgrade authority over ASG truth.

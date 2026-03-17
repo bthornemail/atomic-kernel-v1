@@ -22,7 +22,8 @@ for f in \
   "$ROOT/golden/mjs-asg-ingest/replay-hash" \
   "$ROOT/golden/pattern-extraction/replay-hash" \
   "$ROOT/golden/analysis-report/replay-hash" \
-  "$ROOT/golden/protocol-flow/replay-hash"
+  "$ROOT/golden/protocol-flow/replay-hash" \
+  "$ROOT/golden/vnext-replay-parity/replay-hash"
 do
   [[ -f "$f" ]] || { echo "missing replay hash: $f" >&2; exit 1; }
   grep -Eq '^sha256:[0-9a-f]{64}$' "$f" || { echo "invalid replay hash format: $f" >&2; exit 1; }
