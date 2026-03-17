@@ -1,0 +1,11 @@
+{
+  "name": "atomic-kernel",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Node tooling manifest for deterministic MJS ingestion support.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "dependencies": {
+    "acorn": "8.16.0"
+  }
+}

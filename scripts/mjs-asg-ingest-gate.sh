@@ -13,6 +13,13 @@ GOLDEN_HASH="$ROOT/golden/mjs-asg-ingest/replay-hash"
 [[ -d "$REJECT_DIR" ]] || { echo "missing reject fixtures: $REJECT_DIR" >&2; exit 2; }
 [[ -f "$GOLDEN_HASH" ]] || { echo "missing golden hash: $GOLDEN_HASH" >&2; exit 2; }
 
+if ! node -e "require('acorn')" >/dev/null 2>&1; then
+  [[ -f "$ROOT/package.json" ]] || { echo "missing package.json for mjs parser bootstrap" >&2; exit 2; }
+  [[ -f "$ROOT/package-lock.json" ]] || { echo "missing package-lock.json for mjs parser bootstrap" >&2; exit 2; }
+  npm ci --silent >/dev/null
+  node -e "require('acorn')" >/dev/null 2>&1 || { echo "acorn unavailable after bootstrap" >&2; exit 2; }
+fi
+
 mkdir -p "$(dirname "$REPORT")"
 TMP_JSON="$(mktemp)"
 CASES_FILE="$(mktemp)"
