@@ -1,0 +1,10 @@
+{
+  "authority": "advisory",
+  "committed": false,
+  "proposal_id": "proposal-e15e4aff5ddcdad3",
+  "proposal_sha256": "sha256:f201554eb42dac93edeafb0304e23f4799c2bbe243559322eca3ebefe508244f",
+  "receipt_ref": "receipts/proposal-e15e4aff5ddcdad3",
+  "status": "queued",
+  "v": "world.step.receipt.v0",
+  "world_id": "world0-orchard-garden-lattice"
+}

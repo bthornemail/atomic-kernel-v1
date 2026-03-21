@@ -1,0 +1,34 @@
+{
+  "v": "universe_proof_ledger.v0",
+  "authority": "advisory",
+  "universe_artifact": "universe.v0",
+  "matrix_target": "8x7x2",
+  "phase1_slice_target": 16,
+  "algorithms": [
+    "A1_transition",
+    "A2_control_plane",
+    "A3_projection",
+    "A4_escape",
+    "A5_fano_path",
+    "A6_proposal_receipt",
+    "A7_branch_reconciliation"
+  ],
+  "entries": [
+    { "id": "Q1-constructive", "question": "Q1", "form": "constructive", "algorithm_focus": "A1_transition", "status": "planned", "evidence": "scripts/universe-v0-proof-slice-gate.sh" },
+    { "id": "Q1-falsification", "question": "Q1", "form": "falsification", "algorithm_focus": "A1_transition", "status": "planned", "evidence": "scripts/universe-v0-proof-slice-gate.sh" },
+    { "id": "Q2-constructive", "question": "Q2", "form": "constructive", "algorithm_focus": "A1_transition", "status": "planned", "evidence": "scripts/universe-v0-proof-slice-gate.sh" },
+    { "id": "Q2-falsification", "question": "Q2", "form": "falsification", "algorithm_focus": "A1_transition", "status": "planned", "evidence": "scripts/universe-v0-proof-slice-gate.sh" },
+    { "id": "Q3-constructive", "question": "Q3", "form": "constructive", "algorithm_focus": "A2_control_plane", "status": "planned", "evidence": "scripts/universe-v0-proof-slice-gate.sh" },
+    { "id": "Q3-falsification", "question": "Q3", "form": "falsification", "algorithm_focus": "A2_control_plane", "status": "planned", "evidence": "scripts/universe-v0-proof-slice-gate.sh" },
+    { "id": "Q4-constructive", "question": "Q4", "form": "constructive", "algorithm_focus": "A3_projection", "status": "planned", "evidence": "scripts/universe-v0-proof-slice-gate.sh" },
+    { "id": "Q4-falsification", "question": "Q4", "form": "falsification", "algorithm_focus": "A3_projection", "status": "planned", "evidence": "scripts/universe-v0-proof-slice-gate.sh" },
+    { "id": "Q5-constructive", "question": "Q5", "form": "constructive", "algorithm_focus": "A4_escape", "status": "planned", "evidence": "scripts/universe-v0-proof-slice-gate.sh" },
+    { "id": "Q5-falsification", "question": "Q5", "form": "falsification", "algorithm_focus": "A4_escape", "status": "planned", "evidence": "scripts/universe-v0-proof-slice-gate.sh" },
+    { "id": "Q6-constructive", "question": "Q6", "form": "constructive", "algorithm_focus": "A6_proposal_receipt", "status": "pass", "evidence": "scripts/universe-a14-incidence-scheduling-gate.sh" },
+    { "id": "Q6-falsification", "question": "Q6", "form": "falsification", "algorithm_focus": "A6_proposal_receipt", "status": "pass", "evidence": "scripts/universe-a14-incidence-scheduling-gate.sh" },
+    { "id": "Q7-constructive", "question": "Q7", "form": "constructive", "algorithm_focus": "A7_branch_reconciliation", "status": "pass", "evidence": "scripts/universe-a14-incidence-scheduling-gate.sh" },
+    { "id": "Q7-falsification", "question": "Q7", "form": "falsification", "algorithm_focus": "A7_branch_reconciliation", "status": "pass", "evidence": "scripts/universe-a14-incidence-scheduling-gate.sh" },
+    { "id": "Q8-constructive", "question": "Q8", "form": "constructive", "algorithm_focus": "A5_fano_path", "status": "pass", "evidence": "scripts/universe-a5-fano-gate.sh" },
+    { "id": "Q8-falsification", "question": "Q8", "form": "falsification", "algorithm_focus": "A5_fano_path", "status": "pass", "evidence": "scripts/universe-a5-fano-gate.sh" }
+  ]
+}

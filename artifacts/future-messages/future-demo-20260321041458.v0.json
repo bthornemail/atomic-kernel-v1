@@ -1,0 +1,10 @@
+{
+  "v": "ak.message_to_future.v0",
+  "authority": "advisory",
+  "from": "mcp",
+  "to": "future-reader",
+  "id": "future-demo-20260321041458",
+  "created_at_utc": "2026-03-21T04:14:58.675Z",
+  "intended_read_after_utc": "2000-01-01T00:00:00Z",
+  "message": "Hello future, this message survived as a verified artifact."
+}

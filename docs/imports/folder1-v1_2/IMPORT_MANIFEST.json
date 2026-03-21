@@ -1,0 +1,138 @@
+{
+  "v": "fork_import_manifest.v1_2",
+  "repo": "atomic-kernel",
+  "import_root": "docs/imports/folder1-v1_2",
+  "status": "active",
+  "authority": "advisory",
+  "count": 16,
+  "entries": [
+    {
+      "file": "112_PROOFS_MATRIX.md",
+      "class": "proof-candidate",
+      "source_path": "/home/main/devops/Folder 1/docs/112_PROOFS_MATRIX.md",
+      "imported_path": "docs/imports/folder1-v1_2/112_PROOFS_MATRIX.md",
+      "sha256": "sha256:d1aa55e50c5d017a30c19465df7ae4254afa45a81f26b657cfcd940b4f1c25ab",
+      "imported_at_utc": "2026-03-20T00:00:00Z"
+    },
+    {
+      "file": "ALGORITHM_A13_ESC_DEPTH_MIXED_RADIX.md",
+      "class": "normative-candidate",
+      "source_path": "/home/main/devops/Folder 1/docs/ALGORITHM_A13_ESC_DEPTH_MIXED_RADIX.md",
+      "imported_path": "docs/imports/folder1-v1_2/ALGORITHM_A13_ESC_DEPTH_MIXED_RADIX.md",
+      "sha256": "sha256:d662735771bd45327404aacc25d78953f91411b28497d05d29fe3c997fc32a1c",
+      "imported_at_utc": "2026-03-20T00:00:00Z"
+    },
+    {
+      "file": "ATOMIC_KERNEL_NORMATIVE_CORE_v1_2.md",
+      "class": "normative-candidate",
+      "source_path": "/home/main/devops/Folder 1/docs/ATOMIC_KERNEL_NORMATIVE_CORE_v1_2.md",
+      "imported_path": "docs/imports/folder1-v1_2/ATOMIC_KERNEL_NORMATIVE_CORE_v1_2.md",
+      "sha256": "sha256:576764cb727d5b6b08b1e63c3f28800832e725cd6965008d15ba2dc88ed29559",
+      "imported_at_utc": "2026-03-20T00:00:00Z"
+    },
+    {
+      "file": "ATOMIC_KERNEL_PROOF_NOTES_v1_2.md",
+      "class": "proof-candidate",
+      "source_path": "/home/main/devops/Folder 1/docs/ATOMIC_KERNEL_PROOF_NOTES_v1_2.md",
+      "imported_path": "docs/imports/folder1-v1_2/ATOMIC_KERNEL_PROOF_NOTES_v1_2.md",
+      "sha256": "sha256:1f92b305c3d6b1ec7fd376d80428730ec04b21c3529dd83071b8ad571e8d10c8",
+      "imported_at_utc": "2026-03-20T00:00:00Z"
+    },
+    {
+      "file": "ATOMIC_KERNEL_REDUCTION_SPEC_v1_2.md",
+      "class": "normative-candidate",
+      "source_path": "/home/main/devops/Folder 1/docs/ATOMIC_KERNEL_REDUCTION_SPEC_v1_2.md",
+      "imported_path": "docs/imports/folder1-v1_2/ATOMIC_KERNEL_REDUCTION_SPEC_v1_2.md",
+      "sha256": "sha256:79da503101f84b6832eb80184a9de130380da32c7fd00f1ab29b68e73230e171",
+      "imported_at_utc": "2026-03-20T00:00:00Z"
+    },
+    {
+      "file": "AtomicKernelCoq.v",
+      "class": "proof-candidate",
+      "source_path": "/home/main/devops/Folder 1/docs/AtomicKernelCoq.v",
+      "imported_path": "docs/imports/folder1-v1_2/AtomicKernelCoq.v",
+      "sha256": "sha256:fbfc35c64a208a9b4463542f3adbf7ce17587055e3aa76df86d44a5761fb9f05",
+      "imported_at_utc": "2026-03-20T00:00:00Z"
+    },
+    {
+      "file": "CANONICAL_MULTIPLEXING.md",
+      "class": "advisory-rationale",
+      "source_path": "/home/main/devops/Folder 1/docs/CANONICAL_MULTIPLEXING.md",
+      "imported_path": "docs/imports/folder1-v1_2/CANONICAL_MULTIPLEXING.md",
+      "sha256": "sha256:b26f89e931a4d72432211cbe9251a279ecaa954da432da9214396cc6a33b4030",
+      "imported_at_utc": "2026-03-20T00:00:00Z"
+    },
+    {
+      "file": "CONTROL_PLANE_SPEC.md",
+      "class": "normative-candidate",
+      "source_path": "/home/main/devops/Folder 1/docs/CONTROL_PLANE_SPEC.md",
+      "imported_path": "docs/imports/folder1-v1_2/CONTROL_PLANE_SPEC.md",
+      "sha256": "sha256:ba5b069759368747bc71be374412f7eabe415f64504cf10e9db47b9c09b401f4",
+      "imported_at_utc": "2026-03-20T00:00:00Z"
+    },
+    {
+      "file": "ESCAPE_ACCESS_LAW.md",
+      "class": "normative-candidate",
+      "source_path": "/home/main/devops/Folder 1/docs/ESCAPE_ACCESS_LAW.md",
+      "imported_path": "docs/imports/folder1-v1_2/ESCAPE_ACCESS_LAW.md",
+      "sha256": "sha256:3da089775242353ea6771605c540658ea393d65bd4a68538864cd7cd1860ad2a",
+      "imported_at_utc": "2026-03-20T00:00:00Z"
+    },
+    {
+      "file": "ESCAPE_MANIFESTO.md",
+      "class": "advisory-rationale",
+      "source_path": "/home/main/devops/Folder 1/docs/ESCAPE_MANIFESTO.md",
+      "imported_path": "docs/imports/folder1-v1_2/ESCAPE_MANIFESTO.md",
+      "sha256": "sha256:a4f1978e66e3972a289d4a4e692ce421bc21bcdf20fef225731460f8587bf932",
+      "imported_at_utc": "2026-03-20T00:00:00Z"
+    },
+    {
+      "file": "FROM_FIRST_PRINCIPLES.md",
+      "class": "advisory-rationale",
+      "source_path": "/home/main/devops/Folder 1/docs/FROM_FIRST_PRINCIPLES.md",
+      "imported_path": "docs/imports/folder1-v1_2/FROM_FIRST_PRINCIPLES.md",
+      "sha256": "sha256:09a85249825d424bd68b8ebe2716a2d3d802df41cc3fe879f0b26148cd0912ac",
+      "imported_at_utc": "2026-03-20T00:00:00Z"
+    },
+    {
+      "file": "HEADER8_CANONICAL_ALGORITHM.md",
+      "class": "normative-candidate",
+      "source_path": "/home/main/devops/Folder 1/docs/HEADER8_CANONICAL_ALGORITHM.md",
+      "imported_path": "docs/imports/folder1-v1_2/HEADER8_CANONICAL_ALGORITHM.md",
+      "sha256": "sha256:ac3f6ca30b434643b425e437043f7fa9a78d112fd2b22e6f4b6a9d85a2ea81c4",
+      "imported_at_utc": "2026-03-20T00:00:00Z"
+    },
+    {
+      "file": "LAW_TO_CODE_TRACEABILITY.md",
+      "class": "proof-candidate",
+      "source_path": "/home/main/devops/Folder 1/docs/LAW_TO_CODE_TRACEABILITY.md",
+      "imported_path": "docs/imports/folder1-v1_2/LAW_TO_CODE_TRACEABILITY.md",
+      "sha256": "sha256:e264afe917f7d159a061b1a39274aacf2e5d3e2fc4d647669bdd6b77bf71dcaf",
+      "imported_at_utc": "2026-03-20T00:00:00Z"
+    },
+    {
+      "file": "MULTIFRAME_ANALYSIS.md",
+      "class": "advisory-rationale",
+      "source_path": "/home/main/devops/Folder 1/docs/MULTIFRAME_ANALYSIS.md",
+      "imported_path": "docs/imports/folder1-v1_2/MULTIFRAME_ANALYSIS.md",
+      "sha256": "sha256:c8dfaca04e8903ba6d65f7185de9186580611a9d04d40c1d9f3e14ee48789496",
+      "imported_at_utc": "2026-03-20T00:00:00Z"
+    },
+    {
+      "file": "PURE_ALGORITHMS.md",
+      "class": "normative-candidate",
+      "source_path": "/home/main/devops/Folder 1/docs/PURE_ALGORITHMS.md",
+      "imported_path": "docs/imports/folder1-v1_2/PURE_ALGORITHMS.md",
+      "sha256": "sha256:dd63be6465df4a89cb4ee0b6e2c54a0238f24019e7a499f59e84de5f4cbac415",
+      "imported_at_utc": "2026-03-20T00:00:00Z"
+    },
+    {
+      "file": "WITNESS_PLANE_SPEC.md",
+      "class": "normative-candidate",
+      "source_path": "/home/main/devops/Folder 1/docs/WITNESS_PLANE_SPEC.md",
+      "imported_path": "docs/imports/folder1-v1_2/WITNESS_PLANE_SPEC.md",
+      "sha256": "sha256:25db36d1a010105b624a255ed2cf3806423ba83715c3281cca1018e8755ad6fc",
+      "imported_at_utc": "2026-03-20T00:00:00Z"
+    }
+  ]
+}

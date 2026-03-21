@@ -1,0 +1,39 @@
+{
+  "v": "world_proof_ledger.v0",
+  "authority": "advisory",
+  "world_artifact": "world.v0",
+  "profile": "orchard_garden_lattice.v0",
+  "laws": {
+    "a5": "partition_plus_chirality",
+    "a14": "eligibility_scheduling",
+    "witness": "proposal_receipt_boundary"
+  },
+  "operations": [
+    {
+      "id": "world_generate",
+      "status": "required",
+      "evidence": "artifacts/world-v0.generate.normalized.json"
+    },
+    {
+      "id": "world_step",
+      "status": "required",
+      "evidence": "artifacts/world-v0.step.normalized.json"
+    },
+    {
+      "id": "world_project",
+      "status": "required",
+      "evidence": "artifacts/world-v0.project.normalized.json"
+    },
+    {
+      "id": "world_branch_reconcile",
+      "status": "required",
+      "evidence": "artifacts/world-v0.branch-reconcile.normalized.json"
+    },
+    {
+      "id": "world_verify",
+      "status": "required",
+      "evidence": "artifacts/world-v0.verify.normalized.json"
+    }
+  ],
+  "proof_receipt": "docs/proofs/world-v0.latest.md"
+}

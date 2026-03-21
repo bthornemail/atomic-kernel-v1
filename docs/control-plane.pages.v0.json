@@ -1,0 +1,106 @@
+{
+  "v": "ak.control_plane.pages.v0",
+  "authority": "advisory",
+  "pages": [
+    {
+      "id": "protocol_spec",
+      "title": "Atomic Kernel Reduction Spec v1.2",
+      "class": "spec",
+      "version": "v1.2",
+      "path": "docs/ATOMIC_KERNEL_REDUCTION_SPEC_v1_2.md",
+      "mime_type": "text/markdown",
+      "authority": "extension",
+      "description": "Deterministic reduction law candidate promoted in Phase 1."
+    },
+    {
+      "id": "pure_algorithms",
+      "title": "Pure Algorithms",
+      "class": "spec",
+      "version": "v1.2",
+      "path": "docs/PURE_ALGORITHMS.md",
+      "mime_type": "text/markdown",
+      "authority": "extension",
+      "description": "Algorithmic condensation candidate promoted in Phase 1."
+    },
+    {
+      "id": "escape_access_law",
+      "title": "Escape Access Law",
+      "class": "policy",
+      "version": "v1.2",
+      "path": "docs/ESCAPE_ACCESS_LAW.md",
+      "mime_type": "text/markdown",
+      "authority": "extension",
+      "description": "Bounded escape/control law candidate promoted in Phase 1."
+    },
+    {
+      "id": "chirality_selection_law",
+      "title": "Chirality Selection Law v0",
+      "class": "policy",
+      "version": "v0",
+      "path": "docs/CHIRALITY_SELECTION_LAW_v0.md",
+      "mime_type": "text/markdown",
+      "authority": "extension",
+      "description": "Canonical orientation law for partitioned decision space."
+    },
+    {
+      "id": "incidence_scheduling_law",
+      "title": "A14 Incidence Scheduling Law v0",
+      "class": "policy",
+      "version": "v0",
+      "path": "docs/A14_INCIDENCE_SCHEDULING_LAW_v0.md",
+      "mime_type": "text/markdown",
+      "authority": "extension",
+      "description": "Kernel-derived eligibility scheduling for incidence response surfaces."
+    },
+    {
+      "id": "universe_spec",
+      "title": "Universe Spec v0",
+      "class": "spec",
+      "version": "v0",
+      "path": "docs/UNIVERSE_SPEC_v0.md",
+      "mime_type": "text/markdown",
+      "authority": "extension",
+      "description": "Bounded canonical universe artifact and proof slice boundaries."
+    },
+    {
+      "id": "world_spec",
+      "title": "World Spec v0",
+      "class": "spec",
+      "version": "v0",
+      "path": "docs/WORLD_SPEC_v0.md",
+      "mime_type": "text/markdown",
+      "authority": "extension",
+      "description": "Bounded lawful world artifact lane with proposal-only mutation."
+    },
+    {
+      "id": "world_schema",
+      "title": "world.v0 Schema",
+      "class": "registry",
+      "version": "v0",
+      "path": "docs/world.v0.schema.json",
+      "mime_type": "application/json",
+      "authority": "extension",
+      "description": "Strict fail-closed schema for canonical world artifact shape."
+    },
+    {
+      "id": "world_proof_ledger",
+      "title": "World Proof Ledger v0",
+      "class": "proof",
+      "version": "v0",
+      "path": "docs/WORLD_PROOF_LEDGER_v0.json",
+      "mime_type": "application/json",
+      "authority": "advisory",
+      "description": "World operation proof coverage map and evidence pointers."
+    },
+    {
+      "id": "world_proof_receipt",
+      "title": "World v0 Proof Receipt",
+      "class": "proof",
+      "version": "latest",
+      "path": "docs/proofs/world-v0.latest.md",
+      "mime_type": "text/markdown",
+      "authority": "advisory",
+      "description": "Latest world-v0 aggregate gate PASS receipt."
+    }
+  ]
+}

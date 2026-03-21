@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ak.universe.v0.schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "v",
+    "authority",
+    "kernel",
+    "timeline",
+    "planes",
+    "entities",
+    "event_log",
+    "receipts"
+  ],
+  "properties": {
+    "v": { "const": "universe.v0" },
+    "authority": { "const": "algorithmic" },
+    "kernel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["n", "C", "x0"],
+      "properties": {
+        "n": { "type": "integer", "minimum": 1 },
+        "C": { "type": "string", "minLength": 1 },
+        "x0": { "type": "string", "minLength": 1 }
+      }
+    },
+    "timeline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tick0", "current_tick"],
+      "properties": {
+        "tick0": { "type": "integer", "minimum": 0 },
+        "current_tick": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "planes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["control", "witness", "projection"],
+      "properties": {
+        "control": { "const": "control_plane.v0" },
+        "witness": { "const": "witness_plane.v0" },
+        "projection": { "const": "projection.v0" }
+      }
+    },
+    "entities": { "type": "array" },
+    "event_log": { "type": "array" },
+    "receipts": { "type": "array" }
+  }
+}

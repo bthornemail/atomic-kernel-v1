@@ -5,6 +5,29 @@
   "description": "Node tooling manifest for deterministic MJS ingestion support.",
   "license": "UNLICENSED",
   "type": "module",
+  "scripts": {
+    "mcp:unified:server": "bash scripts/mcp-unified-entry.sh server",
+    "mcp:unified:stdio": "bash scripts/mcp-unified-entry.sh stdio",
+    "mcp:unified:info": "bash scripts/mcp-unified-entry.sh info",
+    "mcp:unified:stdio:smoke": "bash scripts/mcp-unified-stdio-smoke.sh",
+    "mcp:unified:smoke": "bash scripts/mcp-unified-smoke.sh",
+    "mcp:capability:benchmark": "bash scripts/mcp-capability-benchmark.sh",
+    "mcp:future:demo": "bash scripts/mcp-future-message-demo.sh",
+    "metaverse:future:scope:smoke": "bash scripts/metaverse-future-scope-smoke.sh",
+    "metaverse:future:scope:smoke:bench": "bash scripts/metaverse-future-scope-smoke.sh --with-benchmark",
+    "capability:virtual:graph": "bash scripts/capability-kernel-virtual-graph.sh",
+    "world:generate": "bash scripts/world-generate.sh",
+    "world:step:gate": "bash scripts/world-step-gate.sh",
+    "world:project:gate": "bash scripts/world-project-gate.sh",
+    "world:branch:reconcile:gate": "bash scripts/world-branch-reconcile-gate.sh",
+    "world:verify:gate": "bash scripts/world-verify-gate.sh",
+    "world:v0:gate": "bash scripts/world-v0-gate.sh",
+    "workspace:snapshot:v0:gate": "bash scripts/workspace-snapshot-v0-gate.sh",
+    "source:capability:parity:gate": "bash scripts/source-capability-parity-gate.sh",
+    "universe:a5:gate": "bash scripts/universe-a5-fano-gate.sh",
+    "universe:a14:gate": "bash scripts/universe-a14-incidence-scheduling-gate.sh",
+    "universe:v0:gate": "bash scripts/universe-v0-proof-slice-gate.sh"
+  },
   "dependencies": {
     "acorn": "8.16.0"
   }

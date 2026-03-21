@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ak.world.v0.schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "v",
+    "authority",
+    "world_id",
+    "kernel_seed",
+    "profile",
+    "canonical_tick",
+    "entities",
+    "relations",
+    "event_log",
+    "branches",
+    "proposal_queue",
+    "receipts",
+    "projection_views"
+  ],
+  "properties": {
+    "v": { "const": "world.v0" },
+    "authority": { "const": "algorithmic" },
+    "world_id": { "type": "string", "minLength": 1 },
+    "kernel_seed": { "type": "string", "minLength": 1 },
+    "profile": { "const": "orchard_garden_lattice.v0" },
+    "canonical_tick": { "type": "integer", "minimum": 0 },
+    "entities": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 16,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "kind", "class", "state"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "kind": { "enum": ["animate", "inanimate"] },
+          "class": { "type": "string", "minLength": 1 },
+          "state": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "relations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "from", "to"],
+        "properties": {
+          "type": { "enum": ["adjacent", "nurtures", "observes"] },
+          "from": { "type": "string", "minLength": 1 },
+          "to": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "event_log": { "type": "array" },
+    "branches": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["branch_id", "parent", "status"],
+        "properties": {
+          "branch_id": { "const": "main" },
+          "parent": { "type": ["string", "null"] },
+          "status": { "const": "active" }
+        }
+      }
+    },
+    "proposal_queue": {
+      "type": "array",
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["queue_id", "pending"],
+        "properties": {
+          "queue_id": { "const": "main" },
+          "pending": { "type": "array" }
+        }
+      }
+    },
+    "receipts": { "type": "array" },
+    "projection_views": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "format", "authority"],
+        "properties": {
+          "id": { "const": "json_text_v0" },
+          "format": { "const": "application/json" },
+          "authority": { "const": "advisory" }
+        }
+      }
+    }
+  }
+}

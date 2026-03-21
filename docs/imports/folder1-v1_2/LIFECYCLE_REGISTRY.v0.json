@@ -1,0 +1,198 @@
+{
+  "v": "ak.artifact_lifecycle_registry.v0",
+  "authority": "advisory",
+  "lane": "fork-import-v1_2",
+  "entries": [
+    {
+      "file": "ATOMIC_KERNEL_REDUCTION_SPEC_v1_2.md",
+      "class": "normative-candidate",
+      "lifecycle_state": "canonical",
+      "promotion_decision": "merge",
+      "canonical_target": "docs/ATOMIC_KERNEL_REDUCTION_SPEC_v1_2.md",
+      "evidence": [
+        "scripts/fork-import-v1_2-gate.sh",
+        "scripts/release-gate.sh",
+        "docs/PROMOTION_MATRIX_v1_2.md"
+      ],
+      "updated_at_utc": "2026-03-21T00:00:00Z"
+    },
+    {
+      "file": "PURE_ALGORITHMS.md",
+      "class": "normative-candidate",
+      "lifecycle_state": "canonical",
+      "promotion_decision": "merge",
+      "canonical_target": "docs/PURE_ALGORITHMS.md",
+      "evidence": [
+        "scripts/fork-import-v1_2-gate.sh",
+        "scripts/release-gate.sh",
+        "docs/PROMOTION_MATRIX_v1_2.md"
+      ],
+      "updated_at_utc": "2026-03-21T00:00:00Z"
+    },
+    {
+      "file": "ESCAPE_ACCESS_LAW.md",
+      "class": "normative-candidate",
+      "lifecycle_state": "canonical",
+      "promotion_decision": "merge",
+      "canonical_target": "docs/ESCAPE_ACCESS_LAW.md",
+      "evidence": [
+        "scripts/fork-import-v1_2-gate.sh",
+        "scripts/release-gate.sh",
+        "docs/PROMOTION_MATRIX_v1_2.md"
+      ],
+      "updated_at_utc": "2026-03-21T00:00:00Z"
+    },
+    {
+      "file": "ATOMIC_KERNEL_NORMATIVE_CORE_v1_2.md",
+      "class": "normative-candidate",
+      "lifecycle_state": "validated",
+      "promotion_decision": "defer",
+      "canonical_target": "docs/ATOMIC_KERNEL_NORMATIVE_CORE_v1_2.md",
+      "evidence": [
+        "docs/PROMOTION_ANALYSIS_v1_2.md",
+        "docs/PROMOTION_MATRIX_v1_2.md"
+      ],
+      "updated_at_utc": "2026-03-21T00:00:00Z"
+    },
+    {
+      "file": "CONTROL_PLANE_SPEC.md",
+      "class": "normative-candidate",
+      "lifecycle_state": "validated",
+      "promotion_decision": "defer",
+      "canonical_target": "docs/CONTROL_PLANE_SPEC.md",
+      "evidence": [
+        "docs/PROMOTION_ANALYSIS_v1_2.md",
+        "docs/PROMOTION_MATRIX_v1_2.md"
+      ],
+      "updated_at_utc": "2026-03-21T00:00:00Z"
+    },
+    {
+      "file": "HEADER8_CANONICAL_ALGORITHM.md",
+      "class": "normative-candidate",
+      "lifecycle_state": "validated",
+      "promotion_decision": "defer",
+      "canonical_target": "docs/HEADER8_CANONICAL_ALGORITHM.md",
+      "evidence": [
+        "docs/PROMOTION_ANALYSIS_v1_2.md",
+        "docs/PROMOTION_MATRIX_v1_2.md"
+      ],
+      "updated_at_utc": "2026-03-21T00:00:00Z"
+    },
+    {
+      "file": "ALGORITHM_A13_ESC_DEPTH_MIXED_RADIX.md",
+      "class": "normative-candidate",
+      "lifecycle_state": "validated",
+      "promotion_decision": "defer",
+      "canonical_target": "docs/ALGORITHM_A13_ESC_DEPTH_MIXED_RADIX.md",
+      "evidence": [
+        "docs/PROMOTION_ANALYSIS_v1_2.md",
+        "docs/PROMOTION_MATRIX_v1_2.md"
+      ],
+      "updated_at_utc": "2026-03-21T00:00:00Z"
+    },
+    {
+      "file": "WITNESS_PLANE_SPEC.md",
+      "class": "normative-candidate",
+      "lifecycle_state": "validated",
+      "promotion_decision": "defer",
+      "canonical_target": "docs/WITNESS_PLANE_SPEC.md",
+      "evidence": [
+        "docs/PROMOTION_ANALYSIS_v1_2.md",
+        "docs/PROMOTION_MATRIX_v1_2.md"
+      ],
+      "updated_at_utc": "2026-03-21T00:00:00Z"
+    },
+    {
+      "file": "ATOMIC_KERNEL_PROOF_NOTES_v1_2.md",
+      "class": "proof-candidate",
+      "lifecycle_state": "receipted",
+      "promotion_decision": "defer",
+      "canonical_target": "docs/proofs/ATOMIC_KERNEL_PROOF_NOTES_v1_2.md",
+      "evidence": [
+        "docs/imports/folder1-v1_2/FORMAL_TOOLCHAIN_STATUS.md",
+        "docs/PROMOTION_ANALYSIS_v1_2.md"
+      ],
+      "updated_at_utc": "2026-03-21T00:00:00Z"
+    },
+    {
+      "file": "112_PROOFS_MATRIX.md",
+      "class": "proof-candidate",
+      "lifecycle_state": "receipted",
+      "promotion_decision": "defer",
+      "canonical_target": "docs/proofs/112_PROOFS_MATRIX.md",
+      "evidence": [
+        "docs/imports/folder1-v1_2/FORMAL_TOOLCHAIN_STATUS.md",
+        "docs/PROMOTION_ANALYSIS_v1_2.md"
+      ],
+      "updated_at_utc": "2026-03-21T00:00:00Z"
+    },
+    {
+      "file": "LAW_TO_CODE_TRACEABILITY.md",
+      "class": "proof-candidate",
+      "lifecycle_state": "validated",
+      "promotion_decision": "defer",
+      "canonical_target": "docs/LAW_TO_CODE_TRACEABILITY.md",
+      "evidence": [
+        "docs/TRACEABILITY_DIFF_v1_2.md",
+        "docs/PROMOTION_ANALYSIS_v1_2.md"
+      ],
+      "updated_at_utc": "2026-03-21T00:00:00Z"
+    },
+    {
+      "file": "AtomicKernelCoq.v",
+      "class": "proof-candidate",
+      "lifecycle_state": "receipted",
+      "promotion_decision": "defer",
+      "canonical_target": "kernel/coq/AtomicKernelImportedV1_2.v",
+      "evidence": [
+        "docs/imports/folder1-v1_2/FORMAL_TOOLCHAIN_STATUS.md",
+        "docs/PROMOTION_ANALYSIS_v1_2.md"
+      ],
+      "updated_at_utc": "2026-03-21T00:00:00Z"
+    },
+    {
+      "file": "FROM_FIRST_PRINCIPLES.md",
+      "class": "advisory-rationale",
+      "lifecycle_state": "candidate",
+      "promotion_decision": "defer",
+      "canonical_target": "docs/rationale/FROM_FIRST_PRINCIPLES.md",
+      "evidence": [
+        "docs/PROMOTION_MATRIX_v1_2.md"
+      ],
+      "updated_at_utc": "2026-03-21T00:00:00Z"
+    },
+    {
+      "file": "CANONICAL_MULTIPLEXING.md",
+      "class": "advisory-rationale",
+      "lifecycle_state": "candidate",
+      "promotion_decision": "defer",
+      "canonical_target": "docs/rationale/CANONICAL_MULTIPLEXING.md",
+      "evidence": [
+        "docs/PROMOTION_MATRIX_v1_2.md"
+      ],
+      "updated_at_utc": "2026-03-21T00:00:00Z"
+    },
+    {
+      "file": "MULTIFRAME_ANALYSIS.md",
+      "class": "advisory-rationale",
+      "lifecycle_state": "candidate",
+      "promotion_decision": "defer",
+      "canonical_target": "docs/rationale/MULTIFRAME_ANALYSIS.md",
+      "evidence": [
+        "docs/PROMOTION_MATRIX_v1_2.md"
+      ],
+      "updated_at_utc": "2026-03-21T00:00:00Z"
+    },
+    {
+      "file": "ESCAPE_MANIFESTO.md",
+      "class": "advisory-rationale",
+      "lifecycle_state": "candidate",
+      "promotion_decision": "defer",
+      "canonical_target": "docs/rationale/ESCAPE_MANIFESTO.md",
+      "evidence": [
+        "docs/PROMOTION_MATRIX_v1_2.md"
+      ],
+      "updated_at_utc": "2026-03-21T00:00:00Z"
+    }
+  ]
+}
