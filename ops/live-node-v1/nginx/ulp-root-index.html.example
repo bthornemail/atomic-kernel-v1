@@ -3,41 +3,139 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Universal Life Protocol | Future Echo</title>
+  <title>Universal Life Protocol | Future Echo Control Wall</title>
   <style>
-    :root { --bg:#070b14; --panel:#0f1729; --ink:#e7efff; --muted:#97a6c6; --edge:#2a3a63; --ok:#37d67a; --bad:#ff5f6d; --accent:#5ec2ff; }
-    body { margin:0; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; background:radial-gradient(1200px 600px at 10% 0%,#112043,#070b14); color:var(--ink); }
-    .wrap { max-width:980px; margin:0 auto; padding:28px 18px 64px; }
-    h1 { margin:0 0 8px; font-size:30px; letter-spacing:.3px; }
-    .sub { color:var(--muted); margin:0 0 20px; }
+    :root {
+      --bg:#070b14; --ink:#e7efff; --muted:#97a6c6; --edge:#2a3a63;
+      --ok:#37d67a; --bad:#ff5f6d; --warn:#f4c95d; --accent:#5ec2ff;
+      --panel1:#111a31; --panel2:#0e1528;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin:0;
+      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+      color:var(--ink);
+      background:
+        radial-gradient(1000px 500px at 10% -10%, #1b3a78 0%, transparent 70%),
+        radial-gradient(700px 450px at 95% 10%, #1f2f57 0%, transparent 70%),
+        var(--bg);
+    }
+    .wrap { max-width:1100px; margin:0 auto; padding:28px 18px 64px; }
+    h1 { margin:0; font-size:33px; letter-spacing:.4px; }
+    .sub { color:var(--muted); margin:8px 0 18px; }
+    .status { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+    .pill {
+      border:1px solid var(--edge);
+      border-radius:999px;
+      padding:6px 10px;
+      color:var(--muted);
+      font-size:12px;
+      background:#0c1325;
+    }
     .grid { display:grid; grid-template-columns:1fr; gap:14px; }
-    @media (min-width:900px){ .grid { grid-template-columns:1fr 1fr; } }
-    .card { border:1px solid var(--edge); border-radius:12px; padding:14px; background:linear-gradient(180deg,#111a31,#0e1528); }
-    .k { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.8px; }
+    .grid2 { display:grid; grid-template-columns:1fr; gap:14px; }
+    @media (min-width:980px){
+      .grid { grid-template-columns:1fr 1fr; }
+      .grid2 { grid-template-columns:2fr 1fr; }
+    }
+    .card {
+      border:1px solid var(--edge);
+      border-radius:12px;
+      padding:14px;
+      background:linear-gradient(180deg,var(--panel1),var(--panel2));
+    }
+    .k {
+      color:var(--muted);
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.8px;
+    }
     .v { font-size:16px; margin-top:6px; word-break:break-word; }
-    label { display:block; margin:10px 0 6px; color:var(--muted); font-size:13px; }
-    input, textarea { width:100%; box-sizing:border-box; border:1px solid var(--edge); background:#0a1020; color:var(--ink); border-radius:8px; padding:10px; }
-    textarea { min-height:110px; resize:vertical; }
     .row { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
-    button { border:1px solid #3872b0; background:#0f2746; color:#dff3ff; padding:10px 14px; border-radius:8px; cursor:pointer; }
+    .row.tight { gap:8px; }
+    label { display:block; margin:10px 0 6px; color:var(--muted); font-size:13px; }
+    input, textarea {
+      width:100%;
+      border:1px solid var(--edge);
+      background:#0a1020;
+      color:var(--ink);
+      border-radius:8px;
+      padding:10px;
+    }
+    textarea { min-height:100px; resize:vertical; }
+    button {
+      border:1px solid #3872b0;
+      background:#0f2746;
+      color:#dff3ff;
+      padding:10px 14px;
+      border-radius:8px;
+      cursor:pointer;
+      font:inherit;
+    }
     button:hover { filter:brightness(1.08); }
-    .ok { color:var(--ok); } .bad { color:var(--bad); }
-    pre { margin:10px 0 0; background:#070c18; border:1px solid var(--edge); border-radius:8px; padding:10px; overflow:auto; max-height:280px; }
-    .status { display:flex; gap:10px; flex-wrap:wrap; margin:0 0 18px; }
-    .pill { border:1px solid var(--edge); border-radius:999px; padding:6px 10px; color:var(--muted); font-size:12px; }
+    button.secondary { border-color:#4b5f85; background:#17213a; }
+    button.good { border-color:#2f9660; background:#153021; }
+    button.warn { border-color:#8e7a3e; background:#352b14; }
+    pre {
+      margin:10px 0 0;
+      background:#070c18;
+      border:1px solid var(--edge);
+      border-radius:8px;
+      padding:10px;
+      overflow:auto;
+      max-height:260px;
+      white-space:pre-wrap;
+    }
+    .ok { color:var(--ok); } .bad { color:var(--bad); } .warnc { color:var(--warn); }
+    .stats { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:10px; }
+    @media (min-width:700px){ .stats { grid-template-columns:repeat(4,1fr); } }
+    .tile {
+      border:1px solid var(--edge);
+      background:#0a1225;
+      border-radius:8px;
+      padding:10px;
+    }
+    .tile .t1 { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.6px; }
+    .tile .t2 { margin-top:4px; font-size:14px; }
+    .bar {
+      height:10px; border-radius:99px; border:1px solid var(--edge);
+      background:
+        linear-gradient(90deg,#2b4f87 0%, #5ec2ff 50%, #37d67a 100%);
+      opacity:.95;
+      margin-top:8px;
+    }
     a { color:var(--accent); }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>Future Echo</h1>
-    <p class="sub">Send a message to future state through governed MCP, then verify digest + release boundary on readback.</p>
+    <h1>Future Echo Control Wall</h1>
+    <p class="sub">Live governed world + future message lane. Deterministic artifacts, bounded MCP actions, and proof-aware readback.</p>
+
     <div class="status">
-      <div class="pill">world.v0: governed</div>
-      <div class="pill">mcp: bounded tools</div>
-      <div class="pill">proof: replay hashes</div>
+      <div class="pill">node: live</div>
+      <div class="pill">mcp: governed</div>
+      <div class="pill">world.v0: enabled</div>
+      <div class="pill">source restore/parity: present</div>
     </div>
-    <div class="grid">
+
+    <div class="card">
+      <div class="k">Live Capability Strip</div>
+      <div class="bar"></div>
+      <div class="stats">
+        <div class="tile"><div class="t1">MCP</div><div id="statMcp" class="t2 warnc">checking...</div></div>
+        <div class="tile"><div class="t1">World</div><div id="statWorld" class="t2 warnc">checking...</div></div>
+        <div class="tile"><div class="t1">Future Echo</div><div id="statFuture" class="t2 warnc">checking...</div></div>
+        <div class="tile"><div class="t1">Tools</div><div id="statTools" class="t2 warnc">checking...</div></div>
+      </div>
+      <div class="row tight">
+        <button class="secondary" id="refreshCapsBtn">refresh capabilities</button>
+        <button class="warn" id="demoBtn">run one-click demo</button>
+      </div>
+      <pre id="capsOut"></pre>
+    </div>
+
+    <div class="grid" style="margin-top:14px">
       <div class="card">
         <div class="k">Write Message To Future</div>
         <label for="msgId">message id (a-z0-9._-)</label>
@@ -48,33 +146,54 @@
         <input id="msgTime" value="">
         <div class="row">
           <button id="sendBtn">send_message_to_future</button>
-          <button id="suggestBtn">suggest id/time</button>
+          <button class="secondary" id="suggestBtn">suggest id/time</button>
         </div>
         <pre id="sendOut"></pre>
       </div>
+
       <div class="card">
         <div class="k">Read + Verify</div>
         <label for="readId">message id</label>
         <input id="readId" value="">
         <div class="row">
           <button id="readBtn">get_future_message</button>
-          <button id="pollBtn">poll until released</button>
+          <button class="secondary" id="pollBtn">poll until released</button>
         </div>
         <div class="v" id="releaseState"></div>
         <pre id="readOut"></pre>
       </div>
     </div>
-    <div class="card" style="margin-top:14px">
-      <div class="k">Explain</div>
-      <div class="v">
-        This is not a chat trick. The message is written as an artifact, hashed, and read back through a governed MCP tool.
-        Release is time-gated by <code>intended_read_after_utc</code>.  
-        See <a href="/.well-known/ulp.json">discovery</a> and <a href="https://mcp.universal-life-protocol.com/mcp">mcp endpoint</a>.
+
+    <div class="grid2" style="margin-top:14px">
+      <div class="card">
+        <div class="k">World Runtime Panel</div>
+        <div class="row">
+          <button id="worldStateBtn">get_world_state</button>
+          <button id="worldProjBtn">get_world_projection</button>
+          <button id="worldVerifyBtn">verify_world</button>
+        </div>
+        <pre id="worldOut"></pre>
+      </div>
+      <div class="card">
+        <div class="k">Proof Surfaces</div>
+        <div class="v">
+          <a href="/.well-known/ulp.json">discovery</a><br>
+          <a href="https://mcp.universal-life-protocol.com/mcp">mcp endpoint</a><br>
+          <a href="https://artifact.universal-life-protocol.com/">artifact index</a><br>
+          <a href="/immersive.html">immersive lab (2d/3d/ar/vr)</a>
+        </div>
+        <div class="v" style="margin-top:10px;color:var(--muted);font-size:13px;">
+          This is not arbitrary execution. The interface is bounded and fail-closed.
+        </div>
       </div>
     </div>
   </div>
+
   <script>
     const $ = (id) => document.getElementById(id);
+    const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+    const pretty = (x) => JSON.stringify(x, null, 2);
+
     const rpc = async (method, params) => {
       const res = await fetch("/mcp", {
         method: "POST",
@@ -85,21 +204,57 @@
       if (j.error) throw new Error(j.error.message || "rpc error");
       return j.result;
     };
+
     const callTool = async (name, args) => {
       const out = await rpc("tools/call", { name, arguments: args || {} });
       const text = out?.content?.[0]?.text || "{}";
       return JSON.parse(text);
     };
-    const suggest = () => {
+
+    function suggest() {
       const stamp = new Date().toISOString().replace(/[-:TZ.]/g, "").slice(0, 14);
-      const id = `future-echo-${stamp}`;
+      const id = `future-echo-${stamp}`.toLowerCase();
       const t = new Date(Date.now() + 60 * 1000).toISOString();
       $("msgId").value = id;
       $("readId").value = id;
       $("msgTime").value = t;
-    };
-    const pretty = (x) => JSON.stringify(x, null, 2);
+    }
+
+    async function refreshCaps() {
+      try {
+        const init = await rpc("initialize", {
+          protocolVersion: "2025-11-25",
+          capabilities: {},
+          clientInfo: { name: "future-echo", version: "0.1.0" }
+        });
+        const tools = await rpc("tools/list", {});
+        const names = (tools.tools || []).map((t) => t.name);
+        const world = await callTool("get_world_state", { world_id: "world0-orchard-garden-lattice" });
+        $("statMcp").textContent = init?.protocolVersion ? "online" : "unknown";
+        $("statMcp").className = "t2 ok";
+        $("statWorld").textContent = world.found ? "ready" : "missing";
+        $("statWorld").className = "t2 " + (world.found ? "ok" : "bad");
+        const fOK = names.includes("send_message_to_future") && names.includes("get_future_message");
+        $("statFuture").textContent = fOK ? "ready" : "absent";
+        $("statFuture").className = "t2 " + (fOK ? "ok" : "bad");
+        $("statTools").textContent = String(names.length);
+        $("statTools").className = "t2 ok";
+        $("capsOut").textContent = pretty({
+          protocol_version: init.protocolVersion,
+          tool_count: names.length,
+          required_world_tools: ["get_world_state", "step_world", "get_world_projection", "verify_world"].every((n) => names.includes(n)),
+          required_future_tools: fOK
+        });
+      } catch (e) {
+        $("statMcp").textContent = "offline";
+        $("statMcp").className = "t2 bad";
+        $("capsOut").textContent = String(e);
+      }
+    }
+
     $("suggestBtn").onclick = suggest;
+    $("refreshCapsBtn").onclick = refreshCaps;
+
     $("sendBtn").onclick = async () => {
       try {
         const payload = {
@@ -114,6 +269,7 @@
         $("sendOut").textContent = String(e);
       }
     };
+
     $("readBtn").onclick = async () => {
       try {
         const out = await callTool("get_future_message", { id: $("readId").value.trim() });
@@ -124,18 +280,47 @@
         $("readOut").textContent = String(e);
       }
     };
+
     $("pollBtn").onclick = async () => {
       const id = $("readId").value.trim();
-      for (let i = 0; i < 40; i++) {
+      for (let i = 0; i < 60; i++) {
         const out = await callTool("get_future_message", { id });
         $("readOut").textContent = pretty(out);
         $("releaseState").className = "v " + (out.released ? "ok" : "bad");
         $("releaseState").textContent = out.released ? "released: true" : "released: false";
         if (out.released) return;
-        await new Promise(r => setTimeout(r, 3000));
+        await sleep(2000);
       }
     };
+
+    $("worldStateBtn").onclick = async () => {
+      $("worldOut").textContent = pretty(await callTool("get_world_state", { world_id: "world0-orchard-garden-lattice" }));
+    };
+    $("worldProjBtn").onclick = async () => {
+      $("worldOut").textContent = pretty(await callTool("get_world_projection", { world_id: "world0-orchard-garden-lattice" }));
+    };
+    $("worldVerifyBtn").onclick = async () => {
+      $("worldOut").textContent = pretty(await callTool("verify_world", { world_id: "world0-orchard-garden-lattice" }));
+    };
+
+    $("demoBtn").onclick = async () => {
+      try {
+        suggest();
+        $("capsOut").textContent = "demo: refreshing capabilities...";
+        await refreshCaps();
+        $("capsOut").textContent += "\n\ndemo: writing future message...";
+        await $("sendBtn").onclick();
+        $("capsOut").textContent += "\n\ndemo: verifying world surface...";
+        await $("worldVerifyBtn").onclick();
+        $("capsOut").textContent += "\n\ndemo: polling until release...";
+        await $("pollBtn").onclick();
+      } catch (e) {
+        $("capsOut").textContent = "demo error: " + e;
+      }
+    };
+
     suggest();
+    refreshCaps();
   </script>
 </body>
 </html>

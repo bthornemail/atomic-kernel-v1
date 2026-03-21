@@ -21,6 +21,10 @@ elif [[ "$FORCE" == "1" ]]; then
   cp "$NGINX_SRC/ulp-root-index.html.example" "$ROOT_DIR/index.html"
 fi
 
+if [[ ! -f "$ROOT_DIR/immersive.html" || "$FORCE" == "1" ]]; then
+  cp "$NGINX_SRC/immersive-lab.html.example" "$ROOT_DIR/immersive.html"
+fi
+
 if [[ ! -f "$ROOT_DIR/.well-known/ulp.json" ]]; then
   cp "$NGINX_SRC/ulp-well-known.json.example" "$ROOT_DIR/.well-known/ulp.json"
 fi

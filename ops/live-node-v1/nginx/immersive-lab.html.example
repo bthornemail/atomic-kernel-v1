@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ULP Immersive Lab | 2D/3D/AR/VR + Camera/Mic</title>
+  <style>
+    :root { --bg:#060a12; --ink:#e7efff; --muted:#9fb0d1; --edge:#2a3a63; --ok:#37d67a; --bad:#ff5f6d; --accent:#67c7ff; }
+    body { margin:0; background:radial-gradient(900px 500px at 15% 0%,#1a2f5b 0%,transparent 65%), var(--bg); color:var(--ink); font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+    .wrap { max-width:1200px; margin:0 auto; padding:18px; }
+    h1 { margin:0 0 8px; font-size:28px; }
+    .sub { color:var(--muted); margin:0 0 12px; }
+    .row { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:12px; }
+    button { border:1px solid #3f73b3; background:#102947; color:#dff3ff; padding:10px 12px; border-radius:8px; cursor:pointer; font:inherit; }
+    button.secondary { border-color:#4c5f84; background:#18233e; }
+    .grid { display:grid; gap:12px; grid-template-columns:1fr; }
+    @media (min-width:1000px){ .grid { grid-template-columns:1.2fr 1fr; } }
+    .card { border:1px solid var(--edge); border-radius:12px; padding:12px; background:linear-gradient(180deg,#111a31,#0d1427); }
+    .k { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.8px; margin-bottom:8px; }
+    video { width:100%; max-height:360px; border:1px solid var(--edge); border-radius:10px; background:#000; object-fit:cover; }
+    canvas { width:100%; border:1px solid var(--edge); border-radius:10px; background:#08101f; }
+    #audioviz { height:120px; }
+    #stage3d { position:relative; height:330px; overflow:hidden; perspective:900px; background:#070d1b; border:1px solid var(--edge); border-radius:10px; }
+    .cube {
+      width:120px; height:120px; position:absolute; left:50%; top:50%; margin:-60px;
+      transform-style:preserve-3d; animation:spin 12s linear infinite;
+    }
+    .face { position:absolute; width:120px; height:120px; border:1px solid #7bb8ff66; background:linear-gradient(145deg,#67c7ff33,#67c7ff0d); }
+    .f1{transform:translateZ(60px)} .f2{transform:rotateY(180deg) translateZ(60px)}
+    .f3{transform:rotateY(90deg) translateZ(60px)} .f4{transform:rotateY(-90deg) translateZ(60px)}
+    .f5{transform:rotateX(90deg) translateZ(60px)} .f6{transform:rotateX(-90deg) translateZ(60px)}
+    @keyframes spin { from { transform:rotateX(0) rotateY(0) } to { transform:rotateX(360deg) rotateY(360deg) } }
+    .hud { position:absolute; inset:0; pointer-events:none; }
+    .hudline { position:absolute; left:6%; right:6%; height:1px; background:#67c7ff55; }
+    .hudline.h1{top:35%} .hudline.h2{top:50%} .hudline.h3{top:65%}
+    .status { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
+    @media (min-width:700px){ .status { grid-template-columns:repeat(4,1fr); } }
+    .tile { border:1px solid var(--edge); border-radius:8px; padding:8px; background:#0a1225; }
+    .tile .t1 { font-size:11px; color:var(--muted); text-transform:uppercase; }
+    .tile .t2 { margin-top:4px; font-size:14px; }
+    .ok { color:var(--ok); } .bad { color:var(--bad); } .muted { color:var(--muted); }
+    pre { margin:10px 0 0; max-height:220px; overflow:auto; background:#070c18; border:1px solid var(--edge); border-radius:8px; padding:10px; white-space:pre-wrap; }
+    a { color:var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Immersive Capability Lab</h1>
+    <p class="sub">Live capability surface for 2D/3D/AR/VR with camera and mic capture under a governed node.</p>
+    <div class="row">
+      <button id="camMicBtn">Enable Camera + Mic</button>
+      <button class="secondary" id="stopBtn">Stop Media</button>
+      <button id="arBtn">Try AR Session</button>
+      <button id="vrBtn">Try VR Session</button>
+      <a href="/" style="align-self:center">back to control wall</a>
+    </div>
+
+    <div class="status">
+      <div class="tile"><div class="t1">Camera</div><div id="camStatus" class="t2 muted">off</div></div>
+      <div class="tile"><div class="t1">Mic</div><div id="micStatus" class="t2 muted">off</div></div>
+      <div class="tile"><div class="t1">AR (WebXR)</div><div id="arStatus" class="t2 muted">checking</div></div>
+      <div class="tile"><div class="t1">VR (WebXR)</div><div id="vrStatus" class="t2 muted">checking</div></div>
+    </div>
+
+    <div class="grid" style="margin-top:12px">
+      <div class="card">
+        <div class="k">2D Camera Feed + Overlay</div>
+        <video id="video" autoplay playsinline muted></video>
+        <canvas id="overlay" height="160"></canvas>
+      </div>
+
+      <div class="card">
+        <div class="k">3D Scene + Mic-Reactive Scale</div>
+        <div id="stage3d">
+          <div id="cube" class="cube">
+            <div class="face f1"></div><div class="face f2"></div><div class="face f3"></div>
+            <div class="face f4"></div><div class="face f5"></div><div class="face f6"></div>
+          </div>
+          <div class="hud">
+            <div class="hudline h1"></div><div class="hudline h2"></div><div class="hudline h3"></div>
+          </div>
+        </div>
+        <canvas id="audioviz" height="120"></canvas>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <div class="k">Runtime Log</div>
+      <pre id="log"></pre>
+    </div>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const log = (m) => $("log").textContent = `${new Date().toISOString()} ${m}\n` + $("log").textContent;
+
+    const video = $("video");
+    const overlay = $("overlay");
+    const octx = overlay.getContext("2d");
+    const audioviz = $("audioviz");
+    const actx2d = audioviz.getContext("2d");
+    const cube = $("cube");
+    let stream = null, audioCtx = null, analyser = null, raf = 0;
+
+    async function detectXR() {
+      if (!("xr" in navigator)) {
+        $("arStatus").textContent = "unsupported"; $("arStatus").className = "t2 bad";
+        $("vrStatus").textContent = "unsupported"; $("vrStatus").className = "t2 bad";
+        return;
+      }
+      const ar = await navigator.xr.isSessionSupported("immersive-ar").catch(() => false);
+      const vr = await navigator.xr.isSessionSupported("immersive-vr").catch(() => false);
+      $("arStatus").textContent = ar ? "available" : "unavailable";
+      $("arStatus").className = "t2 " + (ar ? "ok" : "bad");
+      $("vrStatus").textContent = vr ? "available" : "unavailable";
+      $("vrStatus").className = "t2 " + (vr ? "ok" : "bad");
+    }
+
+    function drawOverlay() {
+      overlay.width = overlay.clientWidth * devicePixelRatio;
+      overlay.height = 160 * devicePixelRatio;
+      octx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+      octx.clearRect(0, 0, overlay.clientWidth, 160);
+      octx.strokeStyle = "rgba(103,199,255,.7)";
+      octx.lineWidth = 1;
+      const w = overlay.clientWidth, h = 160;
+      [0.25,0.5,0.75].forEach((p) => { octx.beginPath(); octx.moveTo(0, h*p); octx.lineTo(w, h*p); octx.stroke(); });
+      [0.25,0.5,0.75].forEach((p) => { octx.beginPath(); octx.moveTo(w*p, 0); octx.lineTo(w*p, h); octx.stroke(); });
+      octx.fillStyle = "rgba(231,239,255,.9)";
+      octx.fillText("ULP 2D overlay lane", 10, 18);
+    }
+
+    function startVisualLoop() {
+      if (!analyser) return;
+      const bins = new Uint8Array(analyser.frequencyBinCount);
+      const tick = () => {
+        analyser.getByteFrequencyData(bins);
+        const w = audioviz.width = audioviz.clientWidth * devicePixelRatio;
+        const h = audioviz.height = 120 * devicePixelRatio;
+        actx2d.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+        actx2d.clearRect(0, 0, w, h);
+        const vw = audioviz.clientWidth, vh = 120;
+        actx2d.fillStyle = "#091124";
+        actx2d.fillRect(0,0,vw,vh);
+        const step = Math.max(1, Math.floor(bins.length / 64));
+        let x = 0;
+        let energy = 0;
+        for (let i=0;i<bins.length;i+=step) {
+          const v = bins[i] / 255;
+          energy += v;
+          const bar = v * (vh - 8);
+          actx2d.fillStyle = "rgba(103,199,255,.85)";
+          actx2d.fillRect(x, vh - bar, 4, bar);
+          x += 5;
+          if (x > vw) break;
+        }
+        const avg = energy / Math.max(1, Math.floor(bins.length / step));
+        const s = 1 + avg * 0.9;
+        cube.style.transform = `rotateX(${Date.now()/30}deg) rotateY(${Date.now()/37}deg) scale(${s.toFixed(3)})`;
+        raf = requestAnimationFrame(tick);
+      };
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(tick);
+    }
+
+    async function enableCamMic() {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        video.srcObject = stream;
+        $("camStatus").textContent = "on"; $("camStatus").className = "t2 ok";
+        $("micStatus").textContent = "on"; $("micStatus").className = "t2 ok";
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const src = audioCtx.createMediaStreamSource(stream);
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 256;
+        src.connect(analyser);
+        drawOverlay();
+        startVisualLoop();
+        log("camera+mic enabled");
+      } catch (e) {
+        $("camStatus").textContent = "blocked"; $("camStatus").className = "t2 bad";
+        $("micStatus").textContent = "blocked"; $("micStatus").className = "t2 bad";
+        log("media denied or unavailable: " + e);
+      }
+    }
+
+    function stopMedia() {
+      if (stream) stream.getTracks().forEach((t) => t.stop());
+      stream = null;
+      if (audioCtx) audioCtx.close();
+      audioCtx = null; analyser = null;
+      video.srcObject = null;
+      cancelAnimationFrame(raf);
+      $("camStatus").textContent = "off"; $("camStatus").className = "t2 muted";
+      $("micStatus").textContent = "off"; $("micStatus").className = "t2 muted";
+      log("media stopped");
+    }
+
+    async function tryXR(mode) {
+      if (!navigator.xr) { log("webxr unsupported"); return; }
+      try {
+        const sess = await navigator.xr.requestSession(mode, { optionalFeatures: ["local-floor"] });
+        log(`${mode} session opened`);
+        await sess.end();
+        log(`${mode} session closed`);
+      } catch (e) {
+        log(`${mode} unavailable: ` + e);
+      }
+    }
+
+    $("camMicBtn").onclick = enableCamMic;
+    $("stopBtn").onclick = stopMedia;
+    $("arBtn").onclick = () => tryXR("immersive-ar");
+    $("vrBtn").onclick = () => tryXR("immersive-vr");
+
+    window.addEventListener("resize", drawOverlay);
+    detectXR();
+    drawOverlay();
+    log("immersive lab ready");
+  </script>
+</body>
+</html>
