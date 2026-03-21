@@ -16,11 +16,9 @@ FORCE="${FORCE:-0}"
 install -d -m 755 "$ROOT_DIR/.well-known"
 
 if [[ ! -f "$ROOT_DIR/index.html" ]]; then
-  cat > "$ROOT_DIR/index.html" <<'EOF'
-<!doctype html>
-<html><head><meta charset="utf-8"><title>Universal Life Protocol</title></head>
-<body><pre>Universal Life Protocol</pre></body></html>
-EOF
+  cp "$NGINX_SRC/ulp-root-index.html.example" "$ROOT_DIR/index.html"
+elif [[ "$FORCE" == "1" ]]; then
+  cp "$NGINX_SRC/ulp-root-index.html.example" "$ROOT_DIR/index.html"
 fi
 
 if [[ ! -f "$ROOT_DIR/.well-known/ulp.json" ]]; then

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Universal Life Protocol | Future Echo</title>
+  <style>
+    :root { --bg:#070b14; --panel:#0f1729; --ink:#e7efff; --muted:#97a6c6; --edge:#2a3a63; --ok:#37d67a; --bad:#ff5f6d; --accent:#5ec2ff; }
+    body { margin:0; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; background:radial-gradient(1200px 600px at 10% 0%,#112043,#070b14); color:var(--ink); }
+    .wrap { max-width:980px; margin:0 auto; padding:28px 18px 64px; }
+    h1 { margin:0 0 8px; font-size:30px; letter-spacing:.3px; }
+    .sub { color:var(--muted); margin:0 0 20px; }
+    .grid { display:grid; grid-template-columns:1fr; gap:14px; }
+    @media (min-width:900px){ .grid { grid-template-columns:1fr 1fr; } }
+    .card { border:1px solid var(--edge); border-radius:12px; padding:14px; background:linear-gradient(180deg,#111a31,#0e1528); }
+    .k { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.8px; }
+    .v { font-size:16px; margin-top:6px; word-break:break-word; }
+    label { display:block; margin:10px 0 6px; color:var(--muted); font-size:13px; }
+    input, textarea { width:100%; box-sizing:border-box; border:1px solid var(--edge); background:#0a1020; color:var(--ink); border-radius:8px; padding:10px; }
+    textarea { min-height:110px; resize:vertical; }
+    .row { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+    button { border:1px solid #3872b0; background:#0f2746; color:#dff3ff; padding:10px 14px; border-radius:8px; cursor:pointer; }
+    button:hover { filter:brightness(1.08); }
+    .ok { color:var(--ok); } .bad { color:var(--bad); }
+    pre { margin:10px 0 0; background:#070c18; border:1px solid var(--edge); border-radius:8px; padding:10px; overflow:auto; max-height:280px; }
+    .status { display:flex; gap:10px; flex-wrap:wrap; margin:0 0 18px; }
+    .pill { border:1px solid var(--edge); border-radius:999px; padding:6px 10px; color:var(--muted); font-size:12px; }
+    a { color:var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Future Echo</h1>
+    <p class="sub">Send a message to future state through governed MCP, then verify digest + release boundary on readback.</p>
+    <div class="status">
+      <div class="pill">world.v0: governed</div>
+      <div class="pill">mcp: bounded tools</div>
+      <div class="pill">proof: replay hashes</div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="k">Write Message To Future</div>
+        <label for="msgId">message id (a-z0-9._-)</label>
+        <input id="msgId" value="">
+        <label for="msgText">message</label>
+        <textarea id="msgText">hello future, this came from a governed node</textarea>
+        <label for="msgTime">intended_read_after_utc</label>
+        <input id="msgTime" value="">
+        <div class="row">
+          <button id="sendBtn">send_message_to_future</button>
+          <button id="suggestBtn">suggest id/time</button>
+        </div>
+        <pre id="sendOut"></pre>
+      </div>
+      <div class="card">
+        <div class="k">Read + Verify</div>
+        <label for="readId">message id</label>
+        <input id="readId" value="">
+        <div class="row">
+          <button id="readBtn">get_future_message</button>
+          <button id="pollBtn">poll until released</button>
+        </div>
+        <div class="v" id="releaseState"></div>
+        <pre id="readOut"></pre>
+      </div>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <div class="k">Explain</div>
+      <div class="v">
+        This is not a chat trick. The message is written as an artifact, hashed, and read back through a governed MCP tool.
+        Release is time-gated by <code>intended_read_after_utc</code>.  
+        See <a href="/.well-known/ulp.json">discovery</a> and <a href="https://mcp.universal-life-protocol.com/mcp">mcp endpoint</a>.
+      </div>
+    </div>
+  </div>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const rpc = async (method, params) => {
+      const res = await fetch("/mcp", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ jsonrpc: "2.0", id: Date.now(), method, params })
+      });
+      const j = await res.json();
+      if (j.error) throw new Error(j.error.message || "rpc error");
+      return j.result;
+    };
+    const callTool = async (name, args) => {
+      const out = await rpc("tools/call", { name, arguments: args || {} });
+      const text = out?.content?.[0]?.text || "{}";
+      return JSON.parse(text);
+    };
+    const suggest = () => {
+      const stamp = new Date().toISOString().replace(/[-:TZ.]/g, "").slice(0, 14);
+      const id = `future-echo-${stamp}`;
+      const t = new Date(Date.now() + 60 * 1000).toISOString();
+      $("msgId").value = id;
+      $("readId").value = id;
+      $("msgTime").value = t;
+    };
+    const pretty = (x) => JSON.stringify(x, null, 2);
+    $("suggestBtn").onclick = suggest;
+    $("sendBtn").onclick = async () => {
+      try {
+        const payload = {
+          id: $("msgId").value.trim(),
+          message: $("msgText").value,
+          intended_read_after_utc: $("msgTime").value.trim()
+        };
+        const out = await callTool("send_message_to_future", payload);
+        $("sendOut").textContent = pretty(out);
+        $("readId").value = payload.id;
+      } catch (e) {
+        $("sendOut").textContent = String(e);
+      }
+    };
+    $("readBtn").onclick = async () => {
+      try {
+        const out = await callTool("get_future_message", { id: $("readId").value.trim() });
+        $("readOut").textContent = pretty(out);
+        $("releaseState").className = "v " + (out.released ? "ok" : "bad");
+        $("releaseState").textContent = out.released ? "released: true" : "released: false";
+      } catch (e) {
+        $("readOut").textContent = String(e);
+      }
+    };
+    $("pollBtn").onclick = async () => {
+      const id = $("readId").value.trim();
+      for (let i = 0; i < 40; i++) {
+        const out = await callTool("get_future_message", { id });
+        $("readOut").textContent = pretty(out);
+        $("releaseState").className = "v " + (out.released ? "ok" : "bad");
+        $("releaseState").textContent = out.released ? "released: true" : "released: false";
+        if (out.released) return;
+        await new Promise(r => setTimeout(r, 3000));
+      }
+    };
+    suggest();
+  </script>
+</body>
+</html>

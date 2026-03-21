@@ -119,5 +119,6 @@ sudo bash apply-live-node-v1.sh /opt/atomic-kernel mcp.universal-life-protocol.c
 - `https://sid.<your-domain>/...` (resolver API)
 - `https://oid.<your-domain>/...` (resolver API)
 - `https://fs|gs|rs|us|esc|null|codepoint|controlpoint.<your-domain>/...` (symbol API)
+- `https://<your-domain>/` (Future Echo live page over governed MCP)
 
 Raw MCP port is local-only by default (`127.0.0.1:18787`).
