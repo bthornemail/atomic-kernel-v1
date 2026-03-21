@@ -1,0 +1,11 @@
+{
+  "v": "ulp.discovery.v0",
+  "authority": "advisory",
+  "mcp": "https://mcp.universal-life-protocol.com/mcp",
+  "artifact": "https://artifact.universal-life-protocol.com",
+  "portal": "https://portal.universal-life-protocol.com",
+  "sid": "https://sid.universal-life-protocol.com",
+  "oid": "https://oid.universal-life-protocol.com",
+  "symbols": "https://controlpoint.universal-life-protocol.com",
+  "laws": ["A13", "A14", "A15"]
+}

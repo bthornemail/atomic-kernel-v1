@@ -1,0 +1,23 @@
+server {
+    listen 80;
+    listen [::]:80;
+    server_name fs.universal-life-protocol.com
+                gs.universal-life-protocol.com
+                rs.universal-life-protocol.com
+                us.universal-life-protocol.com
+                esc.universal-life-protocol.com
+                null.universal-life-protocol.com
+                codepoint.universal-life-protocol.com
+                controlpoint.universal-life-protocol.com;
+
+    # Single interpreter for symbolic subdomains.
+    # Replace target port/service when control interpreter is deployed.
+    location / {
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_pass http://127.0.0.1:18811;
+    }
+}

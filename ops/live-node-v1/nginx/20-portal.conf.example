@@ -1,0 +1,13 @@
+server {
+    listen 80;
+    listen [::]:80;
+    server_name portal.universal-life-protocol.com;
+
+    # Projection-only surface; keep this static unless explicitly promoted.
+    root /opt/metaverse-kit/dist;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html =404;
+    }
+}

@@ -1,0 +1,11 @@
+[Unit]
+Description=Run Atomic Kernel Workspace Snapshot Gate every 6 hours
+
+[Timer]
+OnCalendar=*-*-* 00,06,12,18:00:00
+AccuracySec=1s
+Unit=atomic-kernel-gates-snapshot.service
+Persistent=true
+
+[Install]
+WantedBy=timers.target

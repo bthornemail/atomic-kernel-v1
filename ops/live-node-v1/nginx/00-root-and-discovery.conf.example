@@ -1,0 +1,18 @@
+server {
+    listen 80;
+    listen [::]:80;
+    server_name universal-life-protocol.com www.universal-life-protocol.com;
+
+    root /var/www/ulp-root;
+    index index.html;
+
+    location = /.well-known/ulp.json {
+        default_type application/json;
+        add_header Cache-Control "public, max-age=300";
+        try_files /.well-known/ulp.json =404;
+    }
+
+    location / {
+        try_files $uri $uri/ /index.html =404;
+    }
+}

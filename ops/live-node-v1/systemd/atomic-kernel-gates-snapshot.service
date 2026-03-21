@@ -1,0 +1,14 @@
+[Unit]
+Description=Atomic Kernel Workspace Snapshot Gate
+After=network-online.target atomic-kernel-mcp.service
+Wants=network-online.target atomic-kernel-mcp.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/atomic-kernel
+EnvironmentFile=/etc/atomic-kernel/node.env
+ExecStart=/usr/bin/env npm run -s workspace:snapshot:v0:gate
+User=root
+Group=root
+NoNewPrivileges=true
+PrivateTmp=true
